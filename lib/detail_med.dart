@@ -1,5 +1,5 @@
 
-import 'package:douaa_project/widget/style.dart';
+import 'package:douaa_project/style.dart';
 import 'package:flutter/material.dart';
 
 class detail_med extends StatefulWidget {
@@ -31,7 +31,7 @@ class _MedicineDetailsPageState extends State<detail_med> {
                   ),
                   Center(
                     child: Image.asset(
-                      'image/ss.jpg',
+                      'image/t.jpg',
                       fit: BoxFit.cover,
                       height: 250,
                     ),
@@ -45,7 +45,7 @@ class _MedicineDetailsPageState extends State<detail_med> {
                         'Nom du médicament :',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: red1,
+                          color: mauve2,
                           fontSize: 18,
                         ),
                       ),

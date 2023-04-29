@@ -88,7 +88,7 @@ class _menuState extends State<menu> {
   Widget getCurrentPage(int index) {
     switch (index) {
       case 0:
-        return auj();
+        return TodayPage();
       case 1:
         return contr();
       case 2:

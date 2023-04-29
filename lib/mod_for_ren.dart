@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'ff.dart';
+import 'venir_ren.dart';
 
 class mod_for_ren extends StatefulWidget {
   final docid;
@@ -128,7 +128,7 @@ class mod_for_renState extends State<mod_for_ren> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => pp(
+              builder: (context) => venir_ren(
                     docid: docId,
                     eventDataList: [],
                   )));

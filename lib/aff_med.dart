@@ -1,4 +1,5 @@
 
+import 'package:douaa_project/modifier_med.dart';
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 
@@ -205,7 +206,16 @@ class _aff_medState extends State<aff_med> {
                                           child: Row(
                                             children: [
                                               ElevatedButton(
-                                                onPressed: () {},
+                                                onPressed: () {Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        modifier_med(
+                                                            docid:
+                                                                item['docid'],
+                                                            eventDataList:
+                                                                item)),
+                                              );},
                                                 child: Text(
                                                   "Modifier",
                                                   style: TextStyle(

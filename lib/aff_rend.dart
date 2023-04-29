@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'ff.dart';
+import 'venir_ren.dart';
 
 class aff_rend extends StatefulWidget {
   @override
@@ -51,7 +51,7 @@ class _aff_rendState extends State<aff_rend> {
               ]),
         ),
         body: TabBarView(children: [
-          pp(
+          venir_ren(
             docid: "docRef.id",
             eventDataList: [],
           ),

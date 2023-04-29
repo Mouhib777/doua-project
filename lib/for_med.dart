@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:alarm/alarm.dart';
+import 'package:alarm/model/alarm_settings.dart';
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +32,7 @@ class _for_medState extends State<for_med> {
   int? selectedYear = DateTime.now().year;
   int? selectedHour = DateTime.now().hour;
   int? selectedMinute = DateTime.now().minute;
+  List<AlarmSettings> alarmSettings = [];
 
   String getSelectedDate() {
     String day = selectedDay.toString().padLeft(2, '0');
@@ -777,80 +782,87 @@ class _for_medState extends State<for_med> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
-                      children: [
-                        Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: mauve1),
-                              borderRadius: BorderRadius.circular(10),
-                              color: gris,
-                            ),
-                            alignment: Alignment.center,
-                            width: 80,
-                            child: DropdownButton<int>(
-                              value: selectedHour,
-                              items: List<DropdownMenuItem<int>>.generate(24,
-                                  (int index) {
-                                return DropdownMenuItem<int>(
-                                  value: index,
-                                  child: Text(
-                                    '$index',
-                                    style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold,
-                                        color: mauve2),
-                                  ),
-                                );
-                              }),
-                              onChanged: (int? value) {
-                                setState(() {
-                                  selectedHour = value;
-                                });
-                              },
-                            )),
-                        SizedBox(
-                          width: 3,
-                        ),
-                        const Text(
-                          ":",
-                          style: TextStyle(
-                              fontSize: 23, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          width: 3,
-                        ),
-                        Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: mauve1),
-                              borderRadius: BorderRadius.circular(10),
-                              color: gris,
-                            ),
-                            alignment: Alignment.center,
-                            width: 80,
-                            child: DropdownButton<int>(
-                              value: selectedMinute,
-                              items: List<DropdownMenuItem<int>>.generate(60,
-                                  (int index) {
-                                return DropdownMenuItem<int>(
-                                  value: index,
-                                  child: Text(
-                                    '$index',
-                                    style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold,
-                                        color: mauve2),
-                                  ),
-                                );
-                              }),
-                              onChanged: (int? value) {
-                                setState(() {
-                                  selectedMinute = value;
-                                });
-                              },
-                            )),
-                      ],
-                    ),
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Row(
+      children: [
+        Container(
+          height: 40,
+          decoration: BoxDecoration(
+            border: Border.all(width: 1, color: mauve1),
+            borderRadius: BorderRadius.circular(10),
+            color: gris,
+          ),
+          alignment: Alignment.center,
+          width: 80,
+          child: DropdownButton<int>(
+            value: selectedHour,
+            items: List<DropdownMenuItem<int>>.generate(24, (int index) {
+              return DropdownMenuItem<int>(
+                value: index,
+                child: Text(
+                  index.toString().padLeft(2, '0'), // Afficher toujours deux chiffres avec des zéros à gauche si nécessaire
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                    color: mauve2,
+                  ),
+                ),
+              );
+            }),
+            onChanged: (int? value) {
+              setState(() {
+                selectedHour = value;
+              });
+              print(selectedHour);
+            },
+          ),
+        ),
+        SizedBox(width: 3),
+        const Text(
+          ':',
+          style: TextStyle(
+            fontSize: 23,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(width: 3),
+        Container(
+          height: 40,
+          decoration: BoxDecoration(
+            border: Border.all(width: 1, color: mauve1),
+            borderRadius: BorderRadius.circular(10),
+            color: gris,
+          ),
+          alignment: Alignment.center,
+          width: 80,
+          child: DropdownButton<int>(
+            value: selectedMinute,
+            items: List<DropdownMenuItem<int>>.generate(60, (int index) {
+              return DropdownMenuItem<int>(
+                value: index,
+                child: Text(
+                  '${index.toString().padLeft(2, '0')}', // Afficher toujours deux chiffres avec des zéros à gauche si nécessaire
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                    color: mauve2,
+                  ),
+                ),
+              );
+            }),
+            onChanged: (int? value) {
+              setState(() {
+                selectedMinute = value;
+              });
+            },
+          ),
+        ),
+      ],
+    ),
+  ],
+),
+
                     SizedBox(
                       width: 12,
                     ),
@@ -899,18 +911,29 @@ class _for_medState extends State<for_med> {
                 Container(
                   margin: EdgeInsets.only(left: 20, right: 20),
                   child: ElevatedButton.icon(
-                    onPressed: () {
+                    onPressed: () async {
                       setState(() {
-                        // Ajouter le dernier horaire à la liste des horaires
-
                         horaires.add(
-                            '${selectedHour}:${selectedMinute} ${_c} ${selectedCountry}');
-
-                        selectedHour = 0;
-                        selectedMinute = 0;
+                            '$selectedHour:$selectedMinute $_c $selectedCountry');
                         _c = 1;
                       });
+                 
+                    await Alarm.set(alarmSettings: AlarmSettings(
+                        id: Random().nextInt(65312),
+                        dateTime: DateTime.parse(
+                            '$selectedYear-${selectedMonth.toString().padRight(2, '0')}-${selectedDay}T${selectedHour.toString().padLeft(2, '0')}:${selectedMinute.toString().toString().padLeft(2, '0')}:00Z'),
+                        assetAudioPath: 'assets/alarm.mp3',
+                        loopAudio: true,
+                        vibrate: true,
+                        fadeDuration: 10.0,
+                        notificationTitle: 'Prenez votre medicament!',
+                        notificationBody: nomMed,
+                       // enableNotificationOnKill: true,
+                      ));
+                      // alarmSettings
+                      //     .map((e) async => await Alarm.set(alarmSettings: e));
                       setState(() {});
+                     
                     },
                     icon: Icon(Icons.add, color: noire1, size: 24),
                     label: Text(
