@@ -54,6 +54,7 @@ dependencies:
   stacked: ^3.2.0
   stacked_services: ^1.0.0
   flutter_form_builder: ^6.0.0
+  flutter_datetime_picker: ^1.5.1
 
 dev_dependencies:
   flutter_test:

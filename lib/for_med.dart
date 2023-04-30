@@ -93,7 +93,17 @@ class _for_medState extends State<for_med> {
         'dateDebMed': getSelectedDate(),
         'dureMed': getduree(),
         'horaireMed': getHoraire(),
-        'prd': periode
+        'prd': periode,
+        'day' : selectedDay,
+        'month' : selectedMonth,
+        'year' : selectedYear,
+        'heure' : selectedHour,
+        'minute' : selectedMinute,
+        'determine' : notify,
+        'jour _perd' : selectedCountry2,
+        'c' : _c,
+         "_counter" : _counter
+       
       });
 
       ScaffoldMessenger.of(context).showSnackBar(

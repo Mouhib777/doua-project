@@ -116,6 +116,7 @@ class _aff_medState extends State<aff_med> {
                     itemCount: widget.eventDataList1.length,
                     itemBuilder: (context, index) {
                       final item = widget.eventDataList1[index];
+                      docId = item['docId'] ?? '';
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -211,8 +212,8 @@ class _aff_medState extends State<aff_med> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         modifier_med(
-                                                            docid:
-                                                                item['docid'],
+                                                            docId:
+                                                                item['docId'],
                                                             eventDataList:
                                                                 item)),
                                               );},
