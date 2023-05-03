@@ -53,8 +53,8 @@ class LoginView extends StackedView<LoginViewModel> {
                           color: green2,
                           width: 8,
                         ),
-                        image:
-                            DecorationImage(image: AssetImage("image/ww.png"))),
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/ww.png"))),
                   ),
                 ],
               ),

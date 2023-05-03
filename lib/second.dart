@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'login/login_view.dart';
@@ -21,7 +20,7 @@ class second extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'image/captureee.png',
+              'assets/images/captureee.png',
               width: 300,
             ),
             SizedBox(height: 30),

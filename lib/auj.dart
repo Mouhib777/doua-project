@@ -1,4 +1,3 @@
-
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,7 +17,7 @@ class auj extends StatefulWidget {
 }
 
 class _aujState extends State<auj> {
-  late List<Map<String, dynamic>> eventDataList;
+  List<Map<String, dynamic>>? eventDataList;
   late List<Map<String, dynamic>> _todayEvents = [];
   @override
   void initState() {
@@ -30,7 +29,7 @@ class _aujState extends State<auj> {
     // récupération des données de la base de données ou d'un autre endroit
     setState(() {
       // filtrer les événements par rapport à la date d'aujourd'hui
-      _todayEvents = eventDataList
+      _todayEvents = eventDataList!
           .where((event) =>
               event['date'] == DateFormat('yyyy-MM-dd').format(DateTime.now()))
           .toList();
@@ -184,7 +183,8 @@ class _aujState extends State<auj> {
                           padding: EdgeInsets.only(right: 320),
                           child: CircleAvatar(
                             radius: 33,
-                            backgroundImage: AssetImage("image/doc.jpg"),
+                            backgroundImage:
+                                AssetImage("assets/images/doc.jpg"),
                           ),
                         ),
                         SingleChildScrollView(
@@ -233,8 +233,8 @@ class _aujState extends State<auj> {
                                         Container(
                                           child: CircleAvatar(
                                             radius: 15,
-                                            backgroundImage:
-                                                AssetImage("image/images.jpg"),
+                                            backgroundImage: AssetImage(
+                                                "assets/images/images.jpg"),
                                           ),
                                         ),
                                         SizedBox(
@@ -273,7 +273,7 @@ class _aujState extends State<auj> {
                           padding: EdgeInsets.only(right: 320),
                           child: CircleAvatar(
                             radius: 33,
-                            backgroundImage: AssetImage("image/pp.png"),
+                            backgroundImage: AssetImage("assets/images/pp.PNG"),
                           ),
                         ),
                         SingleChildScrollView(
@@ -325,8 +325,8 @@ class _aujState extends State<auj> {
                                         Container(
                                           child: CircleAvatar(
                                             radius: 15,
-                                            backgroundImage:
-                                                AssetImage("image/images.jpg"),
+                                            backgroundImage: AssetImage(
+                                                "assets/images/images.jpg"),
                                           ),
                                         ),
                                         SizedBox(
@@ -380,8 +380,8 @@ class _aujState extends State<auj> {
                                         Container(
                                           child: CircleAvatar(
                                             radius: 15,
-                                            backgroundImage:
-                                                AssetImage("image/images.jpg"),
+                                            backgroundImage: AssetImage(
+                                                "assets/images/images.jpg"),
                                           ),
                                         ),
                                         SizedBox(

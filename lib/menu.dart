@@ -3,7 +3,6 @@ import 'package:douaa_project/widget/style.dart';
 
 import 'package:flutter/material.dart';
 
-
 import 'ResPage.dart';
 import 'TodayPage.dart';
 import 'TraitPage.dart';
@@ -40,9 +39,10 @@ class _menuState extends State<menu> {
             .toList();
       });
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Une erreur s'est produite")),
-      );
+      print("erreur");
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text("Une erreur s'est produite")),
+      // );
     }
   }
 
@@ -80,7 +80,7 @@ class _menuState extends State<menu> {
     Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage("image/aa.png"), fit: BoxFit.cover),
+            image: AssetImage("assets/images/aa.png"), fit: BoxFit.cover),
       ),
     );
   }

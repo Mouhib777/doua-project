@@ -156,7 +156,7 @@ class mod_for_renState extends State<mod_for_ren> {
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("image/oo.jpg"), fit: BoxFit.cover),
+              image: AssetImage("assets/images/oo.jpg"), fit: BoxFit.cover),
         ),
         child: Padding(
           padding: EdgeInsets.only(top: 65),

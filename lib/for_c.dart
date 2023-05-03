@@ -1,4 +1,3 @@
-
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,6 +16,7 @@ class _for_cState extends State<for_c> {
   late DocumentReference docRef1;
   late String docId;
   final DateTime today = DateTime.now();
+  TimeOfDay _selectedTime = TimeOfDay.now();
 
   int? selectedDay = DateTime.now().day;
   int? selectedMonth = DateTime.now().month;
@@ -82,9 +82,10 @@ class _for_cState extends State<for_c> {
 
       // Effacer le formulaire après avoir ajouté le RDV
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Une erreur s\'est produite')),
-      );
+      print("erreur");
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Une erreur s\'est produite')),
+      // );
     }
   }
 

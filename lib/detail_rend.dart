@@ -1,4 +1,3 @@
-
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -46,7 +45,7 @@ class _MedicineDetailsPageState extends State<detail_rend> {
                   ),
                   Center(
                     child: Image.asset(
-                      'image/doctor.jpg',
+                      'assets/images/doctor.jpg',
                       fit: BoxFit.cover,
                       height: 230,
                     ),

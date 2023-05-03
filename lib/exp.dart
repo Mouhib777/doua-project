@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
 
   Future<void> _showAlarmNotification() async {
     var androidDetails = AndroidNotificationDetails('channel_id', 'Alarm',
-        importance: Importance.max,
+        // pr: Importance.max,
         priority: Priority.high,
         ongoing:
             true, // set ongoing to true to keep notification in the tray until it's dismissed

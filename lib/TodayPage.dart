@@ -113,7 +113,7 @@ class TodayPage extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(
-                  "image/pp.png",
+                  "assets/images/pp.PNG",
                   height: 150,
                   width: 400,
                 ),

@@ -25,7 +25,7 @@ class _ResPageState extends State<ResPage> {
         child: Column(
           children: [
             Image.asset(
-              "image/pppp.png",
+              "assets/images/pppp.PNG",
               height: 150,
               width: 400,
             ),

@@ -107,7 +107,7 @@ class _inscripState extends State<inscrip> {
                             width: 8,
                           ),
                           image: DecorationImage(
-                              image: AssetImage("image/ww.png"))),
+                              image: AssetImage("assets/images/ww.png"))),
                     ),
                   ],
                 ),

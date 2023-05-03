@@ -28,7 +28,6 @@ class passer extends StatefulWidget {
 }
 
 class _passerState extends State<passer> {
-  
   late Map<String, dynamic> eventData;
   late String docid;
   DateTime aujourdhui = DateTime.now();
@@ -39,7 +38,6 @@ class _passerState extends State<passer> {
     _getEventDataList();
   }
 
-  
   Future<void> _deleteDocument(String docid) async {
     try {
       await FirebaseFirestore.instance.collection("r").doc(docid).delete();
@@ -55,8 +53,6 @@ class _passerState extends State<passer> {
       );
     }
   }
-
- 
 
   Future<void> _getEventDataList() async {
     try {
@@ -84,8 +80,6 @@ class _passerState extends State<passer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
-              
         body: widget.eventDataList == null || widget.eventDataList.isEmpty
             ? ResPage()
             : Container(
@@ -106,7 +100,7 @@ class _passerState extends State<passer> {
                     itemBuilder: (context, index) {
                       final item = widget.eventDataList[index];
                       docid = item['docId'] ?? '';
-                    
+
                       return Column(children: [
                         SizedBox(
                           height: 20,
@@ -156,8 +150,8 @@ class _passerState extends State<passer> {
                                           ),
                                           CircleAvatar(
                                             radius: 24,
-                                            backgroundImage:
-                                                AssetImage("image/doctor.jpg"),
+                                            backgroundImage: AssetImage(
+                                                "assets/images/doctor.jpg"),
                                           ),
                                         ],
                                       ),
@@ -209,7 +203,6 @@ class _passerState extends State<passer> {
                                           SizedBox(
                                             width: 170,
                                           ),
-                                         
                                           SizedBox(
                                             width: 10,
                                           ),

@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:alarm/alarm.dart';
-import 'package:alarm/model/alarm_settings.dart';
+// import 'package:alarm/alarm.dart';
+// import 'package:alarm/model/alarm_settings.dart';
 import 'package:douaa_project/for_med.dart';
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +11,12 @@ import 'package:intl/intl.dart';
 import 'aff_med.dart';
 
 class modifier_med extends StatefulWidget {
-   final docId; // add String type annotation here
+  final docId; // add String type annotation here
   final eventDataList;
   const modifier_med({
-    Key? key, this.docId, this.eventDataList,
+    Key? key,
+    this.docId,
+    this.eventDataList,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,7 @@ class _modifier_medState extends State<modifier_med> {
   int? selectedYear = DateTime.now().year;
   int? selectedHour = DateTime.now().hour;
   int? selectedMinute = DateTime.now().minute;
-  List<AlarmSettings> alarmSettings = [];
+  // List<AlarmSettings> alarmSettings = [];
 
   String getSelectedDate() {
     String day = selectedDay.toString().padLeft(2, '0');
@@ -86,7 +88,9 @@ class _modifier_medState extends State<modifier_med> {
         periode = users1;
       }
 
-   await FirebaseFirestore.instance.collection('u1').doc(widget.docId)
+      await FirebaseFirestore.instance
+          .collection('u1')
+          .doc(widget.docId)
           .update({
         'nomMed': nomMed,
         'formeMed': selectedCountry,
@@ -95,18 +99,16 @@ class _modifier_medState extends State<modifier_med> {
         'dureMed': getduree(),
         'horaireMed': getHoraire(),
         'prd': periode,
-        'day' : selectedDay,
-        'month' : selectedMonth,
-        'year' : selectedYear,
-        'heure' : selectedHour,
-        'minute' : selectedMinute,
-        'determine' : notify,
-        'nombre'  : e,
-        'jour _perd' : selectedCountry2,
-         'c' : _c,
-         "_counter" : _counter
-
-
+        'day': selectedDay,
+        'month': selectedMonth,
+        'year': selectedYear,
+        'heure': selectedHour,
+        'minute': selectedMinute,
+        'determine': notify,
+        'nombre': e,
+        'jour _perd': selectedCountry2,
+        'c': _c,
+        "_counter": _counter
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -117,7 +119,6 @@ class _modifier_medState extends State<modifier_med> {
       setState(() {
         horaires.clear();
       });
-      
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Une erreur s\'est produite')),
@@ -230,7 +231,7 @@ class _modifier_medState extends State<modifier_med> {
           height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("image/oo.jpg"), fit: BoxFit.cover),
+                image: AssetImage("assets/images/oo.jpg"), fit: BoxFit.cover),
           ),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -308,7 +309,6 @@ class _modifier_medState extends State<modifier_med> {
                     color: Color.fromRGBO(243, 242, 242, 1),
                   ),
                   child: FormBuilderDropdown(
-                    
                     name: "form_field_name",
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(context,
@@ -458,28 +458,28 @@ class _modifier_medState extends State<modifier_med> {
                             ),
                             alignment: Alignment.center,
                             width: 60,
-                            child:  FormBuilderDropdown(
-  name: 'selectedDay',
-  initialValue: widget.eventDataList['day'],
-  items: List<DropdownMenuItem<int>>.generate(31, (int index) {
-    return DropdownMenuItem<int>(
-      value: index + 1,
-      child: Text(
-        '${index + 1}',
-        style: TextStyle(
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold,
-            color: mauve2),
-      ),
-    );
-  }),
-  onChanged: (val) {
-                        setState(() {
-                          selectedDay = val as int?;
-                        });
-                      },
-),
-
+                            child: FormBuilderDropdown(
+                              name: 'selectedDay',
+                              initialValue: widget.eventDataList['day'],
+                              items: List<DropdownMenuItem<int>>.generate(31,
+                                  (int index) {
+                                return DropdownMenuItem<int>(
+                                  value: index + 1,
+                                  child: Text(
+                                    '${index + 1}',
+                                    style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold,
+                                        color: mauve2),
+                                  ),
+                                );
+                              }),
+                              onChanged: (val) {
+                                setState(() {
+                                  selectedDay = val as int?;
+                                });
+                              },
+                            ),
                           ),
                           const SizedBox(width: 16.0),
                           // Dropdown pour le mois
@@ -493,27 +493,28 @@ class _modifier_medState extends State<modifier_med> {
                             alignment: Alignment.center,
                             width: 110,
                             child: FormBuilderDropdown(
-  name: 'selectedMonth',
-  initialValue: widget.eventDataList['month'],
-  items: List<DropdownMenuItem<int>>.generate(12, (int index) {
-    return DropdownMenuItem<int>(
-      value: index + 1,
-      child: Text(
-        DateFormat('MMMM').format(DateTime(today.year, index + 1, 1)),
-        style: TextStyle(
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold,
-            color: mauve2),
-      ),
-    );
-  }),
-  onChanged: ( value) {
-    setState(() {
-      selectedMonth = value as int?;
-    });
-  },
-),
-
+                              name: 'selectedMonth',
+                              initialValue: widget.eventDataList['month'],
+                              items: List<DropdownMenuItem<int>>.generate(12,
+                                  (int index) {
+                                return DropdownMenuItem<int>(
+                                  value: index + 1,
+                                  child: Text(
+                                    DateFormat('MMMM').format(
+                                        DateTime(today.year, index + 1, 1)),
+                                    style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold,
+                                        color: mauve2),
+                                  ),
+                                );
+                              }),
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedMonth = value as int?;
+                                });
+                              },
+                            ),
                           ),
                           const SizedBox(width: 16.0),
                           // Dropdown pour l'année
@@ -527,28 +528,27 @@ class _modifier_medState extends State<modifier_med> {
                             alignment: Alignment.center,
                             width: 80,
                             child: FormBuilderDropdown(
-  name: 'selectedYear',
-  initialValue: widget.eventDataList['year'],
-
-  items: List<DropdownMenuItem<int>>.generate(10, (int index) {
-    return DropdownMenuItem<int>(
-      value: today.year + index,
-      child: Text(
-        '${today.year + index}',
-        style: TextStyle(
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold,
-            color: mauve2),
-      ),
-    );
-  }),
-  onChanged: ( value) {
-    setState(() {
-      selectedYear = value as int?;
-    });
-  },
-),
-
+                              name: 'selectedYear',
+                              initialValue: widget.eventDataList['year'],
+                              items: List<DropdownMenuItem<int>>.generate(10,
+                                  (int index) {
+                                return DropdownMenuItem<int>(
+                                  value: today.year + index,
+                                  child: Text(
+                                    '${today.year + index}',
+                                    style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold,
+                                        color: mauve2),
+                                  ),
+                                );
+                              }),
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedYear = value as int?;
+                                });
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -565,7 +565,7 @@ class _modifier_medState extends State<modifier_med> {
                         color: noire1,
                         fontStyle: FontStyle.italic),
                   ),
-                  value:notify,
+                  value: notify,
                   activeColor: mauve1,
                   onChanged: (val) {
                     setState(() {
@@ -615,56 +615,55 @@ class _modifier_medState extends State<modifier_med> {
                             child: Icon(Icons.remove, size: 20, color: mauve2),
                           ),
                           SizedBox(width: 20),
-                        FormBuilderDropdown(
-  iconSize: 19,
-  dropdownColor: Colors.white,
-  name: 'jour_perd',
-  decoration: InputDecoration(
-    labelText: 'Durée',
-  ),
-  items: [
-    DropdownMenuItem(
-      child: Text(
-        'Jour(s)',
-        style: TextStyle(
-          fontSize: 18,
-          color: green2,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      value: 'Jour(s)',
-    ),
-    DropdownMenuItem(
-      child: Text(
-        'Semaine(s)',
-        style: TextStyle(
-          fontSize: 18,
-          color: green2,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      value: 'Semaine(s)',
-    ),
-    DropdownMenuItem(
-      child: Text(
-        'Mois',
-        style: TextStyle(
-          fontSize: 18,
-          color: green2,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      value: 'Mois',
-    ),
-  ],
-  onChanged: (val) {
-    setState(() {
-      selectedCountry2 = val;
-    });
-  },
-  initialValue: widget.eventDataList['jour_perd'],
-)
-
+                          FormBuilderDropdown(
+                            iconSize: 19,
+                            dropdownColor: Colors.white,
+                            name: 'jour_perd',
+                            decoration: InputDecoration(
+                              labelText: 'Durée',
+                            ),
+                            items: [
+                              DropdownMenuItem(
+                                child: Text(
+                                  'Jour(s)',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: green2,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                value: 'Jour(s)',
+                              ),
+                              DropdownMenuItem(
+                                child: Text(
+                                  'Semaine(s)',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: green2,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                value: 'Semaine(s)',
+                              ),
+                              DropdownMenuItem(
+                                child: Text(
+                                  'Mois',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: green2,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                value: 'Mois',
+                              ),
+                            ],
+                            onChanged: (val) {
+                              setState(() {
+                                selectedCountry2 = val;
+                              });
+                            },
+                            initialValue: widget.eventDataList['jour_perd'],
+                          )
                         ],
                       ),
                       SizedBox(height: 15),
@@ -819,91 +818,91 @@ class _modifier_medState extends State<modifier_med> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    Row(
-      children: [
-        Container(
-          height: 40,
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: mauve1),
-            borderRadius: BorderRadius.circular(10),
-            color: gris,
-          ),
-          alignment: Alignment.center,
-          width: 80,
-          child: DropdownButton<int>(
-            value: selectedHour,
-            items: List<DropdownMenuItem<int>>.generate(24, (int index) {
-              return DropdownMenuItem<int>(
-                value: index,
-                child: Text(
-                  index.toString().padLeft(2, '0'), // Afficher toujours deux chiffres avec des zéros à gauche si nécessaire
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
-                    color: mauve2,
-                  ),
-                ),
-              );
-            }),
-            onChanged: (int? value) {
-              setState(() {
-                selectedHour = value;
-              });
-              print(selectedHour);
-            },
-          ),
-        ),
-        SizedBox(width: 3),
-        const Text(
-          ':',
-          style: TextStyle(
-            fontSize: 23,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(width: 3),
-        Container(
-          height: 40,
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: mauve1),
-            borderRadius: BorderRadius.circular(10),
-            color: gris,
-          ),
-          alignment: Alignment.center,
-          width: 80,
-          child: DropdownButton<int>(
-            
-            value: selectedMinute,
-            items: List<DropdownMenuItem<int>>.generate(60, (int index) {
-              initialValue: widget.eventDataList['minute'];
-              return DropdownMenuItem<int>(
-                
-                value: index,
-                child: Text(
-                  '${index.toString().padLeft(2, '0')}', // Afficher toujours deux chiffres avec des zéros à gauche si nécessaire
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
-                    color: mauve2,
-                  ),
-                ),
-             
-              );
-            }),
-            onChanged: (int? value) {
-              setState(() {
-                selectedMinute = value;
-              });
-            },
-          ),
-        ),
-      ],
-    ),
-  ],
-),
-
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                border: Border.all(width: 1, color: mauve1),
+                                borderRadius: BorderRadius.circular(10),
+                                color: gris,
+                              ),
+                              alignment: Alignment.center,
+                              width: 80,
+                              child: DropdownButton<int>(
+                                value: selectedHour,
+                                items: List<DropdownMenuItem<int>>.generate(24,
+                                    (int index) {
+                                  return DropdownMenuItem<int>(
+                                    value: index,
+                                    child: Text(
+                                      index.toString().padLeft(2,
+                                          '0'), // Afficher toujours deux chiffres avec des zéros à gauche si nécessaire
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold,
+                                        color: mauve2,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                                onChanged: (int? value) {
+                                  setState(() {
+                                    selectedHour = value;
+                                  });
+                                  print(selectedHour);
+                                },
+                              ),
+                            ),
+                            SizedBox(width: 3),
+                            const Text(
+                              ':',
+                              style: TextStyle(
+                                fontSize: 23,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: 3),
+                            Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                border: Border.all(width: 1, color: mauve1),
+                                borderRadius: BorderRadius.circular(10),
+                                color: gris,
+                              ),
+                              alignment: Alignment.center,
+                              width: 80,
+                              child: DropdownButton<int>(
+                                value: selectedMinute,
+                                items: List<DropdownMenuItem<int>>.generate(60,
+                                    (int index) {
+                                  initialValue:
+                                  widget.eventDataList['minute'];
+                                  return DropdownMenuItem<int>(
+                                    value: index,
+                                    child: Text(
+                                      '${index.toString().padLeft(2, '0')}', // Afficher toujours deux chiffres avec des zéros à gauche si nécessaire
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.bold,
+                                        color: mauve2,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                                onChanged: (int? value) {
+                                  setState(() {
+                                    selectedMinute = value;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                     SizedBox(
                       width: 12,
                     ),
@@ -958,23 +957,24 @@ class _modifier_medState extends State<modifier_med> {
                             '$selectedHour:$selectedMinute $_c $selectedCountry');
                         _c = 1;
                       });
-                 
-                    await Alarm.set(alarmSettings: AlarmSettings(
-                        id: Random().nextInt(65312),
-                        dateTime: DateTime.parse(
-                            '$selectedYear-${selectedMonth.toString().padRight(2, '0')}-${selectedDay}T${selectedHour.toString().padLeft(2, '0')}:${selectedMinute.toString().toString().padLeft(2, '0')}:00Z'),
-                        assetAudioPath: 'assets/alarm.mp3',
-                        loopAudio: true,
-                        vibrate: true,
-                        fadeDuration: 10.0,
-                        notificationTitle: 'Prenez votre medicament!',
-                        notificationBody: nomMed,
-                       // enableNotificationOnKill: true,
-                      ));
+                      //! nahyt alarm awdhou bili khdemtou ena
+
+                      // await Alarm.set(
+                      //     alarmSettings: AlarmSettings(
+                      //   id: Random().nextInt(65312),
+                      //   dateTime: DateTime.parse(
+                      //       '$selectedYear-${selectedMonth.toString().padRight(2, '0')}-${selectedDay}T${selectedHour.toString().padLeft(2, '0')}:${selectedMinute.toString().toString().padLeft(2, '0')}:00Z'),
+                      //   assetAudioPath: 'assets/alarm.mp3',
+                      //   loopAudio: true,
+                      //   vibrate: true,
+                      //   fadeDuration: 10.0,
+                      //   notificationTitle: 'Prenez votre medicament!',
+                      //   notificationBody: nomMed,
+                      //   // enableNotificationOnKill: true,
+                      // ));
                       // alarmSettings
                       //     .map((e) async => await Alarm.set(alarmSettings: e));
                       setState(() {});
-                     
                     },
                     icon: Icon(Icons.add, color: noire1, size: 24),
                     label: Text(
@@ -1019,7 +1019,6 @@ class _modifier_medState extends State<modifier_med> {
                         elevation: 20),
                   ),
                 ),
-                
               ]),
             ),
           ),

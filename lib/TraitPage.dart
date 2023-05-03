@@ -24,7 +24,7 @@ class TraitPage extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(
-                  "image/jj.png",
+                  "assets/images/jj.PNG",
                   height: 180,
                   width: 430,
                 ),

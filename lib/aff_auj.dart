@@ -1,7 +1,6 @@
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 
-
 class aff_auj extends StatefulWidget {
   const aff_auj({super.key});
 
@@ -39,7 +38,8 @@ class _aff_aujState extends State<aff_auj> {
                               margin: const EdgeInsets.only(right: 300),
                               child: const CircleAvatar(
                                 radius: 30,
-                                backgroundImage: AssetImage("image/dd.jpg"),
+                                backgroundImage:
+                                    AssetImage("assets/images/dd.jpg"),
                               ),
                             ),
                           ],
@@ -62,7 +62,7 @@ class _aff_aujState extends State<aff_auj> {
                                   Container(
                                     margin: const EdgeInsets.only(top: 20),
                                     child: Image.asset(
-                                      "image/m.jpg",
+                                      "assets/images/m.jpg",
                                       width: 40,
                                       height: 40,
                                     ),
@@ -86,7 +86,7 @@ class _aff_aujState extends State<aff_auj> {
                                   Container(
                                     margin: const EdgeInsets.only(left: 40),
                                     child: Image.asset(
-                                      "image/images.jpg",
+                                      "assets/images/images.jpg",
                                       height: 40,
                                       width: 40,
                                     ),
@@ -123,7 +123,7 @@ class _aff_aujState extends State<aff_auj> {
                                   Container(
                                     margin: const EdgeInsets.only(top: 20),
                                     child: Image.asset(
-                                      "image/m.jpg",
+                                      "assets/images/m.jpg",
                                       width: 40,
                                       height: 40,
                                     ),
@@ -147,7 +147,7 @@ class _aff_aujState extends State<aff_auj> {
                                   Container(
                                     margin: const EdgeInsets.only(left: 100),
                                     child: Image.asset(
-                                      "image/images.jpg",
+                                      "assets/images/images.jpg",
                                       height: 40,
                                       width: 40,
                                     ),
@@ -187,7 +187,7 @@ class _aff_aujState extends State<aff_auj> {
                                   Container(
                                     margin: const EdgeInsets.only(top: 20),
                                     child: Image.asset(
-                                      "image/doctor.jpg",
+                                      "assets/images/doctor.jpg",
                                       width: 40,
                                       height: 40,
                                     ),
@@ -214,7 +214,7 @@ class _aff_aujState extends State<aff_auj> {
                                   Container(
                                     margin: const EdgeInsets.only(left: 40),
                                     child: Image.asset(
-                                      "image/images.jpg",
+                                      "assets/images/images.jpg",
                                       height: 40,
                                       width: 40,
                                     ),

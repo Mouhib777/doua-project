@@ -36,7 +36,6 @@ dependencies:
   email_validator: ^2.0.1
   firebase_auth: ^4.3.0
   cloud_firestore: ^4.4.5
-  url_launcher: ^6.1.10
   flutter_phone_direct_caller: ^2.1.1
   audioplayers: ^0.19.0
   http: ^0.13.5
@@ -55,6 +54,13 @@ dependencies:
   stacked_services: ^1.0.0
   flutter_form_builder: ^6.0.0
   flutter_datetime_picker: ^1.5.1
+  flutter_easyloading: ^3.0.5
+  permission_handler: ^10.2.0
+  cron: ^0.5.1
+  timezone: ^0.9.2
+  awesome_notifications: ^0.7.4+1
+  url_launcher: ^6.1.7
+  # scheduled_notifications: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -80,34 +86,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - image/aa.png
-    - image/gg.png
-    - image/hh.png
-    - image/hhh.png
-    - image/o.jpg
-    - image/oo.jpg
-    - image/n.png
-    - image/w.png
-    - image/ww.png
-    - image/www.png
-    - image/p.png
-    - image/pp.png
-    - image/ppp.png
-    - image/pppp.png
-    - image/j.png
-    - image/jj.png
-    - image/i.png
-    - image/doctor.jpg
-    - image/m.jpg
-    - image/images.jpg
-    - image/iiii.jpg
-    - image/dd.jpg
-    - image/ttt.png
-    - image/t.jpg
-    - image/doc.jpg
-    - image/ii.jpg
-    - image/docmed.jpg
-    - assets/alarm.mp3
+   - assets/images/
+   - assets/sounds/
+    
 
     
 

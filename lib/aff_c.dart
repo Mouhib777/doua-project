@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 
-
 class aff_c extends StatefulWidget {
   final String docid;
   late List<Map<String, dynamic>> eventDataList1;
@@ -36,9 +35,10 @@ class _aff_cState extends State<aff_c> {
             .toList();
       });
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Une erreur s\'est produite')),
-      );
+      print("erreur");
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Une erreur s\'est produite')),
+      // );
     }
   }
 
@@ -91,7 +91,8 @@ class _aff_cState extends State<aff_c> {
                                       height: 50,
                                     ),
                                     Image(
-                                        image: AssetImage("image/j.png"),
+                                        image:
+                                            AssetImage("assets/images/j.png"),
                                         height: 80,
                                         width: 50),
                                     SizedBox(width: 20),

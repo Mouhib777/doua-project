@@ -55,7 +55,8 @@ class RegisterView extends StackedView<RegisterViewModel> {
                                     width: 8,
                                   ),
                                   image: DecorationImage(
-                                      image: AssetImage("image/ww.png"))),
+                                      image:
+                                          AssetImage("assets/images/ww.png"))),
                             ),
                           ],
                         ),

@@ -1,4 +1,3 @@
-
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -51,104 +50,103 @@ class _aujourdhui_medState extends State<aujourdhui_med> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(child : ListView.builder(
-                    itemCount: widget.eventDataList1.length,
-                    itemBuilder: (context, index) {
-                      final item = widget.eventDataList1[index];
-                      docId = item['docId'] ?? '';
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => detail_med(
-                                    medicineData: item,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              width: 370,
-                              height: 180,
-                              margin: EdgeInsets.only(top: 30),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(162, 255, 255, 255),
-                                borderRadius: BorderRadius.circular(30),
+        body: Container(
+      child: ListView.builder(
+          itemCount: widget.eventDataList1.length,
+          itemBuilder: (context, index) {
+            final item = widget.eventDataList1[index];
+            docId = item['docId'] ?? '';
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => detail_med(
+                          medicineData: item,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 370,
+                    height: 180,
+                    margin: EdgeInsets.only(top: 30),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(162, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(117, 232, 197, 242),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 57,
+                                width: 9,
                               ),
-                              child: Column(
+                              CircleAvatar(
+                                radius: 22,
+                                backgroundImage:
+                                    AssetImage("assets/images/m.jpg"),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                "${item['nomMed']}",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(172, 0, 0, 0),
+                                    fontStyle: FontStyle.italic,
+                                    fontFamily: 'BreeSerif-Regular'),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          child: Column(
+                            children: [
+                              Text(
+                                "${item['prd']}",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 2,
+                                    color: blue),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
                                 children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Color.fromARGB(117, 232, 197, 242),
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          height: 57,
-                                          width: 9,
-                                        ),
-                                        CircleAvatar(
-                                          radius: 22,
-                                          backgroundImage:
-                                              AssetImage("image/m.jpg"),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          "${item['nomMed']}",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color:
-                                                  Color.fromARGB(172, 0, 0, 0),
-                                              fontStyle: FontStyle.italic,
-                                              fontFamily: 'BreeSerif-Regular'),
-                                        ),
-                                      ],
-                                    ),
+                                  Text(
+                                    "${item['horaireMed']}",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: green2,
+                                        fontWeight: FontWeight.w500),
                                   ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          "${item['prd']}",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              letterSpacing: 2,
-                                              color: blue),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "${item['horaireMed']}",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: green2,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ],
-                                        ),
-                                        
-                                      ],
-                                    ),
-                                  )
                                 ],
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      );
-                    }),
-              ));
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }),
+    ));
   }
 }

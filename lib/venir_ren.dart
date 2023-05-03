@@ -34,8 +34,6 @@ class _venir_renState extends State<venir_ren> {
     _getEventDataList();
   }
 
-  
-
   Future<void> _deleteDocument(String docid) async {
     try {
       await FirebaseFirestore.instance.collection("r").doc(docid).delete();
@@ -51,6 +49,7 @@ class _venir_renState extends State<venir_ren> {
       );
     }
   }
+
   Future<void> _getEventDataList() async {
     try {
       QuerySnapshot querySnapshot =
@@ -119,7 +118,7 @@ class _venir_renState extends State<venir_ren> {
                     itemBuilder: (context, index) {
                       final item = widget.eventDataList[index];
                       docid = item['docId'] ?? '';
-                    
+
                       return Column(children: [
                         SizedBox(
                           height: 20,
@@ -169,8 +168,8 @@ class _venir_renState extends State<venir_ren> {
                                           ),
                                           CircleAvatar(
                                             radius: 24,
-                                            backgroundImage:
-                                                AssetImage("image/doctor.jpg"),
+                                            backgroundImage: AssetImage(
+                                                "assetsimages/doctor.jpg"),
                                           ),
                                         ],
                                       ),

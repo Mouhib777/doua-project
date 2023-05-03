@@ -1,4 +1,3 @@
-
 import 'package:douaa_project/modifier_med.dart';
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
@@ -48,9 +47,10 @@ class _aff_medState extends State<aff_med> {
             'docId']; // Initialiser la variable docId avec l'ID du premier élément de la liste
       }
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Une erreur s\'est produite')),
-      );
+      print("erreur");
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Une erreur s\'est produite')),
+      // );
     }
   }
 
@@ -89,8 +89,12 @@ class _aff_medState extends State<aff_med> {
                       backgroundColor: gris,
                       shape: RoundedRectangleBorder(),
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => for_med()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => for_med(
+                        //               initialDateTime: DateTime(2023),
+                        //             )));
                       },
                       child: Text(
                         "Ajouter un médicament",
@@ -155,7 +159,7 @@ class _aff_medState extends State<aff_med> {
                                         CircleAvatar(
                                           radius: 22,
                                           backgroundImage:
-                                              AssetImage("image/m.jpg"),
+                                              AssetImage("assets/images/m.jpg"),
                                         ),
                                         SizedBox(width: 5),
                                         Text(
@@ -207,16 +211,18 @@ class _aff_medState extends State<aff_med> {
                                           child: Row(
                                             children: [
                                               ElevatedButton(
-                                                onPressed: () {Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        modifier_med(
-                                                            docId:
-                                                                item['docId'],
-                                                            eventDataList:
-                                                                item)),
-                                              );},
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            modifier_med(
+                                                                docId: item[
+                                                                    'docId'],
+                                                                eventDataList:
+                                                                    item)),
+                                                  );
+                                                },
                                                 child: Text(
                                                   "Modifier",
                                                   style: TextStyle(

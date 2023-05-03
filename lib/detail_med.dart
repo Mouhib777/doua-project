@@ -1,4 +1,3 @@
-
 import 'package:douaa_project/style.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +30,7 @@ class _MedicineDetailsPageState extends State<detail_med> {
                   ),
                   Center(
                     child: Image.asset(
-                      'image/t.jpg',
+                      'assetsimages/t.jpg',
                       fit: BoxFit.cover,
                       height: 250,
                     ),

@@ -1,4 +1,3 @@
-
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 
@@ -87,8 +86,8 @@ class _cnxState extends State<cnx> {
                         color: green2,
                         width: 8,
                       ),
-                      image:
-                          DecorationImage(image: AssetImage("image/ww.png"))),
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/ww.png"))),
                 ),
               ],
             ),

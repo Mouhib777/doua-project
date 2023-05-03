@@ -17,8 +17,8 @@ class modifier_ren extends StatefulWidget {
 class modifier_renState extends State<modifier_ren> {
   final DateTime today = DateTime.now();
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
-  late String nomMedecin  ;
-  late String numMedecin  ;
+  late String nomMedecin;
+  late String numMedecin;
   late String selectedOption;
   bool ishValid = true;
   bool isDateValid = true;
@@ -27,6 +27,7 @@ class modifier_renState extends State<modifier_ren> {
     nomMedecin = widget.eventDataList['nomMedecin'];
     numMedecin = widget.eventDataList['numMedecin'];
   }
+
   String getDuree() {
     String y = date.year.toString();
     String m = date.month.toString();
@@ -99,7 +100,7 @@ class modifier_renState extends State<modifier_ren> {
   }
 
   @override
- Future<void>  _addRDV() async {
+  Future<void> _addRDV() async {
     final formData = _formKey.currentState!.value;
     final selectedOption = formData['selectedOptionn'];
     final rappelPersonalise = selectedOption == 'rappel personalisé'
@@ -143,7 +144,7 @@ class modifier_renState extends State<modifier_ren> {
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("image/oo.jpg"), fit: BoxFit.cover),
+              image: AssetImage("assets/images/oo.jpg"), fit: BoxFit.cover),
         ),
         child: Padding(
           padding: EdgeInsets.only(top: 65),
