@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -128,275 +129,278 @@ class _aujState extends State<auj> {
           backgroundColor: Color.fromARGB(76, 249, 64, 255),
           title: const Text("Aujourd'hui"),
         ),
-        body: Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color.fromRGBO(250, 247, 254, 1),
-                Color.fromARGB(255, 225, 197, 255),
-              ], end: Alignment.topCenter, begin: Alignment.bottomCenter),
-            ),
-            child: Column(children: [
-              SizedBox(
-                height: 30,
+        body: FadeInUpBig(
+          child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [
+                  Color.fromRGBO(250, 247, 254, 1),
+                  Color.fromARGB(255, 225, 197, 255),
+                ], end: Alignment.topCenter, begin: Alignment.bottomCenter),
               ),
-              Row(children: [
-                Container(
-                  margin: EdgeInsets.only(left: 40),
-                  child: Text(
-                    "Bonjour",
-                    style: TextStyle(
-                      color: red1,
-                      letterSpacing: 2,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                      fontStyle: FontStyle.italic,
-                      fontFamily: 'BreeSerif-Regular',
+              child: Column(children: [
+                SizedBox(
+                  height: 30,
+                ),
+                Row(children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 40),
+                    child: Text(
+                      "Bonjour",
+                      style: TextStyle(
+                        color: red1,
+                        letterSpacing: 2,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        fontStyle: FontStyle.italic,
+                        fontFamily: 'BreeSerif-Regular',
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                ]),
                 SizedBox(
-                  width: 4,
+                  height: 30,
                 ),
-              ]),
-              SizedBox(
-                height: 30,
-              ),
-              Center(
-                  child: Container(
-                      decoration: BoxDecoration(
-                        color: gris,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 217, 205, 249),
-                            blurRadius: 10,
-                            spreadRadius: 2,
-                          ),
-                        ],
-                      ),
-                      width: 500,
-                      height: 200,
-                      child: Column(children: [
-                        Container(
-                          padding: EdgeInsets.only(right: 320),
-                          child: CircleAvatar(
-                            radius: 33,
-                            backgroundImage:
-                                AssetImage("assets/images/doc.jpg"),
-                          ),
+                Center(
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: gris,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(255, 217, 205, 249),
+                              blurRadius: 10,
+                              spreadRadius: 2,
+                            ),
+                          ],
                         ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 250,
-                                height: 100,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 15),
-                                padding: EdgeInsets.symmetric(horizontal: 25),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: mauve1,
-                                      blurRadius: 10,
-                                      spreadRadius: 2,
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 6,
-                                    ),
-                                    Text(
-                                      "Dr.douaa",
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                          color: red1,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                          letterSpacing: 2),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          height: 7,
-                                        ),
-                                        Container(
-                                          child: CircleAvatar(
-                                            radius: 15,
-                                            backgroundImage: AssetImage(
-                                                "assets/images/images.jpg"),
+                        width: 500,
+                        height: 200,
+                        child: Column(children: [
+                          Container(
+                            padding: EdgeInsets.only(right: 320),
+                            child: CircleAvatar(
+                              radius: 33,
+                              backgroundImage:
+                                  AssetImage("assets/images/doc.jpg"),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 250,
+                                  height: 100,
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 15),
+                                  padding: EdgeInsets.symmetric(horizontal: 25),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: mauve1,
+                                        blurRadius: 10,
+                                        spreadRadius: 2,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 6,
+                                      ),
+                                      Text(
+                                        "Dr.douaa",
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            color: red1,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                            letterSpacing: 2),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            height: 7,
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text("8:00"),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ]))),
-              SizedBox(
-                height: 10,
-              ),
-              Center(
-                  child: Container(
-                      decoration: BoxDecoration(
-                        color: gris,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 217, 205, 249),
-                            blurRadius: 10,
-                            spreadRadius: 2,
-                          ),
-                        ],
-                      ),
-                      width: 500,
-                      height: 200,
-                      child: Column(children: [
-                        Container(
-                          padding: EdgeInsets.only(right: 320),
-                          child: CircleAvatar(
-                            radius: 33,
-                            backgroundImage: AssetImage("assets/images/pp.PNG"),
-                          ),
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 150,
-                                height: 100,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 15),
-                                padding: EdgeInsets.symmetric(horizontal: 25),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: mauve1,
-                                      blurRadius: 10,
-                                      spreadRadius: 2,
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    color: Colors.black,
+                                          Container(
+                                            child: CircleAvatar(
+                                              radius: 15,
+                                              backgroundImage: AssetImage(
+                                                  "assets/images/images.jpg"),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Text("8:00"),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 6,
-                                    ),
-                                    Text(
-                                      "Adole",
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                          color: red1,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                          letterSpacing: 2),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          height: 7,
-                                        ),
-                                        Container(
-                                          child: CircleAvatar(
-                                            radius: 15,
-                                            backgroundImage: AssetImage(
-                                                "assets/images/images.jpg"),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text("8:00"),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: 150,
-                                height: 100,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 15),
-                                padding: EdgeInsets.symmetric(horizontal: 25),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: mauve1,
-                                      blurRadius: 10,
-                                      spreadRadius: 2,
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 6,
-                                    ),
-                                    Text(
-                                      "Adole",
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                          color: red1,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                          letterSpacing: 2),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          height: 7,
-                                        ),
-                                        Container(
-                                          child: CircleAvatar(
-                                            radius: 15,
-                                            backgroundImage: AssetImage(
-                                                "assets/images/images.jpg"),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text("8:00"),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
+                        ]))),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: gris,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromARGB(255, 217, 205, 249),
+                              blurRadius: 10,
+                              spreadRadius: 2,
+                            ),
+                          ],
                         ),
-                      ])))
-            ])));
+                        width: 500,
+                        height: 200,
+                        child: Column(children: [
+                          Container(
+                            padding: EdgeInsets.only(right: 320),
+                            child: CircleAvatar(
+                              radius: 33,
+                              backgroundImage:
+                                  AssetImage("assets/images/pp.PNG"),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 150,
+                                  height: 100,
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 15),
+                                  padding: EdgeInsets.symmetric(horizontal: 25),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: mauve1,
+                                        blurRadius: 10,
+                                        spreadRadius: 2,
+                                      ),
+                                    ],
+                                    border: Border.all(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 6,
+                                      ),
+                                      Text(
+                                        "Adole",
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            color: red1,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                            letterSpacing: 2),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            height: 7,
+                                          ),
+                                          Container(
+                                            child: CircleAvatar(
+                                              radius: 15,
+                                              backgroundImage: AssetImage(
+                                                  "assets/images/images.jpg"),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Text("8:00"),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: 150,
+                                  height: 100,
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 15),
+                                  padding: EdgeInsets.symmetric(horizontal: 25),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: mauve1,
+                                        blurRadius: 10,
+                                        spreadRadius: 2,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 6,
+                                      ),
+                                      Text(
+                                        "Adole",
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            color: red1,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                            letterSpacing: 2),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            height: 7,
+                                          ),
+                                          Container(
+                                            child: CircleAvatar(
+                                              radius: 15,
+                                              backgroundImage: AssetImage(
+                                                  "assets/images/images.jpg"),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Text("8:00"),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ])))
+              ])),
+        ));
   }
 }

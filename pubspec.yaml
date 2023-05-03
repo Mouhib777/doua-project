@@ -61,6 +61,7 @@ dependencies:
   awesome_notifications: ^0.7.4+1
   url_launcher: ^6.1.7
   animate_do: ^3.0.2
+  assets_audio_player: ^3.0.6
   # scheduled_notifications: ^1.0.0
 
 dev_dependencies:
