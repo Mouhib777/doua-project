@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:alarm/alarm.dart';
 import 'package:alarm/model/alarm_settings.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cron/cron.dart';
 import 'package:douaa_project/widget/style.dart';
@@ -1243,7 +1244,7 @@ class _for_medState extends State<for_med> {
                       },
                       icon: Icon(Icons.add, color: noire1, size: 24),
                       label: Text(
-                        "Set alarm2",
+                        "open alarm app",
                         style: TextStyle(
                             color: noire1,
                             fontWeight: FontWeight.bold,
@@ -1291,6 +1292,11 @@ class _for_medState extends State<for_med> {
                             Schedule.parse(
                                 '0 ${_selectedTime3!.minute.toString().padLeft(2, '0')} ${_selectedTime3!.hour.toString().padLeft(2, '0')} * * *'),
                             () async {
+                          AssetsAudioPlayer.newPlayer().open(
+                            Audio("assets/sounds/alarm.mp3"),
+                            // autoPlay: true,
+                            showNotification: true,
+                          );
                           EasyLoading.showSuccess('mriguel1');
                           print("1");
                           // await sendNotification();
@@ -1385,6 +1391,12 @@ class _for_medState extends State<for_med> {
                               () async {
                             EasyLoading.showSuccess('mriguel4');
                             print("4");
+                            AssetsAudioPlayer.newPlayer().open(
+                              Audio("assets/sounds/alarm.mp3"),
+                              // autoPlay: true,
+                              showNotification: true,
+                            );
+
                             //! houni 7ot shnya t7ebou yaaml
                             // await sendNotification();
                           });
@@ -1393,6 +1405,11 @@ class _for_medState extends State<for_med> {
                               Schedule.parse(
                                   '0 ${_selectedTime4!.minute.toString().padLeft(2, '0')} ${_selectedTime4!.hour.toString().padLeft(2, '0')} * * *'),
                               () async {
+                            AssetsAudioPlayer.newPlayer().open(
+                              Audio("assets/sounds/alarm.mp3"),
+                              // autoPlay: true,
+                              showNotification: true,
+                            );
                             EasyLoading.showSuccess('mriguel4');
                             //! houni 7ot shnya t7ebou yaaml
                             print("4");
@@ -1400,6 +1417,11 @@ class _for_medState extends State<for_med> {
                                 Schedule.parse(
                                     '0 ${_selectedTime5!.minute.toString().padLeft(2, '0')} ${_selectedTime5!.hour.toString().padLeft(2, '0')} * * *'),
                                 () async {
+                              AssetsAudioPlayer.newPlayer().open(
+                                Audio("assets/sounds/alarm.mp3"),
+                                // autoPlay: true,
+                                showNotification: true,
+                              );
                               EasyLoading.showSuccess('mriguel5');
                               print("5");
                               //! houni 7ot shnya t7ebou yaaml
@@ -1420,12 +1442,22 @@ class _for_medState extends State<for_med> {
                               Schedule.parse(
                                   '0 ${_selectedTime4!.minute.toString().padLeft(2, '0')} ${_selectedTime4!.hour.toString().padLeft(2, '0')} * * *'),
                               () async {
+                            AssetsAudioPlayer.newPlayer().open(
+                              Audio("assets/sounds/alarm.mp3"),
+                              // autoPlay: true,
+                              showNotification: true,
+                            );
                             EasyLoading.showSuccess('mriguel4');
                             print("4");
                             cron.schedule(
                                 Schedule.parse(
                                     '0 ${_selectedTime5!.minute.toString().padLeft(2, '0')} ${_selectedTime5!.hour.toString().padLeft(2, '0')} * * *'),
                                 () async {
+                              AssetsAudioPlayer.newPlayer().open(
+                                Audio("assets/sounds/alarm.mp3"),
+                                // autoPlay: true,
+                                showNotification: true,
+                              );
                               EasyLoading.showSuccess('mriguel5');
                               print("5");
                               // await sendNotification();
@@ -1435,6 +1467,11 @@ class _for_medState extends State<for_med> {
                                 Schedule.parse(
                                     '0 ${_selectedTime6!.minute.toString().padLeft(2, '0')} ${_selectedTime6!.hour.toString().padLeft(2, '0')} * * *'),
                                 () async {
+                              AssetsAudioPlayer.newPlayer().open(
+                                Audio("assets/sounds/alarm.mp3"),
+                                // autoPlay: true,
+                                showNotification: true,
+                              );
                               EasyLoading.showSuccess('mriguel6');
                               print("6");
                               //! houni 7ot shnya t7ebou yaaml
