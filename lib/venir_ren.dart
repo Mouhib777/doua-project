@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:douaa_project/modifier_ren.dart';
+import 'package:douaa_project/passer.dart';
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -22,11 +23,8 @@ class venir_ren extends StatefulWidget {
 }
 
 class _venir_renState extends State<venir_ren> {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
   late Map<String, dynamic> eventData;
   late String docid;
-  DateTime aujourdhui = DateTime.now();
   @override
   void initState() {
     super.initState();
@@ -118,7 +116,7 @@ class _venir_renState extends State<venir_ren> {
                     itemBuilder: (context, index) {
                       final item = widget.eventDataList[index];
                       docid = item['docId'] ?? '';
-
+                        
                       return Column(children: [
                         SizedBox(
                           height: 20,
@@ -166,10 +164,10 @@ class _venir_renState extends State<venir_ren> {
                                               ),
                                             ),
                                           ),
-                                          CircleAvatar(
+                                           CircleAvatar(
                                             radius: 24,
                                             backgroundImage: AssetImage(
-                                                "assetsimages/doctor.jpg"),
+                                                "assets/images/doctor.jpg"),
                                           ),
                                         ],
                                       ),

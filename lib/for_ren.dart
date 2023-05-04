@@ -16,6 +16,7 @@ class for_renState extends State<for_ren> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   late String nomMedecin;
   late String numMedecin;
+  String selectedOption = "";
   late DocumentReference docRef;
   bool ishValid = true;
   bool isDateValid = true;
@@ -37,7 +38,7 @@ class for_renState extends State<for_ren> {
     return '$d / $m / $y';
   }
 
-  void _validateDate() {
+ void _validateDate() {
     final selectedDate = DateTime(date.year, date.month, date.day);
     if (selectedDate.isBefore(today)) {
       setState(() {
@@ -91,24 +92,10 @@ class for_renState extends State<for_ren> {
   }
 
   Future<void> _addRDV() async {
-    final formData = _formKey.currentState!.value;
-    final selectedOption = formData['selectedOptionn'];
-    final time = TimeOfDay.now(); // Add this line to define the "time" variable
-    final date = DateTime.now();
+    
 
     try {
-      if (selectedOption == 'rappel personalisé') {
-        final rappelPersonalise =
-            DateTime(date.year, date.month, date.day, time.hour, time.minute);
-        docRef = await FirebaseFirestore.instance.collection('r').add({
-          'nomMedecin': nomMedecin,
-          'numMedecin': numMedecin,
-          'date': getdate(),
-          'time':
-              '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}',
-          'rappelPersonnalis': rappelPersonalise,
-        });
-      } else {
+      
         docRef = await FirebaseFirestore.instance.collection('r').add({
           'nomMedecin': nomMedecin,
           'numMedecin': numMedecin,
@@ -117,7 +104,7 @@ class for_renState extends State<for_ren> {
               '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}',
           'rappelPersonnalis': selectedOption,
         });
-      }
+      
 
       _formKey.currentState?.reset();
 
@@ -384,87 +371,13 @@ class for_renState extends State<for_ren> {
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    FormBuilderFieldOption(
-                      value: "rappel personalisé",
-                      child: Text(
-                        "Rappel personalisé",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                  
                   ],
-                  onChanged: (value) async {
-                    if (value == 'rappel personalisé') {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Choisir un rappel personnalisé ",
-                                style: const TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 216, 210, 255),
-                                ),
-                              ),
-                              IconButton(
-                                  icon: const Icon(
-                                    Icons.access_time,
-                                    color: Color.fromARGB(255, 216, 210, 255),
-                                  ),
-                                  onPressed: () async {
-                                    // Afficher un sélecteur de temps
-                                    final time = await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.now(),
-                                    );
-                                    // Afficher un sélecteur de date
-                                    final date = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(2022),
-                                      lastDate: DateTime(2030),
-                                    );
-                                    // Afficher un sélecteur de temps si l'utilisateur a sélectionné une date
-
-                                    if (time != null) {
-                                      // Calculer la différence entre le temps actuel et le temps sélectionné
-                                      final now = DateTime.now();
-                                      final selectedTime = DateTime(
-                                          date!.year,
-                                          date.month,
-                                          date.day,
-                                          time.hour,
-                                          time.minute);
-                                      final difference =
-                                          selectedTime.difference(now);
-
-                                      // Calculer le nombre de jours, heures et minutes jusqu'au réveil
-                                      final days = difference.inDays;
-                                      final hours =
-                                          difference.inHours.remainder(24);
-                                      final minutes =
-                                          difference.inMinutes.remainder(60);
-
-                                      // Afficher le temps restant jusqu'au réveil
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          backgroundColor: const Color.fromARGB(
-                                              255, 120, 21, 240),
-                                          content: Text(
-                                              'Réveil dans $days jour(s), $hours heure(s) et $minutes minute(s)'),
-                                        ),
-                                      );
-                                    }
-                                  }),
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-                  },
+  onChanged: (value) {
+    setState(() {
+      selectedOption = value!;
+    });
+  },
                 ),
                 Center(
                   child: ElevatedButton(

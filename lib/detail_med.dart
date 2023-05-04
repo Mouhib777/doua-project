@@ -30,7 +30,7 @@ class _MedicineDetailsPageState extends State<detail_med> {
                   ),
                   Center(
                     child: Image.asset(
-                      'assetsimages/t.jpg',
+                      'assets/images/t.jpg',
                       fit: BoxFit.cover,
                       height: 250,
                     ),
@@ -119,7 +119,7 @@ class _MedicineDetailsPageState extends State<detail_med> {
                   Row(
                     children: [
                       Text(
-                        "Date de début:",
+                        "Durée determinée:",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: red1,
@@ -129,7 +129,7 @@ class _MedicineDetailsPageState extends State<detail_med> {
                       Container(
                         margin: EdgeInsets.only(left: 30),
                         child: Text(
-                          '${widget.medicineData['dateDebMed']}',
+                          '${widget.medicineData['dureeDet_jour']}',
                           style: TextStyle(
                             letterSpacing: 2,
                             fontWeight: FontWeight.bold,
@@ -145,7 +145,7 @@ class _MedicineDetailsPageState extends State<detail_med> {
                   Row(
                     children: [
                       Text(
-                        'Durée du medicament :',
+                        'Durée indeterminée:',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: red1,
@@ -155,7 +155,7 @@ class _MedicineDetailsPageState extends State<detail_med> {
                       Container(
                         margin: EdgeInsets.only(left: 30),
                         child: Text(
-                          '${widget.medicineData['dureMed']}',
+                          '${widget.medicineData['dureeIndet']}',
                           style: TextStyle(
                             letterSpacing: 2,
                             fontWeight: FontWeight.bold,
@@ -167,55 +167,8 @@ class _MedicineDetailsPageState extends State<detail_med> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Text(
-                        'Periode de la prise:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: red1,
-                          fontSize: 18,
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 30),
-                        child: Text(
-                          '${widget.medicineData['prd']}',
-                          style: TextStyle(
-                            letterSpacing: 2,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                            fontStyle: FontStyle.italic,
-                            fontFamily: 'BreeSerif-Regular',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Horaire de la prise:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: red1,
-                      fontSize: 18,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 30),
-                    child: Text(
-                      '${widget.medicineData['horaireMed']}',
-                      style: TextStyle(
-                        color: Colors.black,
-                        letterSpacing: 2,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                        fontStyle: FontStyle.italic,
-                        fontFamily: 'BreeSerif-Regular',
-                      ),
-                    ),
-                  ),
+                  
+                  
                 ],
               ),
             ),

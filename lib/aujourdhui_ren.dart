@@ -4,12 +4,6 @@ import 'package:flutter/material.dart';
 import 'detail_rend.dart';
 
 extension DateTimeExtension on DateTime {
-  bool isToday() {
-    final now = DateTime.now();
-    return this.year == now.year &&
-        this.month == now.month &&
-        this.day == now.day;
-  }
 }
 
 class aujourdhui_ren extends StatefulWidget {
@@ -69,9 +63,8 @@ class _aujourdhui_renState extends State<aujourdhui_ren> {
                 itemBuilder: (context, index) {
                   final item = widget.eventDataList[index];
                   docid = item['docId'] ?? '';
-                  bool isToday = DateTime.parse(item['date']).isToday();
-                  return isToday
-                      ? Column(children: [
+                  return 
+                     Column(children: [
                           SizedBox(
                             height: 20,
                           ),
@@ -169,8 +162,8 @@ class _aujourdhui_renState extends State<aujourdhui_ren> {
                                       ],
                                     ))),
                           )
-                        ])
-                      : Container();
+                        ]);
+                      
                 })));
   }
 }

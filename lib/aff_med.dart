@@ -89,12 +89,12 @@ class _aff_medState extends State<aff_med> {
                       backgroundColor: gris,
                       shape: RoundedRectangleBorder(),
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => for_med(
-                        //               initialDateTime: DateTime(2023),
-                        //             )));
+                         Navigator.push(
+                             context,
+                            MaterialPageRoute(
+                                builder: (context) => for_med(
+                                   
+                                     )));
                       },
                       child: Text(
                         "Ajouter un médicament",
@@ -182,7 +182,7 @@ class _aff_medState extends State<aff_med> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          "${item['prd']}",
+                                          "${item['formeMed']}",
                                           style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
@@ -192,17 +192,7 @@ class _aff_medState extends State<aff_med> {
                                         SizedBox(
                                           height: 10,
                                         ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "${item['horaireMed']}",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: green2,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ],
-                                        ),
+                                     
                                         SizedBox(
                                           height: 9,
                                         ),

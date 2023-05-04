@@ -1,4 +1,6 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:douaa_project/aujourdhui_med.dart';
+import 'package:douaa_project/aujourdhui_ren.dart';
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -189,68 +191,20 @@ class _aujState extends State<auj> {
                                   AssetImage("assets/images/doc.jpg"),
                             ),
                           ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
+                         
+                            Row(
                               children: [
+                                 SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child:
                                 Container(
                                   width: 250,
                                   height: 100,
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 15),
-                                  padding: EdgeInsets.symmetric(horizontal: 25),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: mauve1,
-                                        blurRadius: 10,
-                                        spreadRadius: 2,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 6,
-                                      ),
-                                      Text(
-                                        "Dr.douaa",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            color: red1,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                            letterSpacing: 2),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 7,
-                                          ),
-                                          Container(
-                                            child: CircleAvatar(
-                                              radius: 15,
-                                              backgroundImage: AssetImage(
-                                                  "assets/images/images.jpg"),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          Text("8:00"),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                   child: aujourdhui_med(docId: '', eventDataList1: [],)
+                                ),)
                               ],
                             ),
-                          ),
+                          
                         ]))),
                 SizedBox(
                   height: 10,
@@ -279,122 +233,14 @@ class _aujState extends State<auj> {
                                   AssetImage("assets/images/pp.PNG"),
                             ),
                           ),
-                          SingleChildScrollView(
+                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: [
                                 Container(
-                                  width: 150,
+                                  width: 250,
                                   height: 100,
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 15),
-                                  padding: EdgeInsets.symmetric(horizontal: 25),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: mauve1,
-                                        blurRadius: 10,
-                                        spreadRadius: 2,
-                                      ),
-                                    ],
-                                    border: Border.all(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 6,
-                                      ),
-                                      Text(
-                                        "Adole",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            color: red1,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                            letterSpacing: 2),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 7,
-                                          ),
-                                          Container(
-                                            child: CircleAvatar(
-                                              radius: 15,
-                                              backgroundImage: AssetImage(
-                                                  "assets/images/images.jpg"),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          Text("8:00"),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 150,
-                                  height: 100,
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 15),
-                                  padding: EdgeInsets.symmetric(horizontal: 25),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: mauve1,
-                                        blurRadius: 10,
-                                        spreadRadius: 2,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 6,
-                                      ),
-                                      Text(
-                                        "Adole",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            color: red1,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                            letterSpacing: 2),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 7,
-                                          ),
-                                          Container(
-                                            child: CircleAvatar(
-                                              radius: 15,
-                                              backgroundImage: AssetImage(
-                                                  "assets/images/images.jpg"),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          Text("8:00"),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                   child: aujourdhui_ren(docid:'',eventDataList: [],)
                                 ),
                               ],
                             ),

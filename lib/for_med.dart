@@ -31,7 +31,7 @@ class for_med extends StatefulWidget {
   static const Color mainColor = Colors.deepPurple;
   // final DateTime initialDateTime;
   const for_med({
-    Key? key,
+    Key? key, 
   }) : super(key: key);
 
   @override
@@ -86,6 +86,7 @@ class _for_medState extends State<for_med> {
   Future<void> _selectDateTime(BuildContext context) async {
     final DateTime? selectedDateTime = await showDatePicker(
       context: context,
+      
       initialDate: _selectedDateTime,
       firstDate: DateTime(2021),
       lastDate: DateTime(2025),
@@ -259,29 +260,12 @@ class _for_medState extends State<for_med> {
       );
     }
   }
-
-  // Future<void> _selectTime3(BuildContext context) async {
-  //   final TimeOfDay? picked3 = await showTimePicker(
-  //     context: context,
-  //     initialTime: TimeOfDay.now(),
-  //   );
-  //   if (picked3 != null) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //           content: Row(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: [
-  //           Text(
-  //               '${picked3.hour}:${picked3.minute.toString().padLeft(2, '0')}'),
-  //         ],
-  //       )),
-  //     );
-  //     setState(() {
-  //       selectedTime = picked3;
-  //     });
-  //   }
-  // }
-
+ String getTime() {
+    String a = _selectedTime4.toString();
+    String b = _selectedTime5.toString();
+    String c = _selectedTime6.toString();
+    return '$a $b $c';
+  }
   int id_alarmb = Random().nextInt(65312);
 
   DateTime _selectedDateTime = DateTime.now();
@@ -315,63 +299,17 @@ class _for_medState extends State<for_med> {
     String ajm = _counter.toString();
     return '$ajm $nmbr';
   }
-
-  String getHoraire() {
-    String h = horaires.toString();
-
-    return '$h';
-  }
-
   Future<void> _addRDV() async {
-    String users1 = '';
-    if (li) {
-      users1 += 'Lindi' + '/';
-    }
-    if (mar) {
-      users1 += 'Mardi' + '/';
-    }
-    if (mer) {
-      users1 += 'Mercredi' + '/';
-    }
-    if (je) {
-      users1 += 'Jeudi' + '/';
-    }
-    if (ven) {
-      users1 += 'Vendredi' + '/';
-    }
-    if (sam) {
-      users1 += 'Samdi' + '/';
-    }
-    if (dim) {
-      users1 += 'Dimanche' + '/';
-    }
 
     try {
-      horaires
-          .add('${selectedHour}:${selectedMinute} ${_c} ${selectedCountry}');
-      if (selectedOptionn == "t") {
-        periode = "Tous les jours";
-      } else {
-        periode = users1;
-      }
 
       docRef = await FirebaseFirestore.instance.collection('u1').add({
         'nomMed': nomMed,
         'formeMed': selectedCountry,
         'voieMed': selectedCountry1,
-        'dateDebMed': getSelectedDate(),
-        'dureMed': getduree(),
-        'horaireMed': getHoraire(),
-        'prd': periode,
-        'day': selectedDay,
-        'month': selectedMonth,
-        'year': selectedYear,
-        'heure': selectedHour,
-        'minute': selectedMinute,
-        'determine': notify,
-        'jour _perd': selectedCountry2,
-        'c': _c,
-        "_counter": _counter
+        'dureeDet_jour':_selectedDateTime,
+        'dureeIndet': getTime(),
+     
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -379,9 +317,6 @@ class _for_medState extends State<for_med> {
       );
       // Effacer le formulaire après avoir ajouté le RDV
       _formKey.currentState?.reset();
-      setState(() {
-        horaires.clear();
-      });
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -391,7 +326,7 @@ class _for_medState extends State<for_med> {
                   )));
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Une erreur s\'est produite')),
+        SnackBar(content: Text('Une erreur s\'est produite $error')),
       );
     }
   }
@@ -728,394 +663,59 @@ class _for_medState extends State<for_med> {
                   ),
                   margin: EdgeInsets.only(right: 260),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 190),
-                  child: Text(
-                    "Date de début ",
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 23,
-                        color: noire1,
-                        fontStyle: FontStyle.italic),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 22, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          // Dropdown pour le jour
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: mauve1),
-                              borderRadius: BorderRadius.circular(10),
-                              color: gris,
-                            ),
-                            alignment: Alignment.center,
-                            width: 60,
-                            child: DropdownButton<int>(
-                              value: selectedDay,
-                              items: List<DropdownMenuItem<int>>.generate(31,
-                                  (int index) {
-                                return DropdownMenuItem<int>(
-                                  value: index + 1,
-                                  child: Text(
-                                    '${index + 1}',
-                                    style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold,
-                                        color: mauve2),
-                                  ),
-                                );
-                              }),
-                              onChanged: (int? value) {
-                                setState(() {
-                                  selectedDay = value;
-                                });
-                              },
-                            ),
-                          ),
-                          const SizedBox(width: 16.0),
-                          // Dropdown pour le mois
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: mauve1),
-                              borderRadius: BorderRadius.circular(10),
-                              color: gris,
-                            ),
-                            alignment: Alignment.center,
-                            width: 110,
-                            child: DropdownButton<int>(
-                              value: selectedMonth,
-                              items: List<DropdownMenuItem<int>>.generate(12,
-                                  (int index) {
-                                return DropdownMenuItem<int>(
-                                  value: index + 1,
-                                  child: Text(
-                                    DateFormat('MMMM').format(
-                                        DateTime(today.year, index + 1, 1)),
-                                    style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold,
-                                        color: mauve2),
-                                  ),
-                                );
-                              }),
-                              onChanged: (int? value) {
-                                setState(() {
-                                  selectedMonth = value;
-                                });
-                              },
-                            ),
-                          ),
-                          const SizedBox(width: 16.0),
-                          // Dropdown pour l'année
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: mauve1),
-                              borderRadius: BorderRadius.circular(10),
-                              color: gris,
-                            ),
-                            alignment: Alignment.center,
-                            width: 80,
-                            child: DropdownButton<int>(
-                              value: selectedYear,
-                              items: List<DropdownMenuItem<int>>.generate(10,
-                                  (int index) {
-                                return DropdownMenuItem<int>(
-                                  value: today.year + index,
-                                  child: Text(
-                                    '${today.year + index}',
-                                    style: TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        fontWeight: FontWeight.bold,
-                                        color: mauve2),
-                                  ),
-                                );
-                              }),
-                              onChanged: (int? value) {
-                                setState(() {
-                                  selectedYear = value;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                SwitchListTile(
-                  title: Text(
-                    "Durée indéternimée",
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 23,
-                        color: noire1,
-                        fontStyle: FontStyle.italic),
-                  ),
-                  value: notify,
-                  activeColor: mauve1,
-                  onChanged: (val) {
-                    setState(() {
-                      notify = val;
-                    });
-                  },
-                ),
-                if (notify)
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 20),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: gris,
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(9),
-                              color: gris,
-                            ),
-                          ),
-                          FloatingActionButton(
-                            heroTag: 'btn1',
-                            mini: true,
-                            backgroundColor: gris,
-                            onPressed: _incrementCounter,
-                            tooltip: 'Increment',
-                            child: Icon(
-                              Icons.add,
-                              color: mauve2,
-                              size: 20,
-                            ),
-                          ),
-                          Text(
-                            '$_counter',
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
-                          ),
-                          FloatingActionButton(
-                            heroTag: 'btn1',
-                            mini: true,
-                            backgroundColor: gris,
-                            onPressed: _decrementCounter,
-                            tooltip: 'Decrement',
-                            child: Icon(Icons.remove, size: 20, color: mauve2),
-                          ),
-                          SizedBox(width: 20),
-                          DropdownButton(
-                            iconSize: 19,
-                            dropdownColor: Colors.white,
-                            hint: Text(
-                              "Jour(s)",
-                            ),
-                            items: ["Jour(s)", "Semaine(s)", "Mois"]
-                                .map((e) => DropdownMenuItem(
-                                      child: Text(
-                                        "$e",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: green2,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      value: e,
-                                    ))
-                                .toList(),
-                            onChanged: (val) {
-                              setState(() {
-                                selectedCountry2 = val;
-                              });
-                            },
-                            value: selectedCountry2,
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 15),
-                      Row(
-                        children: [
-                          Radio(
-                            value: "t",
-                            groupValue: selectedOptionn,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedOptionn = value;
-                              });
-                            },
-                          ),
-                          Text(
-                            "Tous les jours",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                          Radio(
-                            value: "c",
-                            groupValue: selectedOptionn,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedOptionn = value;
-                              });
-                              if (value == "c") {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        duration: Duration(seconds: 5),
-                                        backgroundColor:
-                                            Color.fromARGB(255, 75, 9, 87),
-                                        content: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Text("lin"),
-                                                  Checkbox(
-                                                      value: li,
-                                                      onChanged: (val) {
-                                                        setState(() {
-                                                          li = val!;
-                                                        });
-                                                      })
-                                                ],
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Text("Mar"),
-                                                  Checkbox(
-                                                      value: mar,
-                                                      onChanged: (val) {
-                                                        setState(() {
-                                                          mar = val!;
-                                                        });
-                                                      })
-                                                ],
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Text("Mer"),
-                                                  Checkbox(
-                                                      value: mer,
-                                                      onChanged: (val) {
-                                                        setState(() {
-                                                          mer = val!;
-                                                        });
-                                                      })
-                                                ],
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Text("Jeu"),
-                                                  Checkbox(
-                                                      value: je,
-                                                      onChanged: (val) {
-                                                        setState(() {
-                                                          je = val!;
-                                                        });
-                                                      })
-                                                ],
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Text("Mar"),
-                                                  Checkbox(
-                                                      value: ven,
-                                                      onChanged: (val) {
-                                                        setState(() {
-                                                          ven = val!;
-                                                        });
-                                                      })
-                                                ],
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Text("Sam"),
-                                                  Checkbox(
-                                                      value: sam,
-                                                      onChanged: (val) {
-                                                        setState(() {
-                                                          sam = val!;
-                                                        });
-                                                      })
-                                                ],
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Text("Dim"),
-                                                  Checkbox(
-                                                      value: dim,
-                                                      onChanged: (val) {
-                                                        setState(() {
-                                                          dim = val!;
-                                                        });
-                                                      })
-                                                ],
-                                              ),
-                                            ])));
-                              }
-                            },
-                          ),
-                          Text(
-                            "Certaines jours",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 180),
-                  child: Text(
-                    "Horaire de la prise",
-                    style: TextStyle(
+                Text("(Veuillez sélectionner si votre médicament est classé comme étant déterminé ou indéterminé)",style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                        color: blue,
+                        fontSize: 14,
+                        color: noire2,
+                        fontStyle: FontStyle.italic,
+                      ),textAlign: TextAlign.center,),
+                SizedBox(
+                  height: 25,
+                ),
+                
+                  Container(margin: EdgeInsets.only(right: 180),
+                    child:Text(
+                    "Durée déternimée",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 23,
+                        color: noire1,
                         fontStyle: FontStyle.italic),
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
+                  ),
+    SizedBox(height: 10),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      "alarm mara barka fi date w nhar mou3ayn",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    //! edheya button li t7el widget te3 wkt w date
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Text("Durée un jour ",
+                                              style: TextStyle(
+                                                letterSpacing: 2,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 17,
+                                                fontStyle: FontStyle.italic,
+                                                fontFamily: 'BreeSerif-Regular',
+                                              ),),
+                                              SizedBox(width: 20),
                         ElevatedButton(
                           onPressed: () => _selectDateTime(context),
-                          child: Text("akhtar date"),
+                          child: Text("Selectionner",style: TextStyle(
+                         
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),),style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 139, 121, 168),
+                          padding: EdgeInsets.only(
+                              top: 5, bottom: 5, left: 8, right: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(39),
+                          ),
+                          elevation: 20),
                         ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Text(
-                          'selected: $formattedDateTime',
-                        ),
-                      ],
-                    ),
-                    ElevatedButton.icon(
+                        SizedBox(width: 10),
+                        ElevatedButton(
                       onPressed: () async {
                         // await pushNotification(selectedTime);
                         // setState(() {
@@ -1129,7 +729,7 @@ class _for_medState extends State<for_med> {
                         final timee = time_format.parse(time_en_string);
                         print(timee);
                         EasyLoading.showToast(
-                            'besh ndhakrek maa ${time_en_string}');
+                            'Alarme dans  ${time_en_string}');
 
                         await Alarm.set(
                           alarmSettings: AlarmSettings(
@@ -1152,16 +752,17 @@ class _for_medState extends State<for_med> {
                         //     .map((e) async => await Alarm.set(alarmSettings: e));
                         // setState(() {});
                       },
-                      icon: Icon(Icons.add, color: noire1, size: 24),
-                      label: Text(
-                        "Set alarm",
+                     
+                       child: Text(
+                        "Confirmer",
                         style: TextStyle(
-                            color: noire1,
+                            color:green2,
+                            decoration: TextDecoration.underline,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
                       ),
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: gris,
+                          backgroundColor: Color.fromARGB(255, 221, 213, 235),
                           padding: EdgeInsets.only(
                               top: 5, bottom: 5, left: 5, right: 5),
                           shape: RoundedRectangleBorder(
@@ -1169,69 +770,18 @@ class _for_medState extends State<for_med> {
                           ),
                           elevation: 20),
                     ),
-                    Text(
-                      "alarm fi periode mouaayna",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            _selectDate1(context);
-                            EasyLoading.showInfo(
-                                'Selected date: ${DateFormat('yyyy-MM-dd').format(_selectedDate1!)}');
-                          },
-                          child: Text("debut"),
-                        ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Text(
-                          _selectedDate1 == null
-                              ? 'debut'
-                              : 'Selected date: ${DateFormat('yyyy-MM-dd').format(_selectedDate1!)}',
-                        )
+                     
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            _selectDate2(context);
-                            EasyLoading.showInfo(
-                                'Selected date: ${DateFormat('yyyy-MM-dd').format(_selectedDate2!)}');
-                          },
-                          child: Text("fin"),
-                        ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Text(
-                          _selectedDate2 == null
-                              ? 'fin'
-                              : 'Selected date: ${DateFormat('yyyy-MM-dd').format(_selectedDate2!)}',
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => _selectTime3_(context),
-                          child: Text('Select Time'),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          'Selected Time: $timeString_',
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ],
-                    ),
-                    ElevatedButton.icon(
+                    SizedBox(height: 18,),
+                    Row(children: [Container(margin:EdgeInsets.only(left: 25),child:Text("Plus d'un jour ",
+                                              style: TextStyle(
+                                                letterSpacing: 2,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 17,
+                                                fontStyle: FontStyle.italic,
+                                                fontFamily: 'BreeSerif-Regular',
+                                              ),),), SizedBox(width: 20,), ElevatedButton(
                       onPressed: () {
                         openAlarmApp();
 
@@ -1242,144 +792,145 @@ class _for_medState extends State<for_med> {
                         //         '${_selectedTime3_!.minute.toString().padLeft(2, '0')} ${_selectedTime3_!.hour.toString().padLeft(2, '0')} * * * ${DateFormat('yyyy-MM-dd').format(_selectedDate1!)} ${DateFormat('yyyy-MM-dd').format(_selectedDate2!)}'),
                         //     () async {});
                       },
-                      icon: Icon(Icons.add, color: noire1, size: 24),
-                      label: Text(
-                        "open alarm app",
+                     
+                      child: Text(
+                        "Selectionner une periode ",
                         style: TextStyle(
-                            color: noire1,
+                         
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
                       ),
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: gris,
+                          backgroundColor: Color.fromARGB(255, 188, 177, 206),
                           padding: EdgeInsets.only(
-                              top: 5, bottom: 5, left: 5, right: 5),
+                              top: 3, bottom: 3, left: 8, right: 8),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(39),
                           ),
                           elevation: 20),
-                    ),
+                    ),],),
+                    
+                  
+                   
                     SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
+                   Container(margin: EdgeInsets.only(right: 180),
+                    child:Text(
+                    "Durée indéternimée",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 23,
+                        color: noire1,
+                        fontStyle: FontStyle.italic),
+                  ),
+                  ),
+                  SizedBox(height: 20,),
                     Text(
-                      "edheyya ki thot w9t yo93ed iaawd'ha kol 24h",
-                      style: TextStyle(color: Colors.red),
+                      "Choisissez l'horaire de prise de votre médicament:",
+                       style: TextStyle(
+                                               
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15,
+                                                fontStyle: FontStyle.italic,
+                                                fontFamily: 'BreeSerif-Regular',
+                                              ),
                     ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => _selectTime3(context),
-                          child: Text('Select Time'),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          'Selected Time: $timeString',
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ],
-                    ),
-
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        print(DateTime(2022, 01, 10));
-                        final Cron cron = Cron();
-                        cron.schedule(
-                            Schedule.parse(
-                                '0 ${_selectedTime3!.minute.toString().padLeft(2, '0')} ${_selectedTime3!.hour.toString().padLeft(2, '0')} * * *'),
-                            () async {
-                          AssetsAudioPlayer.newPlayer().open(
-                            Audio("assets/sounds/alarm.mp3"),
-                            // autoPlay: true,
-                            showNotification: true,
-                          );
-                          EasyLoading.showSuccess('mriguel1');
-                          print("1");
-                          // await sendNotification();
-                        });
-
-                        print(DateTime(2022, 01, 10));
-                      },
-                      icon: Icon(Icons.add, color: noire1, size: 24),
-                      label: Text(
-                        "Set alarm3",
-                        style: TextStyle(
-                            color: noire1,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: gris,
-                          padding: EdgeInsets.only(
-                              top: 5, bottom: 5, left: 5, right: 5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(39),
-                          ),
-                          elevation: 20),
-                    ),
-
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Text(
-                      "edheyya ki thot 3 aw9at fard nhar yo93ed iaawd'hom kol 24h",
-                      style: TextStyle(color: Colors.red),
-                    ),
-
+SizedBox(height: 15,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
                           onPressed: () => _selectTime4(context),
-                          child: Text('Select Time'),
+                          child: Text('Heure',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),), style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 188, 177, 206),
+                          padding: EdgeInsets.only(
+                              top: 5, bottom: 5, left: 8, right: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(39),
+                          ),
+                          elevation: 20),
                         ),
                         SizedBox(
                           width: 20,
                         ),
                         Text(
-                          'Selected Time: $timeString4',
-                          style: TextStyle(fontSize: 14),
+                          'Le premier horaire: $timeString4',
+                         style: TextStyle(
+                                               
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15,
+                                                color: green2,
+                                                fontStyle: FontStyle.italic,
+                                                fontFamily: 'BreeSerif-Regular',
+                                              ),
                         ),
                       ],
                     ),
+                     SizedBox(height: 10,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
                           onPressed: () => _selectTime5(context),
-                          child: Text('Select Time'),
+                          child: Text('Heure',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 188, 177, 206),
+                          padding: EdgeInsets.only(
+                              top: 5, bottom: 5, left: 8, right: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(39),
+                          ),
+                          elevation: 20),
                         ),
                         SizedBox(
                           width: 20,
                         ),
                         Text(
-                          'Selected Time: $timeString5',
-                          style: TextStyle(fontSize: 14),
+                          'Le deuxième horaire: $timeString5',
+                           style: TextStyle(
+                                               
+                                                fontWeight: FontWeight.bold,
+                                                color: green2,
+                                                fontSize: 15,
+                                                fontStyle: FontStyle.italic,
+                                                fontFamily: 'BreeSerif-Regular',
+                                              ),
                         ),
                       ],
                     ),
+                    SizedBox(height: 10,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
                           onPressed: () => _selectTime6(context),
-                          child: Text('Select Time'),
+                          child:Text ('Heure',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 188, 177, 206),
+                          padding: EdgeInsets.only(
+                              top: 5, bottom: 5, left: 8, right: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(39),
+                          ),
+                          elevation: 20),
                         ),
                         SizedBox(
                           width: 20,
                         ),
                         Text(
-                          'Selected Time: $timeString6',
-                          style: TextStyle(fontSize: 14),
+                          'le troisième horaire: $timeString6',
+                          style: TextStyle(
+                                               
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15,
+                                                color: green2,
+                                                fontStyle: FontStyle.italic,
+                                                fontFamily: 'BreeSerif-Regular',
+                                              ),
                         ),
                       ],
                     ),
-
-                    ElevatedButton.icon(
+                    Container(margin:EdgeInsets.only(left: 250), child: ElevatedButton(
                       onPressed: () {
                         print(DateTime(2022, 01, 10));
                         final Cron cron = Cron();
@@ -1398,7 +949,7 @@ class _for_medState extends State<for_med> {
                             );
 
                             //! houni 7ot shnya t7ebou yaaml
-                            // await sendNotification();
+                            await sendNotification();
                           });
                         } else if (_selectedTime6 == null) {
                           cron.schedule(
@@ -1483,218 +1034,27 @@ class _for_medState extends State<for_med> {
 
                         print(DateTime(2022, 01, 10));
                       },
-                      icon: Icon(Icons.add, color: noire1, size: 24),
-                      label: Text(
-                        "Set alarm4",
+                      
+                      child: Text(
+                        "Confirmer",
                         style: TextStyle(
-                            color: noire1,
+                            color:green2,
+                            decoration: TextDecoration.underline,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
                       ),
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: gris,
+                          backgroundColor: Color.fromARGB(255, 221, 213, 235),
                           padding: EdgeInsets.only(
                               top: 5, bottom: 5, left: 5, right: 5),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(39),
                           ),
                           elevation: 20),
-                    ),
+                    ),),
+                    
 
-                    // print()
-
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Row(
-                    //       children: [
-                    //         Container(
-                    //           height: 40,
-                    //           decoration: BoxDecoration(
-                    //             border: Border.all(width: 1, color: mauve1),
-                    //             borderRadius: BorderRadius.circular(10),
-                    //             color: gris,
-                    //           ),
-                    //           alignment: Alignment.center,
-                    //           width: 80,
-                    //           // child: DropdownButton<int>(
-                    //           //   value: selectedHour,
-                    //           //   items: List<DropdownMenuItem<int>>.generate(24,
-                    //           //       (int index) {
-                    //           //     return DropdownMenuItem<int>(
-                    //           //       value: index,
-                    //           //       child: Text(
-                    //           //         index.toString().padLeft(2,
-                    //           //             '0'), // Afficher toujours deux chiffres avec des zéros à gauche si nécessaire
-                    //           //         style: TextStyle(
-                    //           //           fontStyle: FontStyle.italic,
-                    //           //           fontWeight: FontWeight.bold,
-                    //           //           color: mauve2,
-                    //           //         ),
-                    //           //       ),
-                    //           //     );
-                    //           //   }),
-                    //           //   onChanged: (int? value) {
-                    //           //     setState(() {
-                    //           //       selectedHour = value;
-                    //           //     });
-                    //           //     print(selectedHour);
-                    //           //   },
-                    //           // ),
-                    //         ),
-                    //         // SizedBox(width: 3),
-                    //         // const Text(
-                    //         //   ':',
-                    //         //   style: TextStyle(
-                    //         //     fontSize: 23,
-                    //         //     fontWeight: FontWeight.bold,
-                    //         //   ),
-                    //         // ),
-                    //         // SizedBox(width: 3),
-                    //         // Container(
-                    //         //   height: 40,
-                    //         //   decoration: BoxDecoration(
-                    //         //     border: Border.all(width: 1, color: mauve1),
-                    //         //     borderRadius: BorderRadius.circular(10),
-                    //         //     color: gris,
-                    //         //   ),
-                    //         //   alignment: Alignment.center,
-                    //         //   width: 80,
-                    //         //   child: DropdownButton<int>(
-                    //         //     value: selectedMinute,
-                    //         //     items: List<DropdownMenuItem<int>>.generate(60,
-                    //         //         (int index) {
-                    //         //       return DropdownMenuItem<int>(
-                    //         //         value: index,
-                    //         //         child: Text(
-                    //         //           '${index.toString().padLeft(2, '0')}', // Afficher toujours deux chiffres avec des zéros à gauche si nécessaire
-                    //         //           style: TextStyle(
-                    //         //             fontStyle: FontStyle.italic,
-                    //         //             fontWeight: FontWeight.bold,
-                    //         //             color: mauve2,
-                    //         //           ),
-                    //         //         ),
-                    //         //       );
-                    //         //     }),
-                    //         //     onChanged: (value) {
-                    //         //       setState(() {
-                    //         //         selectedMinute = value;
-                    //         //       });
-                    //         //     },
-                    //         //   ),
-                    //         // ),
-                    //       ],
-                    //     ),
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   width: 12,
-                    // ),
-                    // FloatingActionButton(
-                    //   heroTag: 'btn1',
-                    //   mini: true,
-                    //   backgroundColor: Color.fromARGB(141, 240, 197, 249),
-                    //   onPressed: _increment,
-                    //   tooltip: 'Inc',
-                    //   child: Icon(
-                    //     Icons.add,
-                    //     color: mauve2,
-                    //     size: 20,
-                    //   ),
-                    // ),
-                    // Text(
-                    //   '$_c',
-                    //   style:
-                    //       TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    // ),
-                    // FloatingActionButton(
-                    //   heroTag: 'btn1',
-                    //   mini: true,
-                    //   backgroundColor: Color.fromARGB(141, 240, 197, 249),
-                    //   onPressed: _decrement,
-                    //   tooltip: 'Dec',
-                    //   child: Icon(
-                    //     Icons.remove,
-                    //     color: mauve2,
-                    //     size: 20,
-                    //   ),
-                    // ),
-                    // Text(
-                    //   "${selectedCountry}(s)",
-                    //   style:
-                    //       TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                    // ),
-                    // SizedBox(
-                    //   width: 10,
-                    // ),
                   ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
-                  child: ElevatedButton.icon(
-                    onPressed: () async {
-                      // await pushNotification(selectedTime);
-                      // setState(() {
-                      //   horaires.add(
-                      //       '$selectedHour:$selectedMinute $_c $selectedCountry');
-                      //   _c = 1;
-                      // });
-                      //! 7asb package li stamlt'ha lezem 'timee' ikoun bil format edheya besh yfhemha
-                      final time_en_string = formattedDateTime;
-                      final time_format = DateFormat('MMM d, y h:mm a');
-                      final timee = time_format.parse(time_en_string);
-                      print(timee);
-                      EasyLoading.showToast(
-                          'besh ndhakrek maa ${time_en_string}');
-                      AwesomeNotifications().createNotification(
-                          content: NotificationContent(
-                              id: 10,
-                              channelKey: 'basic_channel',
-                              title: 'Simple Notification',
-                              body: 'Simple body',
-                              actionType: ActionType.Default));
-
-                      await Alarm.set(
-                        alarmSettings: AlarmSettings(
-                          id: id_alarmb, //! je l'ai declaré fou9 besh alarm id ikoun nafsou w akeka tnjm twa9fou
-                          dateTime: timee,
-                          // DateTime.parse(
-                          //     '$selectedYear-${selectedMonth.toString().padRight(2, '0')}-${selectedDay}T${selectedHour.toString().padLeft(2, '0')}:${selectedMinute.toString().toString().padLeft(2, '0')}:00Z'),
-                          assetAudioPath: 'assets/sounds/alarm.mp3',
-                          loopAudio: true,
-                          vibrate: true,
-                          fadeDuration: 10.0,
-                          notificationTitle: 'Prenez votre medicament!',
-                          notificationBody: nomMed,
-                          stopOnNotificationOpen: true,
-                          enableNotificationOnKill: true,
-                        ),
-                      );
-
-                      // alarmSettings
-                      //     .map((e) async => await Alarm.set(alarmSettings: e));
-                      // setState(() {});
-                    },
-                    icon: Icon(Icons.add, color: noire1, size: 24),
-                    label: Text(
-                      "Ajouter un horaire",
-                      style: TextStyle(
-                          color: noire1,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: gris,
-                        padding: EdgeInsets.only(
-                            top: 5, bottom: 5, left: 5, right: 5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(39),
-                        ),
-                        elevation: 20),
-                  ),
                 ),
                 SizedBox(
                   height: 20,
@@ -1702,9 +1062,9 @@ class _for_medState extends State<for_med> {
                 ElevatedButton(
                   onPressed: () async {
                     await Alarm.stop(id_alarmb);
-                    EasyLoading.showSuccess('alarm we9fet');
+                    EasyLoading.showSuccess("L'alarme est éteinte");
                   },
-                  child: Text("wa9ef alarm"),
+                  child: Text("Arrêtez l'alarme"),
                 ),
                 Center(
                   child: ElevatedButton(
