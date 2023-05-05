@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'detail_rend.dart';
 
 extension DateTimeExtension on DateTime {}
@@ -44,8 +45,22 @@ class _aujourdhui_renState extends State<aujourdhui_ren> {
                   })
               .toList();
         } else {
-          // List<Item> filteredItems = items.where((item) => item.date == date).toList();
+          widget.eventDataList = widget.eventDataList.where((item) {
+            DateTime itemDate;
 
+            if (item['date'].contains('/')) {
+              // Date is in format dd/MM/yyyy
+              itemDate = DateFormat('dd/MM/yyyy').parse(item['date']);
+            } else {
+              // Date is in format yyyy-MM-dd
+              itemDate = DateTime.parse(item['date']);
+            }
+
+            DateTime currentDate = DateTime.now();
+            return itemDate.year == currentDate.year &&
+                itemDate.month == currentDate.month &&
+                itemDate.day == currentDate.day;
+          }).toList();
         }
       });
       if (widget.eventDataList.isNotEmpty) {
