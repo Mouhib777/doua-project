@@ -1,14 +1,17 @@
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'detail_med.dart';
 
 class aujourdhui_med extends StatefulWidget {
   final String docId;
+  DateTime? today;
   late List<Map<String, dynamic>> eventDataList1;
   aujourdhui_med({
     required this.eventDataList1,
     required this.docId,
+    DateTime? today,
     Key? key,
   }) : super(key: key);
 
@@ -30,17 +33,46 @@ class _aujourdhui_medState extends State<aujourdhui_med> {
       QuerySnapshot querySnapshot =
           await FirebaseFirestore.instance.collection('u1').get();
       setState(() {
-        widget.eventDataList1 = querySnapshot.docs
-            .map((doc) => {
-                  ...doc.data() as Map<String, dynamic>,
-                  'docId': doc.id, // Ajouter l'ID du document à la map
-                })
-            .toList();
+        if (widget.today != null) {
+          widget.eventDataList1 = querySnapshot.docs
+              .map((doc) => {
+                    ...doc.data() as Map<String, dynamic>,
+                    'docId': doc.id, // Ajouter l'ID du document à la map
+                  })
+              .toList();
+          if (widget.eventDataList1.isNotEmpty) {
+            docId = widget.eventDataList1[0][
+                'docId']; // Initialiser la variable docId avec l'ID du premier élément de la liste
+          }
+        } else {
+          widget.eventDataList1 = querySnapshot.docs
+              .map((doc) => {
+                    ...doc.data() as Map<String, dynamic>,
+                    'docId': doc.id, // Ajouter l'ID du document à la map
+                  })
+              .toList();
+          if (widget.eventDataList1.isNotEmpty) {
+            docId = widget.eventDataList1[0][
+                'docId']; // Initialiser la variable docId avec l'ID du premier élément de la liste
+          }
+          widget.eventDataList1 = widget.eventDataList1.where((item) {
+            DateTime itemDate;
+
+            if (item['date'].contains('/')) {
+              // Date is in format dd/MM/yyyy
+              itemDate = DateFormat('dd/MM/yyyy').parse(item['date']);
+            } else {
+              // Date is in format yyyy-MM-dd
+              itemDate = DateTime.parse(item['date']);
+            }
+
+            DateTime currentDate = DateTime.now();
+            return itemDate.year == currentDate.year &&
+                itemDate.month == currentDate.month &&
+                itemDate.day == currentDate.day;
+          }).toList();
+        }
       });
-      if (widget.eventDataList1.isNotEmpty) {
-        docId = widget.eventDataList1[0][
-            'docId']; // Initialiser la variable docId avec l'ID du premier élément de la liste
-      }
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Une erreur s\'est produite')),
