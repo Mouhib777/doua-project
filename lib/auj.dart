@@ -39,6 +39,7 @@ class _aujState extends State<auj> {
     });
   }
 
+  DateTime today = DateTime.now();
   Widget build(BuildContext context) {
     bool isToday = false;
 
@@ -191,20 +192,21 @@ class _aujState extends State<auj> {
                                   AssetImage("assets/images/doc.jpg"),
                             ),
                           ),
-                         
-                            Row(
-                              children: [
-                                 SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child:
-                                Container(
-                                  width: 250,
-                                  height: 100,
-                                   child: aujourdhui_med(docId: '', eventDataList1: [],)
-                                ),)
-                              ],
-                            ),
-                          
+                          Row(
+                            children: [
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Container(
+                                    width: 250,
+                                    height: 100,
+                                    child: aujourdhui_med(
+                                      docId: '',
+                                      today: today,
+                                      eventDataList1: [],
+                                    )),
+                              )
+                            ],
+                          ),
                         ]))),
                 SizedBox(
                   height: 10,
@@ -233,15 +235,18 @@ class _aujState extends State<auj> {
                                   AssetImage("assets/images/pp.PNG"),
                             ),
                           ),
-                           SingleChildScrollView(
+                          SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: [
                                 Container(
-                                  width: 250,
-                                  height: 100,
-                                   child: aujourdhui_ren(docid:'',eventDataList: [],)
-                                ),
+                                    width: 250,
+                                    height: 100,
+                                    child: aujourdhui_ren(
+                                      docid: '',
+                                      today: today,
+                                      eventDataList: [],
+                                    )),
                               ],
                             ),
                           ),

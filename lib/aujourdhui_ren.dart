@@ -3,16 +3,16 @@ import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
 import 'detail_rend.dart';
 
-extension DateTimeExtension on DateTime {
-}
+extension DateTimeExtension on DateTime {}
 
 class aujourdhui_ren extends StatefulWidget {
   final String docid;
   late List<Map<String, dynamic>> eventDataList;
-
+  DateTime? today;
   aujourdhui_ren({
     required this.eventDataList,
     required this.docid,
+    this.today,
     Key? key,
   }) : super(key: key);
 
@@ -36,12 +36,17 @@ class _aujourdhui_renState extends State<aujourdhui_ren> {
       QuerySnapshot querySnapshot =
           await FirebaseFirestore.instance.collection('r').get();
       setState(() {
-        widget.eventDataList = querySnapshot.docs
-            .map((doc) => {
-                  ...doc.data() as Map<String, dynamic>,
-                  'docid': doc.id, // Ajouter l'ID du document à la map
-                })
-            .toList();
+        if (widget.today == null) {
+          widget.eventDataList = querySnapshot.docs
+              .map((doc) => {
+                    ...doc.data() as Map<String, dynamic>,
+                    'docid': doc.id, // Ajouter l'ID du document à la map
+                  })
+              .toList();
+        } else {
+          // List<Item> filteredItems = items.where((item) => item.date == date).toList();
+
+        }
       });
       if (widget.eventDataList.isNotEmpty) {
         docid = widget.eventDataList[0][
@@ -63,107 +68,104 @@ class _aujourdhui_renState extends State<aujourdhui_ren> {
                 itemBuilder: (context, index) {
                   final item = widget.eventDataList[index];
                   docid = item['docId'] ?? '';
-                  return 
-                     Column(children: [
-                          SizedBox(
-                            height: 20,
+                  return Column(children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => detail_rend(
+                              medicineData: item,
+                            ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => detail_rend(
-                                    medicineData: item,
+                        );
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color.fromRGBO(239, 240, 249, 0.438),
+                          ),
+                          width: 363,
+                          height: 160,
+                          child: Padding(
+                              padding: EdgeInsets.only(left: 5),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 6,
                                   ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color.fromRGBO(239, 240, 249, 0.438),
-                                ),
-                                width: 363,
-                                height: 160,
-                                child: Padding(
-                                    padding: EdgeInsets.only(left: 5),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 6,
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          "Dr.${item['nomMedecin']}",
+                                          style: TextStyle(
+                                            letterSpacing: 2,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 17,
+                                            fontStyle: FontStyle.italic,
+                                            fontFamily: 'BreeSerif-Regular',
+                                          ),
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Flexible(
-                                              child: Text(
-                                                "Dr.${item['nomMedecin']}",
-                                                style: TextStyle(
-                                                  letterSpacing: 2,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 17,
-                                                  fontStyle: FontStyle.italic,
-                                                  fontFamily:
-                                                      'BreeSerif-Regular',
-                                                ),
-                                              ),
-                                            ),
-                                            CircleAvatar(
-                                              radius: 24,
-                                              backgroundImage: AssetImage(
-                                                  "assets/images/doctor.jpg"),
-                                            ),
-                                          ],
-                                        ),
-                                        Divider(),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 50,
-                                            ),
-                                            Icon(
-                                              Icons.timer,
-                                              size: 20,
-                                              color: noire2,
-                                            ),
-                                            Text(
-                                              "${item['time']}",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: green2,
-                                                  letterSpacing: 3),
-                                            ),
-                                            SizedBox(
-                                              width: 6,
-                                            ),
-                                            Icon(
-                                              Icons.date_range,
-                                              size: 20,
-                                              color: noire2,
-                                            ),
-                                            Text(
-                                              "${item['date']}",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: green2,
-                                                  letterSpacing: 3),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ))),
-                          )
-                        ]);
-                      
+                                      ),
+                                      CircleAvatar(
+                                        radius: 24,
+                                        backgroundImage: AssetImage(
+                                            "assets/images/doctor.jpg"),
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 50,
+                                      ),
+                                      Icon(
+                                        Icons.timer,
+                                        size: 20,
+                                        color: noire2,
+                                      ),
+                                      Text(
+                                        "${item['time']}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: green2,
+                                            letterSpacing: 3),
+                                      ),
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      Icon(
+                                        Icons.date_range,
+                                        size: 20,
+                                        color: noire2,
+                                      ),
+                                      Text(
+                                        "${item['date']}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: green2,
+                                            letterSpacing: 3),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ))),
+                    )
+                  ]);
                 })));
   }
 }

@@ -5,10 +5,12 @@ import 'detail_med.dart';
 
 class aujourdhui_med extends StatefulWidget {
   final String docId;
+  DateTime? today;
   late List<Map<String, dynamic>> eventDataList1;
   aujourdhui_med({
     required this.eventDataList1,
     required this.docId,
+    DateTime? today,
     Key? key,
   }) : super(key: key);
 
