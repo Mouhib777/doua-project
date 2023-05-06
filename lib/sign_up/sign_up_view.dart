@@ -177,6 +177,12 @@ class RegisterView extends StackedView<RegisterViewModel> {
                         ElevatedButton(
                           onPressed: () async {
                             if (_formkey.currentState!.validate()) {
+                              
+        await FirebaseFirestore.instance.collection('users').add({
+          'nom_user': viewModel.getFullName(),
+          'mot_de_passe_user': viewModel.getPassword(),
+          'email_user': viewModel.getEmail(),
+        });
                               final result = await viewModel.RegisterUser(
                                   viewModel.getEmail(),
                                   viewModel.getPassword(),

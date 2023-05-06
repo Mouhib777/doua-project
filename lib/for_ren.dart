@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:douaa_project/widget/style.dart';
 
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,14 +31,13 @@ class for_renState extends State<for_ren> {
   }
 
   String getdate() {
-    String y = date.year.toString();
-    String m = date.month.toString();
-    String d = date.day.toString();
-
-    return '$d / $m / $y';
+    String yyyy = date.year.toString();
+    String MM = date.month.toString();
+    String dd = date.day.toString();
+    return '$dd/$MM/$yyyy';
   }
 
- void _validateDate() {
+   void _validateDate() {
     final selectedDate = DateTime(date.year, date.month, date.day);
     if (selectedDate.isBefore(today)) {
       setState(() {
@@ -92,20 +91,16 @@ class for_renState extends State<for_ren> {
   }
 
   Future<void> _addRDV() async {
-    
-
     try {
       
         docRef = await FirebaseFirestore.instance.collection('r').add({
           'nomMedecin': nomMedecin,
           'numMedecin': numMedecin,
-          'date': getdate(),
+          'date': '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year.toString().padLeft(4, '0')}',
           'time':
               '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}',
           'rappelPersonnalis': selectedOption,
         });
-      
-
       _formKey.currentState?.reset();
 
       Navigator.pop(context);
@@ -118,6 +113,7 @@ class for_renState extends State<for_ren> {
 
   String? selectedOptionn;
   DateTime date = DateTime.now();
+  String? date2;
   TimeOfDay time = TimeOfDay.now();
 
   @override
@@ -239,7 +235,7 @@ class for_renState extends State<for_ren> {
                       padding: EdgeInsets.all(30),
                     ),
                     Text(
-                        "${date != null ? "${date.day}/${date.month}/${date.year}" : "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}"}",
+                        "${date != null ? DateFormat('dd/MM/yyyy').format(date) : DateFormat('dd/MM/yyyy').format(DateTime.now())}",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     Padding(padding: EdgeInsets.all(20)),
@@ -254,6 +250,7 @@ class for_renState extends State<for_ren> {
                             if (selectedDate != null) {
                               setState(() {
                                 date = selectedDate;
+
                               });
                               _validateDate();
                             }

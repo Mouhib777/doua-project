@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'detail_rend.dart';
 
-extension DateTimeExtension on DateTime {}
 
 class aujourdhui_ren extends StatefulWidget {
   final String docid;
@@ -32,53 +31,54 @@ class _aujourdhui_renState extends State<aujourdhui_ren> {
     _getEventDataList();
   }
 
-  Future<void> _getEventDataList() async {
-    try {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('r').get();
-      setState(() {
-        if (widget.today == null) {
-          widget.eventDataList = querySnapshot.docs
-              .map((doc) => {
-                    ...doc.data() as Map<String, dynamic>,
-                    'docid': doc.id, // Ajouter l'ID du document à la map
-                  })
-              .toList();
-        } else {
-          widget.eventDataList = widget.eventDataList.where((item) {
+   Future<void> _getEventDataList() async {
+  try {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('r').get();
+    setState(() {
+      widget.eventDataList = querySnapshot.docs
+          .map((doc) => {
+                ...doc.data() as Map<String, dynamic>,
+                'docId': doc.id, // Ajouter l'ID du document à la map
+              })
+          .toList();
+      // Vérifier si la date d'aujourd'hui est spécifiée
+      if (widget.today != null) {
+        // Filtrer les éléments pour ne garder que ceux qui ont une date égale à la date d'aujourd'hui
+        widget.eventDataList = widget.eventDataList.where((item) {
+          String? date = item['date'];
+          if (date != null && date.isNotEmpty) {
             DateTime itemDate;
-
-            if (item['date'].contains('/')) {
-              // Date is in format dd/MM/yyyy
-              itemDate = DateFormat('dd/MM/yyyy').parse(item['date']);
+            if (date.contains('/')) {
+              // Date est au format dd/MM/yyyy
+              itemDate = DateFormat('dd/MM/yyyy').parse(date);
             } else {
-              // Date is in format yyyy-MM-dd
-              itemDate = DateTime.parse(item['date']);
+              // Date est au format yyyy-MM-dd
+              itemDate = DateTime.parse(date);
             }
-
-            DateTime currentDate = DateTime.now();
-            return itemDate.year == currentDate.year &&
-                itemDate.month == currentDate.month &&
-                itemDate.day == currentDate.day;
-          }).toList();
-        }
-      });
-      if (widget.eventDataList.isNotEmpty) {
-        docid = widget.eventDataList[0][
-            'docid']; // Initialiser la variable docId avec l'ID du premier élément de la liste
+            // Comparer la date de l'élément avec la date d'aujourd'hui
+            return itemDate.year == widget.today!.year &&
+                itemDate.month == widget.today!.month &&
+                itemDate.day == widget.today!.day;
+          }
+          return false;
+        }).toList();
       }
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Une erreur s\'est produite')),
-      );
-    }
+      // Initialiser la variable docId avec l'ID du premier élément de la liste filtrée
+      if (widget.eventDataList.isNotEmpty) {
+        docid = widget.eventDataList[0]['docId'];
+      }
+    });
+  } catch (error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Une erreur s\'est produite $error')),
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            child: ListView.builder(
+        body: ListView.builder(
                 itemCount: widget.eventDataList.length,
                 itemBuilder: (context, index) {
                   final item = widget.eventDataList[index];
@@ -181,6 +181,6 @@ class _aujourdhui_renState extends State<aujourdhui_ren> {
                               ))),
                     )
                   ]);
-                })));
+                }));
   }
 }

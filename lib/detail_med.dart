@@ -100,16 +100,18 @@ class _MedicineDetailsPageState extends State<detail_med> {
                           fontSize: 18,
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(left: 30),
-                        child: Text(
-                          '${widget.medicineData['voieMed']}',
-                          style: TextStyle(
-                            letterSpacing: 2,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                            fontStyle: FontStyle.italic,
-                            fontFamily: 'BreeSerif-Regular',
+                      Flexible(
+                        child: Container(
+                          margin: EdgeInsets.only(left: 30),
+                          child: Text(
+                            '${widget.medicineData['voieMed']}',
+                            style: TextStyle(
+                              letterSpacing: 2,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'BreeSerif-Regular',
+                            ),
                           ),
                         ),
                       ),
@@ -126,16 +128,18 @@ class _MedicineDetailsPageState extends State<detail_med> {
                           fontSize: 18,
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(left: 30),
-                        child: Text(
-                          '${widget.medicineData['dureeDet_jour']}',
-                          style: TextStyle(
-                            letterSpacing: 2,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                            fontStyle: FontStyle.italic,
-                            fontFamily: 'BreeSerif-Regular',
+                      Flexible(
+                        child: Container(
+                          margin: EdgeInsets.only(left: 30),
+                          child: Text(
+                            '${widget.medicineData['dureeDet_jour']}',
+                            style: TextStyle(
+                              letterSpacing: 2,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'BreeSerif-Regular',
+                            ),
                           ),
                         ),
                       ),
@@ -152,16 +156,18 @@ class _MedicineDetailsPageState extends State<detail_med> {
                           fontSize: 18,
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(left: 30),
-                        child: Text(
-                          '${widget.medicineData['dureeIndet']}',
-                          style: TextStyle(
-                            letterSpacing: 2,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                            fontStyle: FontStyle.italic,
-                            fontFamily: 'BreeSerif-Regular',
+                      Flexible(
+                        child: Container(
+                          margin: EdgeInsets.only(left: 30),
+                          child: Text(
+                            '${widget.medicineData['dureeIndet']}',
+                            style: TextStyle(
+                              letterSpacing: 2,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'BreeSerif-Regular',
+                            ),
                           ),
                         ),
                       ),

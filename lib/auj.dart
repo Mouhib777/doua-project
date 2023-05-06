@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:douaa_project/aujourdhui_med.dart';
 import 'package:douaa_project/aujourdhui_ren.dart';
+import 'package:douaa_project/inscription.dart';
 import 'package:douaa_project/widget/style.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -27,7 +29,11 @@ class _aujState extends State<auj> {
     super.initState();
     _getEventDataList();
   }
-
+void getUser() {
+  var user = FirebaseAuth.instance.currentUser;
+  String? displayName = user?.displayName;
+  String? email = user?.email;
+}
   Future<void> _getEventDataList() async {
     // récupération des données de la base de données ou d'un autre endroit
     setState(() {
@@ -48,11 +54,11 @@ class _aujState extends State<auj> {
           child: Column(
             children: [
               UserAccountsDrawerHeader(
-                accountName: Text("Benslimen douaa",
+                accountName: Text(FirebaseAuth.instance.currentUser?.displayName ?? '',
                     style:
                         TextStyle(fontSize: 20, fontStyle: FontStyle.italic)),
                 accountEmail: Text(
-                  "Benslimendouaa2002@gmail.com",
+                  FirebaseAuth.instance.currentUser?.email ?? '',
                   style: TextStyle(color: Color.fromARGB(205, 255, 255, 255)),
                 ),
                 decoration: BoxDecoration(
@@ -150,7 +156,7 @@ class _aujState extends State<auj> {
                   Container(
                     margin: EdgeInsets.only(left: 40),
                     child: Text(
-                      "Bonjour",
+                      "Bonjour" ,
                       style: TextStyle(
                         color: red1,
                         letterSpacing: 2,
@@ -161,9 +167,16 @@ class _aujState extends State<auj> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 4,
-                  ),
+                  SizedBox(width: 5,),
+                  Text( FirebaseAuth.instance.currentUser?.displayName ?? '',style: TextStyle(
+                        color: red1,
+                        letterSpacing: 2,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        fontStyle: FontStyle.italic,
+                        fontFamily: 'BreeSerif-Regular',
+                      ),)
+                
                 ]),
                 SizedBox(
                   height: 30,

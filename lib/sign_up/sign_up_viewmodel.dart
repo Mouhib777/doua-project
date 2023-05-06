@@ -1,10 +1,14 @@
+
+
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:stacked/stacked.dart';
 
 class RegisterViewModel extends BaseViewModel {
+  
   String getPassword() {
     return _password;
   }

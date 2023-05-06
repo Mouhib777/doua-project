@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:alarm/alarm.dart';
 import 'package:alarm/model/alarm_settings.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -8,7 +7,6 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cron/cron.dart';
 import 'package:douaa_project/widget/style.dart';
 import 'package:flutter/material.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -83,34 +81,35 @@ class _for_medState extends State<for_med> {
   }
 
   //! edheya fonction li t7el widget li takhtar mnha date w wa9t
-  Future<void> _selectDateTime(BuildContext context) async {
-    final DateTime? selectedDateTime = await showDatePicker(
+Future<void> _selectDateTime(BuildContext context) async {
+  final DateTime? selectedDateTime = await showDatePicker(
+    context: context, 
+    initialDate: _selectedDateTime,
+    firstDate: DateTime(2021),
+    lastDate: DateTime(2025),
+  );
+  if (selectedDateTime != null ) {
+    final TimeOfDay? selectedTime = await showTimePicker(
       context: context,
-      
-      initialDate: _selectedDateTime,
-      firstDate: DateTime(2021),
-      lastDate: DateTime(2025),
+      initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
     );
-    if (selectedDateTime != null) {
-      final TimeOfDay? selectedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
-      );
-      if (selectedTime != null) {
-        setState(() {
-          _selectedDateTime = DateTime(
-            selectedDateTime.year,
-            selectedDateTime.month,
-            selectedDateTime.day,
-            selectedTime.hour,
-            selectedTime.minute,
-          );
-        });
-      }
-      final dateTimeFormat = DateFormat('MMM d, y h:mm a');
-      final formattedDateTime = dateTimeFormat.format(_selectedDateTime);
-    }
+    if (selectedTime != null) {
+      setState(() {
+        _selectedDateTime = DateTime(
+          selectedDateTime.year,
+          selectedDateTime.month,
+          selectedDateTime.day,
+          selectedTime.hour,
+          selectedTime.minute,
+        );
+      });
+    } 
+
+    final dateTimeFormat = DateFormat('MMM d, y h:mm a');
+    final formattedDateTime = dateTimeFormat.format(_selectedDateTime);
   }
+}
+
 
   //!! toufa houni
   DateTime? _selectedDate1;
@@ -145,7 +144,6 @@ class _for_medState extends State<for_med> {
   }
 
   TimeOfDay? _selectedTime3_;
-
   Future<void> _selectTime3_(BuildContext context) async {
     final TimeOfDay? picked3_ = await showTimePicker(
       context: context,
@@ -264,7 +262,7 @@ class _for_medState extends State<for_med> {
     String a = _selectedTime4.toString();
     String b = _selectedTime5.toString();
     String c = _selectedTime6.toString();
-    return '$a $b $c';
+    return '$a/$b/ $c';
   }
   int id_alarmb = Random().nextInt(65312);
 
@@ -287,17 +285,12 @@ class _for_medState extends State<for_med> {
   int? selectedMinute = DateTime.now().minute;
   List<AlarmSettings> alarmSettings = [];
 
-  String getSelectedDate() {
-    String day = selectedDay.toString().padLeft(2, '0');
-    String month = selectedMonth.toString().padLeft(2, '0');
-    String year = selectedYear.toString();
-    return '$day/$month/$year';
-  }
 
-  String getduree() {
-    String nmbr = selectedCountry2.toString();
-    String ajm = _counter.toString();
-    return '$ajm $nmbr';
+
+  String getdureedet() {
+    String nmbr = _selectedDateTime.toString();
+   
+    return '$nmbr';
   }
   Future<void> _addRDV() async {
 
@@ -307,8 +300,8 @@ class _for_medState extends State<for_med> {
         'nomMed': nomMed,
         'formeMed': selectedCountry,
         'voieMed': selectedCountry1,
-        'dureeDet_jour':_selectedDateTime,
-        'dureeIndet': getTime(),
+        'dureeDet_jour':getdureedet(),
+        'dureeIndet':getTime()
      
       });
 
@@ -363,28 +356,13 @@ class _for_medState extends State<for_med> {
   var selectedCountry2;
   var notify = false;
   int _counter = 1;
-  int _c = 1;
-  String? selectedOptionn;
-  bool li = false;
-  bool mar = false;
-  bool mer = false;
-  bool je = false;
-  bool ven = false;
-  bool sam = false;
-  bool dim = false;
-  void _incrementCounter() {
+
+  void _increment() {
     setState(() {
       _counter++;
     });
   }
-
-  void _increment() {
-    setState(() {
-      _c++;
-    });
-  }
-
-  void _decrementCounter() {
+  void _decrement() {
     setState(() {
       if (_counter > 1) {
         _counter--;
@@ -392,30 +370,22 @@ class _for_medState extends State<for_med> {
     });
   }
 
-  void _decrement() {
-    setState(() {
-      if (_c > 1) {
-        _c--;
-      }
-    });
-  }
-
-  List<String> selectedDays = [];
-  final List<int> _days = List.generate(31, (index) => index + 1);
-  final List<String> _months = [
-    'Janvier',
-    'Février',
-    'Mars',
-    'Avril',
-    'Mai',
-    'Juin',
-    'Juillet',
-    'Août',
-    'Septembre',
-    'Octobre',
-    'Novembre',
-    'Décembre'
-  ];
+  // List<String> selectedDays = [];
+  // final List<int> _days = List.generate(31, (index) => index + 1);
+  // final List<String> _months = [
+  //   'Janvier',
+  //   'Février',
+  //   'Mars',
+  //   'Avril',
+  //   'Mai',
+  //   'Juin',
+  //   'Juillet',
+  //   'Août',
+  //   'Septembre',
+  //   'Octobre',
+  //   'Novembre',
+  //   'Décembre'
+  // ];
 
   final List<int> _years =
       List.generate(100, (index) => index + DateTime.now().year - 99);
@@ -477,7 +447,7 @@ class _for_medState extends State<for_med> {
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Container(
-              child: Column(children: [
+               child: Column(children: [
                 SizedBox(
                   height: 80,
                 ),
@@ -650,7 +620,9 @@ class _for_medState extends State<for_med> {
                       },
                       initialValue: selectedCountry1,
                     )),
+                    
                 SizedBox(height: 15),
+                  
                 Container(
                   child: Text(
                     "Traitement",
@@ -672,7 +644,11 @@ class _for_medState extends State<for_med> {
                 SizedBox(
                   height: 25,
                 ),
-                
+                Row(children: [  Icon(
+                              Icons.circle,
+                              size: 13,
+                              color: noire2,
+                            ),
                   Container(margin: EdgeInsets.only(right: 180),
                     child:Text(
                     "Durée déternimée",
@@ -680,10 +656,11 @@ class _for_medState extends State<for_med> {
                     style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 23,
-                        color: noire1,
+                        color: noire2,
                         fontStyle: FontStyle.italic),
                   ),
-                  ),
+                  ),],),
+              
     SizedBox(height: 10),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -815,17 +792,22 @@ class _for_medState extends State<for_med> {
                     SizedBox(
                       height: 20,
                     ),
-                   Container(margin: EdgeInsets.only(right: 180),
+                    Row(children: [ Icon(
+                              Icons.circle,
+                              size: 12,
+                              color: noire2,
+                            ),Container(margin: EdgeInsets.only(right: 180),
                     child:Text(
                     "Durée indéternimée",
                     textAlign: TextAlign.start,
                     style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 23,
-                        color: noire1,
+                        color: noire2,
                         fontStyle: FontStyle.italic),
                   ),
-                  ),
+                  ),],),
+                   
                   SizedBox(height: 20,),
                     Text(
                       "Choisissez l'horaire de prise de votre médicament:",
@@ -940,7 +922,7 @@ SizedBox(height: 15,),
                               Schedule.parse(
                                   '0 ${_selectedTime4!.minute.toString().padLeft(2, '0')} ${_selectedTime4!.hour.toString().padLeft(2, '0')} * * *'),
                               () async {
-                            EasyLoading.showSuccess('mriguel4');
+                            EasyLoading.showSuccess('Il est temps de prendre vos médicaments: $nomMed');
                             print("4");
                             AssetsAudioPlayer.newPlayer().open(
                               Audio("assets/sounds/alarm.mp3"),
@@ -961,7 +943,7 @@ SizedBox(height: 15,),
                               // autoPlay: true,
                               showNotification: true,
                             );
-                            EasyLoading.showSuccess('mriguel4');
+                            EasyLoading.showSuccess('Il est temps de prendre vos médicaments: $nomMed !');
                             //! houni 7ot shnya t7ebou yaaml
                             print("4");
                             cron.schedule(
@@ -973,7 +955,7 @@ SizedBox(height: 15,),
                                 // autoPlay: true,
                                 showNotification: true,
                               );
-                              EasyLoading.showSuccess('mriguel5');
+                              EasyLoading.showSuccess('Il est temps de prendre vos médicaments: $nomMed !');
                               print("5");
                               //! houni 7ot shnya t7ebou yaaml
                               // await sendNotification();
@@ -1009,7 +991,7 @@ SizedBox(height: 15,),
                                 // autoPlay: true,
                                 showNotification: true,
                               );
-                              EasyLoading.showSuccess('mriguel5');
+                              EasyLoading.showSuccess('Il est temps de prendre vos médicaments: $nomMed !');
                               print("5");
                               // await sendNotification();
                               //! houni 7ot shnya t7ebou yaaml
@@ -1023,7 +1005,7 @@ SizedBox(height: 15,),
                                 // autoPlay: true,
                                 showNotification: true,
                               );
-                              EasyLoading.showSuccess('mriguel6');
+                              EasyLoading.showSuccess('Il est temps de prendre vos médicaments: $nomMed !');
                               print("6");
                               //! houni 7ot shnya t7ebou yaaml
                               // await sendNotification();
