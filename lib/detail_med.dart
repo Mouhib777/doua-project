@@ -117,6 +117,34 @@ class _MedicineDetailsPageState extends State<detail_med> {
                       ),
                     ],
                   ),
+                   SizedBox(height: 20),
+                   Row(
+                    children: [
+                      Text(
+                        "Dose précise du médicament:",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: red1,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Flexible(
+                        child: Container(
+                          margin: EdgeInsets.only(left: 30),
+                          child: Text(
+                            '${widget.medicineData['dose']}',
+                            style: TextStyle(
+                              letterSpacing: 2,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'BreeSerif-Regular',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 20),
                   Row(
                     children: [

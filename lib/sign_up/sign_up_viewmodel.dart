@@ -29,7 +29,17 @@ class RegisterViewModel extends BaseViewModel {
     _password = password;
     print('Password: ${getPassword()}');
   }
-
+ bool obscureText = true;
+bool obscureTextt = true;
+  void togglePasswordVisibility() {
+    obscureText = !obscureText;
+    notifyListeners();
+  }
+  void togglePasswordVisibilityy() {
+    obscureTextt = !obscureTextt;
+    notifyListeners();
+  }
+  
   setEmail(String email) {
     _email = email;
     print('Email: ${getEmail()}');

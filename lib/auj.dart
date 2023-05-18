@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:douaa_project/TodayPage.dart';
 import 'package:douaa_project/aujourdhui_med.dart';
 import 'package:douaa_project/aujourdhui_ren.dart';
 import 'package:douaa_project/inscription.dart';
@@ -14,7 +15,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'login/login_view.dart';
 
 class auj extends StatefulWidget {
+    late List<Map<String, dynamic>> eventDataList;
   auj({
+
     Key? key,
   }) : super(key: key);
   @override
@@ -22,29 +25,23 @@ class auj extends StatefulWidget {
 }
 
 class _aujState extends State<auj> {
-  List<Map<String, dynamic>>? eventDataList;
-  late List<Map<String, dynamic>> _todayEvents = [];
+
+
   @override
   void initState() {
+    widget.eventDataList = [];
     super.initState();
-    _getEventDataList();
+   
+
   }
 void getUser() {
   var user = FirebaseAuth.instance.currentUser;
   String? displayName = user?.displayName;
   String? email = user?.email;
 }
-  Future<void> _getEventDataList() async {
-    // récupération des données de la base de données ou d'un autre endroit
-    setState(() {
-      // filtrer les événements par rapport à la date d'aujourd'hui
-      _todayEvents = eventDataList!
-          .where((event) =>
-              event['date'] == DateFormat('yyyy-MM-dd').format(DateTime.now()))
-          .toList();
-    });
-  }
 
+
+  
   DateTime today = DateTime.now();
   Widget build(BuildContext context) {
     bool isToday = false;
@@ -138,7 +135,7 @@ void getUser() {
           backgroundColor: Color.fromARGB(76, 249, 64, 255),
           title: const Text("Aujourd'hui"),
         ),
-        body: FadeInUpBig(
+        body:FadeInUpBig(
           child: Container(
               width: double.infinity,
               height: double.infinity,
@@ -156,12 +153,12 @@ void getUser() {
                   Container(
                     margin: EdgeInsets.only(left: 40),
                     child: Text(
-                      "Bonjour" ,
+                      "Salut" ,
                       style: TextStyle(
                         color: red1,
                         letterSpacing: 2,
                         fontWeight: FontWeight.bold,
-                        fontSize: 25,
+                        fontSize: 30,
                         fontStyle: FontStyle.italic,
                         fontFamily: 'BreeSerif-Regular',
                       ),
@@ -172,27 +169,21 @@ void getUser() {
                         color: red1,
                         letterSpacing: 2,
                         fontWeight: FontWeight.bold,
-                        fontSize: 25,
+                        fontSize: 30,
                         fontStyle: FontStyle.italic,
                         fontFamily: 'BreeSerif-Regular',
                       ),)
                 
                 ]),
                 SizedBox(
-                  height: 30,
+                  height: 70,
                 ),
-                Center(
+                 Center(
                     child: Container(
                         decoration: BoxDecoration(
-                          color: gris,
+                         
                           borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(255, 217, 205, 249),
-                              blurRadius: 10,
-                              spreadRadius: 2,
-                            ),
-                          ],
+                         
                         ),
                         width: 500,
                         height: 200,
@@ -205,37 +196,29 @@ void getUser() {
                                   AssetImage("assets/images/doc.jpg"),
                             ),
                           ),
-                          Row(
-                            children: [
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Container(
-                                    width: 250,
-                                    height: 100,
+                           Row(
+                              children: [
+                                Container(
+                                    width: 380,
+                                    height: 120,
                                     child: aujourdhui_med(
                                       docId: '',
                                       today: today,
                                       eventDataList1: [],
                                     )),
-                              )
-                            ],
-                          ),
+                              ],
+                            ),
+                        
                         ]))),
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 Center(
                     child: Container(
                         decoration: BoxDecoration(
-                          color: gris,
+                         
                           borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(255, 217, 205, 249),
-                              blurRadius: 10,
-                              spreadRadius: 2,
-                            ),
-                          ],
+                         
                         ),
                         width: 500,
                         height: 200,
@@ -243,18 +226,16 @@ void getUser() {
                           Container(
                             padding: EdgeInsets.only(right: 320),
                             child: CircleAvatar(
-                              radius: 33,
+                              radius: 30,
                               backgroundImage:
                                   AssetImage("assets/images/pp.PNG"),
                             ),
                           ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
+                           Row(
                               children: [
                                 Container(
-                                    width: 250,
-                                    height: 100,
+                                    width: 380,
+                                    height: 120,
                                     child: aujourdhui_ren(
                                       docid: '',
                                       today: today,
@@ -262,7 +243,7 @@ void getUser() {
                                     )),
                               ],
                             ),
-                          ),
+                        
                         ])))
               ])),
         ));

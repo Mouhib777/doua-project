@@ -6,12 +6,13 @@ import 'detail_med.dart';
 
 class aujourdhui_med extends StatefulWidget {
   final String docId;
-  DateTime? today;
   late List<Map<String, dynamic>> eventDataList1;
+ DateTime? today;
+
   aujourdhui_med({
     required this.eventDataList1,
     required this.docId,
-    DateTime? today,
+    required this.today,
     Key? key,
   }) : super(key: key);
 
@@ -22,16 +23,17 @@ class aujourdhui_med extends StatefulWidget {
 class _aujourdhui_medState extends State<aujourdhui_med> {
   late Map<String, dynamic> eventData;
   late String docId;
+
   @override
   void initState() {
     super.initState();
+    widget.eventDataList1 = [];
     _getEventDataList();
   }
 
   Future<void> _getEventDataList() async {
     try {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('u1').get();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('u1 ').get();
       setState(() {
         widget.eventDataList1 = querySnapshot.docs
             .map((doc) => {
@@ -39,42 +41,52 @@ class _aujourdhui_medState extends State<aujourdhui_med> {
                   'docId': doc.id, // Ajouter l'ID du document à la map
                 })
             .toList();
-        if (widget.eventDataList1.isNotEmpty) {
-          docId = widget.eventDataList1[0][
-              'docId']; // Initialiser la variable docId avec l'ID du premier élément de la liste
-        }
+        // Vérifier si la date d'aujourd'hui est spécifiée
         if (widget.today != null) {
+          // Filtrer les éléments pour ne garder que ceux qui ont une date égale à la date d'aujourd'hui
           widget.eventDataList1 = widget.eventDataList1.where((item) {
-            DateTime itemDate =
-                DateFormat('M/d/y').parse(item['dureeDet_jour']);
-            DateTime currentDate = DateTime.now();
-            String itemDateString = DateFormat('MM-dd-yyyy').format(itemDate);
-            String currentDateString =
-                DateFormat('MM-dd-yyyy').format(currentDate);
-            return itemDateString == currentDateString ||
-                item['dureeIndet'].isNotEmpty;
+            String? dureeDet_jour = item['date'];
+            if (dureeDet_jour != null && dureeDet_jour.isNotEmpty) {
+              DateTime itemDate;
+              if (dureeDet_jour.contains('/')) {
+                // Date est au format dd/MM/yyyy
+                itemDate = DateFormat('dd/MM/yyyy').parse(dureeDet_jour);
+              } else {
+                // Date est au format yyyy-MM-dd
+                itemDate = DateTime.parse(dureeDet_jour);
+              }
+              // Comparer la date de l'élément avec la date d'aujourd'hui
+              return itemDate.year == widget.today!.year &&
+                  itemDate.month == widget.today!.month &&
+                  itemDate.day == widget.today!.day;
+            }
+            return false;
           }).toList();
+        }
+        // Initialiser la variable docId avec l'ID du premier élément de la liste filtrée
+        if (widget.eventDataList1.isNotEmpty) {
+          docId = widget.eventDataList1[0]['docId'];
         }
       });
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Une erreur s\'est produite')),
+        SnackBar(content: Text('Une erreur s\'est produite $error')),
       );
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      child: ListView.builder(
-          itemCount: widget.eventDataList1.length,
-          itemBuilder: (context, index) {
-            final item = widget.eventDataList1[index];
-            docId = item['docId'] ?? '';
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: widget.eventDataList1.map((item) {
+            return Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: SizedBox(
+                width: 363 + 10, // Ajout d'un espace de 10 pixels
+                child: InkWell(
                   onTap: () {
                     Navigator.push(
                       context,
@@ -86,82 +98,67 @@ class _aujourdhui_medState extends State<aujourdhui_med> {
                     );
                   },
                   child: Container(
-                    width: 370,
-                    height: 180,
-                    margin: EdgeInsets.only(top: 30),
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(162, 255, 255, 255),
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color.fromRGBO(239, 240, 249, 0.438),
                     ),
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(117, 232, 197, 242),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Row(
+                    width: 363,
+                    height: 160,
+                    child: Padding(
+                                           padding: EdgeInsets.only(left: 5),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 6),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: 57,
-                                width: 9,
-                              ),
                               CircleAvatar(
                                 radius: 22,
-                                backgroundImage:
-                                    AssetImage("assets/images/m.jpg"),
+                                backgroundImage: AssetImage("assets/images/m.jpg"),
                               ),
                               SizedBox(width: 5),
                               Text(
                                 "${item['nomMed']}",
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(172, 0, 0, 0),
-                                    fontStyle: FontStyle.italic,
-                                    fontFamily: 'BreeSerif-Regular'),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(172, 0, 0, 0),
+                                  fontStyle: FontStyle.italic,
+                                  fontFamily: 'BreeSerif-Regular',
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          child: Column(
-                            children: [
-                              Text(
-                                "${item['prd']}",
-                                style: TextStyle(
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            child: Column(
+                              children: [
+                                Text(
+                                  "${item['formeMed']}",
+                                  style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 2,
-                                    color: blue),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "${item['horaireMed']}",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: green2,
-                                        fontWeight: FontWeight.w500),
+                                    color: blue,
                                   ),
-                                ],
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
-                        )
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ],
+              ),
             );
-          }),
-    ));
+          }).toList(),
+        ),
+      ),
+    );
   }
 }
+

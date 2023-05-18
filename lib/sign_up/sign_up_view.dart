@@ -112,22 +112,19 @@ class RegisterView extends StackedView<RegisterViewModel> {
                               onChanged: viewModel.setEmail,
                             ),
                             SizedBox(height: 30),
-                            TextFormField(
-                              obscureText: _obscureText,
-                              decoration: InputDecoration(
-                                filled: true,
+                                   TextFormField(
+                          obscureText: viewModel.obscureText,
+                          decoration: InputDecoration(
+                              filled: true,
                                 fillColor: Color.fromRGBO(243, 243, 243, 1),
-                                prefixIcon: Icon(Icons.lock,
+                              prefixIcon: Icon(Icons.lock,
                                     color: Color.fromRGBO(211, 129, 242, 1)),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _obscureText
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                    color: Color.fromRGBO(211, 129, 242, 1),
-                                  ),
-                                  onPressed: () {},
-                                ),
+                               suffixIcon: IconButton(
+      icon: Icon(viewModel.obscureText ? Icons.visibility_off : Icons.visibility),
+      onPressed: () {
+        viewModel.togglePasswordVisibility();
+      },
+    ),
                                 hintText: "mot de passe",
                                 hintStyle: TextStyle(
                                     color: Color.fromRGBO(141, 141, 141, 0.35)),
@@ -141,24 +138,20 @@ class RegisterView extends StackedView<RegisterViewModel> {
                               onChanged: viewModel.setPassword,
                             ),
                             SizedBox(height: 30),
-                            TextFormField(
-                              obscureText: _obscureText1,
-                              decoration: InputDecoration(
-                                filled: true,
+                                 TextFormField(
+                          obscureText: viewModel.obscureTextt,
+                          decoration: InputDecoration(
+                             filled: true,
                                 fillColor: Color.fromRGBO(243, 243, 243, 1),
-                                prefixIcon: Icon(
-                                  Icons.lock,
-                                  color: Color.fromRGBO(211, 129, 242, 1),
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _obscureText
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                    color: Color.fromRGBO(211, 129, 242, 1),
-                                  ),
-                                  onPressed: () {},
-                                ),
+                              prefixIcon: Icon(Icons.lock,
+                                    color: Color.fromRGBO(211, 129, 242, 1)),
+                            
+                               suffixIcon: IconButton(
+      icon: Icon(viewModel.obscureTextt ? Icons.visibility_off : Icons.visibility),
+      onPressed: () {
+        viewModel.togglePasswordVisibilityy();
+      },
+    ),
                                 hintText: "Confirmer mot de passe",
                                 hintStyle: TextStyle(
                                     color: Color.fromRGBO(141, 141, 141, 0.35)),

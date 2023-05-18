@@ -95,34 +95,36 @@ class LoginView extends StackedView<LoginViewModel> {
               SizedBox(height: 30),
               Column(
                 children: [
-                  TextFormField(
-                      obscureText: _obscureText,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color.fromRGBO(243, 243, 243, 1),
-                        prefixIcon: Icon(
-                          Icons.lock,
-                          color: Color.fromRGBO(211, 129, 242, 1),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: Color.fromRGBO(211, 129, 242, 1),
-                          ),
-                          onPressed: () {},
-                        ),
-                        hintText: "Mot de passe",
-                        hintStyle: TextStyle(
-                            color: Color.fromRGBO(141, 141, 141, 0.35)),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                                color: Color.fromRGBO(166, 156, 169, 1))),
-                      ),
-                      validator: viewModel.ValidatePassword,
-                      onChanged: viewModel.setPassword),
+                 TextFormField(
+  obscureText: viewModel.obscureText,
+  decoration: InputDecoration(
+    filled: true,
+    fillColor: Color.fromRGBO(243, 243, 243, 1),
+    prefixIcon: Icon(
+      Icons.lock,
+      color: Color.fromRGBO(211, 129, 242, 1),
+    ),
+    suffixIcon: IconButton(
+      icon: Icon(viewModel.obscureText ? Icons.visibility_off : Icons.visibility),
+      onPressed: () {
+        viewModel.togglePasswordVisibility();
+      },
+    ),
+    hintText: "Mot de passe",
+    hintStyle: TextStyle(
+      color: Color.fromRGBO(141, 141, 141, 0.35),
+    ),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide(
+        color: Color.fromRGBO(166, 156, 169, 1),
+      ),
+    ),
+  ),
+  validator: viewModel.ValidatePassword,
+  onChanged: viewModel.setPassword,
+),
+
                   Container(
                     margin: EdgeInsets.only(left: 180),
                     child: InkWell(

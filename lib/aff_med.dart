@@ -27,6 +27,7 @@ class _aff_medState extends State<aff_med> {
   @override
   void initState() {
     super.initState();
+    widget.eventDataList1 = [];
     _getEventDataList();
   }
 
@@ -136,7 +137,7 @@ class _aff_medState extends State<aff_med> {
                               );
                             },
                             child: Container(
-                              width: 370,
+                              width: 350,
                               height: 180,
                               margin: EdgeInsets.only(top: 30),
                               decoration: BoxDecoration(
@@ -182,7 +183,7 @@ class _aff_medState extends State<aff_med> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          "${item['formeMed']}",
+                                          "${item['dose']}",
                                           style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
@@ -192,7 +193,14 @@ class _aff_medState extends State<aff_med> {
                                         SizedBox(
                                           height: 10,
                                         ),
-                                     
+                                      Text(
+                                          "${item['dureeDet_jour']}",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              letterSpacing: 2,
+                                              color: blue),
+                                        ),
                                         SizedBox(
                                           height: 9,
                                         ),

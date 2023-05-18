@@ -14,6 +14,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
 import 'aff_med.dart';
 import 'package:cron/cron.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -102,6 +103,8 @@ Future<void> _selectDateTime(BuildContext context) async {
           selectedTime.hour,
           selectedTime.minute,
         );
+ 
+
       });
     } 
 
@@ -114,7 +117,19 @@ Future<void> _selectDateTime(BuildContext context) async {
   //!! toufa houni
   DateTime? _selectedDate1;
   DateTime? _selectedDate2;
-
+int _c = 1;
+ void _increment() {
+    setState(() {
+      _c++;
+    });
+  }
+    void _decrement() {
+    setState(() {
+      if (_c > 1) {
+        _c--;
+      }
+    });
+  }
   Future<void> _selectDate1(BuildContext context) async {
     final DateTime? picked1 = await showDatePicker(
         context: context,
@@ -286,6 +301,9 @@ Future<void> _selectDateTime(BuildContext context) async {
   List<AlarmSettings> alarmSettings = [];
 
 
+ String getdose() {
+    return '${_c} ${selectedCountry}';
+  }
 
   String getdureedet() {
     String nmbr = _selectedDateTime.toString();
@@ -300,8 +318,10 @@ Future<void> _selectDateTime(BuildContext context) async {
         'nomMed': nomMed,
         'formeMed': selectedCountry,
         'voieMed': selectedCountry1,
-        'dureeDet_jour':getdureedet(),
-        'dureeIndet':getTime()
+        'dureeDet_jour':'${_selectedDateTime.day.toString().padLeft(2, '0')}/${_selectedDateTime.month.toString().padLeft(2, '0')}/${_selectedDateTime.year.toString().padLeft(4, '0')}',
+
+        'dureeIndet':getTime(),
+        'dose': getdose()
      
       });
 
@@ -355,20 +375,9 @@ Future<void> _selectDateTime(BuildContext context) async {
   var selectedCountry1;
   var selectedCountry2;
   var notify = false;
-  int _counter = 1;
 
-  void _increment() {
-    setState(() {
-      _counter++;
-    });
-  }
-  void _decrement() {
-    setState(() {
-      if (_counter > 1) {
-        _counter--;
-      }
-    });
-  }
+
+
 
   // List<String> selectedDays = [];
   // final List<int> _days = List.generate(31, (index) => index + 1);
@@ -622,7 +631,56 @@ Future<void> _selectDateTime(BuildContext context) async {
                     )),
                     
                 SizedBox(height: 15),
-                  
+                Container(
+                  child: Text(
+                    "Dose",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                        color: blue,
+                        fontStyle: FontStyle.italic,
+                        shadows: [Shadow(color: mauve1, blurRadius: 3)]),
+                  ),
+                  margin: EdgeInsets.only(right: 300),
+                ),
+                Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [FloatingActionButton(
+                      heroTag: 'btn1',
+                      mini: true,
+                      backgroundColor: Color.fromARGB(141, 240, 197, 249),
+                      onPressed: _increment,
+                      tooltip: 'Inc',
+                      child: Icon(
+                        Icons.add,
+                        color: mauve2,
+                        size: 20,
+                      ),
+                    ), 
+                      Text(
+                      '$_c',
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                       FloatingActionButton(
+                      heroTag: 'btn1',
+                      mini: true,
+                      backgroundColor: Color.fromARGB(141, 240, 197, 249),
+                      onPressed: _decrement,
+                      tooltip: 'Dec',
+                      child: Icon(
+                        Icons.remove,
+                        color: mauve2,
+                        size: 20,
+                      ),
+                    ),
+                     SizedBox(width: 6),
+                        Text(
+                      "${selectedCountry}(s)",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                    ],),),
+                     SizedBox(height: 15),
                 Container(
                   child: Text(
                     "Traitement",
@@ -778,7 +836,7 @@ Future<void> _selectDateTime(BuildContext context) async {
                             fontSize: 16),
                       ),
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 188, 177, 206),
+                          backgroundColor: Color.fromARGB(255, 139, 121, 168),
                           padding: EdgeInsets.only(
                               top: 3, bottom: 3, left: 8, right: 8),
                           shape: RoundedRectangleBorder(
@@ -1046,7 +1104,15 @@ SizedBox(height: 15,),
                     await Alarm.stop(id_alarmb);
                     EasyLoading.showSuccess("L'alarme est éteinte");
                   },
-                  child: Text("Arrêtez l'alarme"),
+                  child: Text("Arrêtez l'alarme",style: TextStyle(color: green2),),
+                   style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 221, 213, 235),
+                          padding: EdgeInsets.only(
+                              top: 5, bottom: 5, left: 5, right: 5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(39),
+                          ),
+                          elevation: 20),
                 ),
                 Center(
                   child: ElevatedButton(

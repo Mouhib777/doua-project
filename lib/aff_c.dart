@@ -67,6 +67,8 @@ class _aff_cState extends State<aff_c> {
                         children: [
                           SizedBox(height: 45),
                           Container(
+                        
+                           
                             margin: EdgeInsets.only(left: 20, right: 20),
                             decoration: BoxDecoration(
                               color: Color.fromARGB(255, 246, 232, 255),
@@ -92,7 +94,7 @@ class _aff_cState extends State<aff_c> {
                                     ),
                                     Image(
                                         image:
-                                            AssetImage("assets/images/j.png"),
+                                            AssetImage("assets/images/j.PNG"),
                                         height: 80,
                                         width: 50),
                                     SizedBox(width: 20),
@@ -121,7 +123,7 @@ class _aff_cState extends State<aff_c> {
                                         )
                                       ],
                                     ),
-                                    SizedBox(width: 20),
+                                    SizedBox(width: 15),
                                     Text(
                                       "${item['heure']}",
                                       style: TextStyle(

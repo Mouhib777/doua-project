@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:douaa_project/widget/style.dart';
-
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -12,6 +14,7 @@ class for_ren extends StatefulWidget {
 }
 
 class for_renState extends State<for_ren> {
+  late String selectedDuration ;
   final DateTime today = DateTime.now();
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   late String nomMedecin;
@@ -106,7 +109,7 @@ class for_renState extends State<for_ren> {
       Navigator.pop(context);
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Une erreur s\'est produite')),
+        SnackBar(content: Text('Une erreur s\'est produite $error')),
       );
     }
   }
@@ -115,6 +118,38 @@ class for_renState extends State<for_ren> {
   DateTime date = DateTime.now();
   String? date2;
   TimeOfDay time = TimeOfDay.now();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+Future<void> showNotification(int duration) async {
+  // Configuration de la notification
+  const AndroidNotificationDetails androidPlatformChannelSpecifics =
+      AndroidNotificationDetails(
+    'channel_id',
+    'channel_name',
+    importance: Importance.max,
+    priority: Priority.high,
+  );
+
+  const NotificationDetails platformChannelSpecifics = NotificationDetails(
+    android: androidPlatformChannelSpecifics,
+  );
+
+  // Calcul de la nouvelle date et heure de l'alarme
+  DateTime selectedDateTime = DateTime(date.year, date.month, date.day, time.hour, time.minute);
+  DateTime alarmDateTime = selectedDateTime.subtract(Duration(hours: duration));
+
+  // Affichage de la notification à l'heure de l'alarme
+  await flutterLocalNotificationsPlugin.zonedSchedule(
+    0,
+    'Alarme',
+    'Votre alarme est prête !',
+    tz.TZDateTime.from(alarmDateTime, tz.local),
+    platformChannelSpecifics,
+    androidAllowWhileIdle: true,
+    uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+    payload: 'notification_payload',
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -204,21 +239,22 @@ class for_renState extends State<for_ren> {
                     SizedBox(width: 16.0),
                     Expanded(
                       child: FormBuilderTextField(
-                        name: 'numMedecin',
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        keyboardType: TextInputType.number,
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(context,
-                              errorText: 'Veuillez saisir un nom de médecin'),
-                        ]),
-                        onChanged: (value) {
-                          setState(() {
-                            numMedecin = value!;
-                          });
-                        },
-                      ),
+  name: 'numMedecin',
+  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+  keyboardType: TextInputType.number,
+  validator: FormBuilderValidators.compose([
+    FormBuilderValidators.required(context,
+        errorText: 'Veuillez saisir un numéro de médecin'),
+    FormBuilderValidators.minLength(context, 8,
+        errorText: 'Le numéro doit contenir au moins 8 caractères'),
+  ]),
+  onChanged: (value) {
+    setState(() {
+      numMedecin = value!;
+    });
+  },
+)
+
                     ),
                   ],
                 ),
@@ -335,6 +371,11 @@ class for_renState extends State<for_ren> {
                   name: 'selectedOptionn',
                   validator: FormBuilderValidators.required(context,
                       errorText: 'Veuillez choisir une option'),
+                       onChanged: (value) {
+    setState(() {
+      selectedOption = value!;
+    });
+  },
                   options: [
                     FormBuilderFieldOption(
                       value: "1h",
@@ -370,11 +411,7 @@ class for_renState extends State<for_ren> {
                     ),
                   
                   ],
-  onChanged: (value) {
-    setState(() {
-      selectedOption = value!;
-    });
-  },
+
                 ),
                 Center(
                   child: ElevatedButton(
@@ -383,6 +420,20 @@ class for_renState extends State<for_ren> {
                           ishValid == true &&
                           isDateValid == true) {
                         _addRDV();
+                        int duration = 0;
+      if (selectedOptionn != null) {
+        if (selectedOptionn == "1h") {
+          duration = 1;
+        } else if (selectedOptionn == "2h") {
+          duration = 2;
+        } else if (selectedOptionn == "1j") {
+          duration = 24;
+        } else if (selectedOptionn == "3j") {
+          duration = 72;
+        }
+      }
+      showNotification(duration);
+
                       }
                     }),
                     child: Text(
@@ -422,6 +473,7 @@ class for_renState extends State<for_ren> {
                         elevation: 20),
                   ),
                 ),
+              
               ],
             ),
           ),

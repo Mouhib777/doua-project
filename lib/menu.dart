@@ -151,9 +151,8 @@ class _contrState extends State<contr> {
             ),
             body: TabBarView(children: [
               for_c(),
-              aff_c(
-                docid: "docId",
-                eventDataList1: [],
+              aff_c(docid: '', eventDataList1: [],
+               
               ),
             ])));
   }

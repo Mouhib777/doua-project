@@ -8,6 +8,7 @@ import 'ResPage.dart';
 import 'detail_rend.dart';
 import 'for_ren.dart';
 
+
 class venir_ren extends StatefulWidget {
   final String docid;
   late List<Map<String, dynamic>> eventDataList;

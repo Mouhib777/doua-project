@@ -46,6 +46,12 @@ class LoginViewModel extends BaseViewModel {
       return null;
     }
   }
+bool obscureText = true;
+
+void togglePasswordVisibility() {
+  obscureText = !obscureText;
+  notifyListeners();
+}
 
   String? ValidatePassword(String? value) {
     if (value == null || value.isEmpty) {

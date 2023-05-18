@@ -76,111 +76,129 @@ class _aujourdhui_renState extends State<aujourdhui_ren> {
 }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: ListView.builder(
-                itemCount: widget.eventDataList.length,
-                itemBuilder: (context, index) {
-                  final item = widget.eventDataList[index];
-                  docid = item['docId'] ?? '';
-                  return Column(children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => detail_rend(
-                              medicineData: item,
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: widget.eventDataList.map((item) {
+          return Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: SizedBox(
+              width: 363 + 10, // Ajout d'un espace de 10 pixels
+             
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color.fromRGBO(239, 240, 249, 0.438),
+                  ),
+                  width: 363,
+                  height: 160,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 6),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "Dr.${item['nomMedecin']}",
+                                style: TextStyle(
+                                  letterSpacing: 2,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  fontStyle: FontStyle.italic,
+                                  fontFamily: 'BreeSerif-Regular',
+                                ),
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color.fromRGBO(239, 240, 249, 0.438),
-                          ),
-                          width: 363,
-                          height: 160,
-                          child: Padding(
-                              padding: EdgeInsets.only(left: 5),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 6,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          "Dr.${item['nomMedecin']}",
-                                          style: TextStyle(
-                                            letterSpacing: 2,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17,
-                                            fontStyle: FontStyle.italic,
-                                            fontFamily: 'BreeSerif-Regular',
-                                          ),
-                                        ),
-                                      ),
-                                      CircleAvatar(
-                                        radius: 24,
-                                        backgroundImage: AssetImage(
-                                            "assets/images/doctor.jpg"),
-                                      ),
-                                    ],
-                                  ),
-                                  Divider(),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 50,
-                                      ),
-                                      Icon(
-                                        Icons.timer,
-                                        size: 20,
-                                        color: noire2,
-                                      ),
-                                      Text(
-                                        "${item['time']}",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: green2,
-                                            letterSpacing: 3),
-                                      ),
-                                      SizedBox(
-                                        width: 6,
-                                      ),
-                                      Icon(
-                                        Icons.date_range,
-                                        size: 20,
-                                        color: noire2,
-                                      ),
-                                      Text(
-                                        "${item['date']}",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: green2,
-                                            letterSpacing: 3),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ))),
-                    )
-                  ]);
-                }));
-  }
+                           
+                          ],
+                        ),
+                        Divider(),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            SizedBox(width: 50),
+                            Icon(
+                              Icons.timer,
+                              size: 20,
+                              color: noire2,
+                            ),
+                            Text(
+                              "${item['time']}",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: green2,
+                                letterSpacing: 3,
+                              ),
+                            ),
+                            SizedBox(width: 6),
+                            Icon(
+                              Icons.date_range,
+                              size: 20,
+                              color: noire2,
+                            ),
+                            Text(
+                              "${item['date']}",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: green2,
+                                letterSpacing: 3,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              
+            ),
+          );
+        }).toList(),
+      ),
+    ),
+  );
+}
+
+
+
+
+
+// class auj_ren extends StatelessWidget {
+//   const auj_ren({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SingleChildScrollView(
+//       physics: BouncingScrollPhysics(),
+//        scrollDirection: Axis.horizontal,
+//        child: Container(child: FittedBox(fit: BoxFit.fill, alignment: Alignment.center,child: Row(children: <Widget>[
+//               Container(
+//                 width: 260,
+//                 height: 130,
+//                 decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
+//                 ),
+//                 child: Padding(
+//                   padding: const EdgeInsets.all(8.0),
+//                   child: Stack(
+//                     children: <Widget>[
+//                       Positioned.fill(
+//                         child:aujourdhui_ren(docid: '', eventDataList: [],)
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ],),)
+//       ),
+//     );
+//   }
 }

@@ -255,27 +255,29 @@ class _for_cState extends State<for_c> {
                                 alignment: Alignment.center,
                                 width: 60,
                                 child: DropdownButton<int>(
-                                  value: selectedDay,
-                                  items: List<DropdownMenuItem<int>>.generate(
-                                      31, (int index) {
-                                    return DropdownMenuItem<int>(
-                                      value: index + 1,
-                                      child: Text(
-                                        '${index + 1}',
-                                        style: TextStyle(
-                                            fontStyle: FontStyle.italic,
-                                            fontWeight: FontWeight.bold,
-                                            color: mauve2),
-                                      ),
-                                    );
-                                  }),
-                                  onChanged: (int? value) {
-                                    setState(() {
-                                      selectedDay = value;
-                                    });
-                                    _validateDate();
-                                  },
-                                ),
+  value: selectedDay,
+  items: List<DropdownMenuItem<int>>.generate(31, (int index) {
+    String dayText = (index + 1).toString().padLeft(2, '0');
+    return DropdownMenuItem<int>(
+      value: index + 1,
+      child: Text(
+        dayText,
+        style: TextStyle(
+          fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.bold,
+          color: mauve2,
+        ),
+      ),
+    );
+  }),
+  onChanged: (int? value) {
+    setState(() {
+      selectedDay = value;
+    });
+    _validateDate();
+  },
+),
+
                               ),
                               const SizedBox(width: 16.0),
                               // Dropdown pour le mois
@@ -362,7 +364,7 @@ class _for_cState extends State<for_c> {
                           Icon(
                             Icons.timer,
                             size: 20,
-                            color: noire2,
+                            color: mauve2,
                           ),
                           SizedBox(
                             width: 5,
@@ -398,27 +400,29 @@ class _for_cState extends State<for_c> {
                                   alignment: Alignment.center,
                                   width: 80,
                                   child: DropdownButton<int>(
-                                    value: selectedHour,
-                                    items: List<DropdownMenuItem<int>>.generate(
-                                        24, (int index) {
-                                      return DropdownMenuItem<int>(
-                                        value: index,
-                                        child: Text(
-                                          '$index',
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.italic,
-                                              fontWeight: FontWeight.bold,
-                                              color: mauve2),
-                                        ),
-                                      );
-                                    }),
-                                    onChanged: (int? value) {
-                                      setState(() {
-                                        selectedHour = value;
-                                      });
-                                      _validateHour();
-                                    },
-                                  )),
+  value: selectedHour,
+  items: List<DropdownMenuItem<int>>.generate(24, (int index) {
+    String hourText = index.toString().padLeft(2, '0');
+    return DropdownMenuItem<int>(
+      value: index,
+      child: Text(
+        hourText,
+        style: TextStyle(
+          fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.bold,
+          color: mauve2,
+        ),
+      ),
+    );
+  }),
+  onChanged: (int? value) {
+    setState(() {
+      selectedHour = value;
+    });
+    _validateHour();
+  },
+)
+),
                               const SizedBox(width: 16.0),
                               Container(
                                   height: 40,
@@ -430,27 +434,29 @@ class _for_cState extends State<for_c> {
                                   alignment: Alignment.center,
                                   width: 80,
                                   child: DropdownButton<int>(
-                                    value: selectedMinute,
-                                    items: List<DropdownMenuItem<int>>.generate(
-                                        60, (int index) {
-                                      return DropdownMenuItem<int>(
-                                        value: index,
-                                        child: Text(
-                                          '$index',
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.italic,
-                                              fontWeight: FontWeight.bold,
-                                              color: mauve2),
-                                        ),
-                                      );
-                                    }),
-                                    onChanged: (int? value) {
-                                      setState(() {
-                                        selectedMinute = value;
-                                      });
-                                      _validateHour();
-                                    },
-                                  )),
+  value: selectedMinute,
+  items: List<DropdownMenuItem<int>>.generate(60, (int index) {
+    String minuteText = index.toString().padLeft(2, '0');
+    return DropdownMenuItem<int>(
+      value: index,
+      child: Text(
+        minuteText,
+        style: TextStyle(
+          fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.bold,
+          color: mauve2,
+        ),
+      ),
+    );
+  }),
+  onChanged: (int? value) {
+    setState(() {
+      selectedMinute = value;
+    });
+    _validateHour();
+  },
+)
+),
                             ],
                           )
                         ],
@@ -477,7 +483,7 @@ class _for_cState extends State<for_c> {
                                 "Ajouter maintenant",
                                 style: TextStyle(
                                     fontSize: 20,
-                                    color: green1,
+                                    color: noire2,
                                     fontWeight: FontWeight.bold),
                               ),
                               Icon(

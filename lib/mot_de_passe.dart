@@ -1,5 +1,6 @@
 
 import 'package:douaa_project/login/login_view.dart';
+import 'package:douaa_project/style.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -20,21 +21,42 @@ class _forgetpasswordpageState extends State<forgetpasswordpage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor:  Color.fromARGB(255, 151, 150, 151),
           elevation: 0,
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(margin: EdgeInsets.only(right: 70), child: Text("Réinitialisation de mot de passe", textAlign: TextAlign.start,style:TextStyle ( fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: noire2,
+                        fontStyle: FontStyle.italic,
+                        shadows: [Shadow(color: mauve1, blurRadius: 3)]),) ,),
+              
+                        SizedBox(height: 20,),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: Text(
-                "Enter your Email and we will send you a password reset link",
-                textAlign: TextAlign.center,
+                "Veuillez entrer l'adresse e-mail associée à votre compte, et nous vous enverrons un e-mail contenant des instructions pour réinitialiser votre mot de passe.",
+                textAlign: TextAlign.start,  style: TextStyle(
+                        
+                        fontSize: 17,
+                        color: noire2,
+                        fontStyle: FontStyle.italic,
+                        shadows: [Shadow(color: mauve1, blurRadius: 3)]),
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 40,
+            ),
+            Container(margin: EdgeInsets.only(right: 200),child: Text("Adresse email",style:TextStyle ( fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: noire2,
+                        fontStyle: FontStyle.italic,
+                        shadows: [Shadow(color: mauve1, blurRadius: 3)]),),),
+            
+                         SizedBox(
+              height: 20,
             ),
             Container(
               margin: EdgeInsets.only(left: 40, right: 40, bottom: 40),
@@ -43,16 +65,17 @@ class _forgetpasswordpageState extends State<forgetpasswordpage> {
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                      color: Color.fromARGB(255, 58, 148, 201),
+                      color: noire1,
                       blurRadius: 20,
                       offset: Offset(0, 10)),
                 ],
               ),
+              
               child: TextFormField(
                 decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.email,
-                    color: Colors.blue,
+                    color: noire1,
                   ),
                   hintText: "EMAIL",
                   hintStyle: TextStyle(color: Colors.grey),
@@ -66,7 +89,7 @@ class _forgetpasswordpageState extends State<forgetpasswordpage> {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             ElevatedButton(
               onPressed: () async {
@@ -82,7 +105,15 @@ class _forgetpasswordpageState extends State<forgetpasswordpage> {
                   print("error $e");
                 }
               },
-              child: Text('reset password'),
+              child: Text('Envoyer les instructions '),
+               style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 151, 150, 151),
+                        padding: const EdgeInsets.only(
+                            top: 5, bottom: 5, left: 40, right: 40),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 20),
             )
           ],
         ));
