@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: menu(),
+      home: aujourdhui_med(),
       debugShowCheckedModeBanner: false,
       builder: EasyLoading.init(),
     );

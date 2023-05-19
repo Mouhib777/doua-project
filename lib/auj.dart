@@ -15,9 +15,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'login/login_view.dart';
 
 class auj extends StatefulWidget {
-    late List<Map<String, dynamic>> eventDataList;
+  late List<Map<String, dynamic>> eventDataList;
   auj({
-
     Key? key,
   }) : super(key: key);
   @override
@@ -25,23 +24,18 @@ class auj extends StatefulWidget {
 }
 
 class _aujState extends State<auj> {
-
-
   @override
   void initState() {
     widget.eventDataList = [];
     super.initState();
-   
-
   }
-void getUser() {
-  var user = FirebaseAuth.instance.currentUser;
-  String? displayName = user?.displayName;
-  String? email = user?.email;
-}
 
+  void getUser() {
+    var user = FirebaseAuth.instance.currentUser;
+    String? displayName = user?.displayName;
+    String? email = user?.email;
+  }
 
-  
   DateTime today = DateTime.now();
   Widget build(BuildContext context) {
     bool isToday = false;
@@ -51,7 +45,8 @@ void getUser() {
           child: Column(
             children: [
               UserAccountsDrawerHeader(
-                accountName: Text(FirebaseAuth.instance.currentUser?.displayName ?? '',
+                accountName: Text(
+                    FirebaseAuth.instance.currentUser?.displayName ?? '',
                     style:
                         TextStyle(fontSize: 20, fontStyle: FontStyle.italic)),
                 accountEmail: Text(
@@ -135,7 +130,7 @@ void getUser() {
           backgroundColor: Color.fromARGB(76, 249, 64, 255),
           title: const Text("Aujourd'hui"),
         ),
-        body:FadeInUpBig(
+        body: FadeInUpBig(
           child: Container(
               width: double.infinity,
               height: double.infinity,
@@ -153,7 +148,7 @@ void getUser() {
                   Container(
                     margin: EdgeInsets.only(left: 40),
                     child: Text(
-                      "Salut" ,
+                      "Salut",
                       style: TextStyle(
                         color: red1,
                         letterSpacing: 2,
@@ -164,26 +159,28 @@ void getUser() {
                       ),
                     ),
                   ),
-                  SizedBox(width: 5,),
-                  Text( FirebaseAuth.instance.currentUser?.displayName ?? '',style: TextStyle(
-                        color: red1,
-                        letterSpacing: 2,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        fontStyle: FontStyle.italic,
-                        fontFamily: 'BreeSerif-Regular',
-                      ),)
-                
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    FirebaseAuth.instance.currentUser?.displayName ?? '',
+                    style: TextStyle(
+                      color: red1,
+                      letterSpacing: 2,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      fontStyle: FontStyle.italic,
+                      fontFamily: 'BreeSerif-Regular',
+                    ),
+                  )
                 ]),
                 SizedBox(
                   height: 70,
                 ),
-                 Center(
+                Center(
                     child: Container(
                         decoration: BoxDecoration(
-                         
                           borderRadius: BorderRadius.circular(10),
-                         
                         ),
                         width: 500,
                         height: 200,
@@ -196,19 +193,14 @@ void getUser() {
                                   AssetImage("assets/images/doc.jpg"),
                             ),
                           ),
-                           Row(
-                              children: [
-                                Container(
-                                    width: 380,
-                                    height: 120,
-                                    child: aujourdhui_med(
-                                      docId: '',
-                                      today: today,
-                                      eventDataList1: [],
-                                    )),
-                              ],
-                            ),
-                        
+                          Row(
+                            children: [
+                              Container(
+                                  width: 380,
+                                  height: 120,
+                                  child: aujourdhui_med()),
+                            ],
+                          ),
                         ]))),
                 SizedBox(
                   height: 5,
@@ -216,9 +208,7 @@ void getUser() {
                 Center(
                     child: Container(
                         decoration: BoxDecoration(
-                         
                           borderRadius: BorderRadius.circular(10),
-                         
                         ),
                         width: 500,
                         height: 200,
@@ -231,19 +221,18 @@ void getUser() {
                                   AssetImage("assets/images/pp.PNG"),
                             ),
                           ),
-                           Row(
-                              children: [
-                                Container(
-                                    width: 380,
-                                    height: 120,
-                                    child: aujourdhui_ren(
-                                      docid: '',
-                                      today: today,
-                                      eventDataList: [],
-                                    )),
-                              ],
-                            ),
-                        
+                          Row(
+                            children: [
+                              Container(
+                                  width: 380,
+                                  height: 120,
+                                  child: aujourdhui_ren(
+                                    docid: '',
+                                    today: today,
+                                    eventDataList: [],
+                                  )),
+                            ],
+                          ),
                         ])))
               ])),
         ));

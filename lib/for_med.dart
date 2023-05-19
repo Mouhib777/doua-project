@@ -14,7 +14,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 import 'aff_med.dart';
 import 'package:cron/cron.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -30,7 +29,7 @@ class for_med extends StatefulWidget {
   static const Color mainColor = Colors.deepPurple;
   // final DateTime initialDateTime;
   const for_med({
-    Key? key, 
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -82,54 +81,53 @@ class _for_medState extends State<for_med> {
   }
 
   //! edheya fonction li t7el widget li takhtar mnha date w wa9t
-Future<void> _selectDateTime(BuildContext context) async {
-  final DateTime? selectedDateTime = await showDatePicker(
-    context: context, 
-    initialDate: _selectedDateTime,
-    firstDate: DateTime(2021),
-    lastDate: DateTime(2025),
-  );
-  if (selectedDateTime != null ) {
-    final TimeOfDay? selectedTime = await showTimePicker(
+  Future<void> _selectDateTime(BuildContext context) async {
+    final DateTime? selectedDateTime = await showDatePicker(
       context: context,
-      initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
+      initialDate: _selectedDateTime,
+      firstDate: DateTime(2021),
+      lastDate: DateTime(2025),
     );
-    if (selectedTime != null) {
-      setState(() {
-        _selectedDateTime = DateTime(
-          selectedDateTime.year,
-          selectedDateTime.month,
-          selectedDateTime.day,
-          selectedTime.hour,
-          selectedTime.minute,
-        );
- 
+    if (selectedDateTime != null) {
+      final TimeOfDay? selectedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
+      );
+      if (selectedTime != null) {
+        setState(() {
+          _selectedDateTime = DateTime(
+            selectedDateTime.year,
+            selectedDateTime.month,
+            selectedDateTime.day,
+            selectedTime.hour,
+            selectedTime.minute,
+          );
+        });
+      }
 
-      });
-    } 
-
-    final dateTimeFormat = DateFormat('MMM d, y h:mm a');
-    final formattedDateTime = dateTimeFormat.format(_selectedDateTime);
+      final dateTimeFormat = DateFormat('MMM d, y h:mm a');
+      final formattedDateTime = dateTimeFormat.format(_selectedDateTime);
+    }
   }
-}
-
 
   //!! toufa houni
   DateTime? _selectedDate1;
   DateTime? _selectedDate2;
-int _c = 1;
- void _increment() {
+  int _c = 1;
+  void _increment() {
     setState(() {
       _c++;
     });
   }
-    void _decrement() {
+
+  void _decrement() {
     setState(() {
       if (_c > 1) {
         _c--;
       }
     });
   }
+
   Future<void> _selectDate1(BuildContext context) async {
     final DateTime? picked1 = await showDatePicker(
         context: context,
@@ -273,12 +271,14 @@ int _c = 1;
       );
     }
   }
- String getTime() {
+
+  String getTime() {
     String a = _selectedTime4.toString();
     String b = _selectedTime5.toString();
     String c = _selectedTime6.toString();
     return '$a/$b/ $c';
   }
+
   int id_alarmb = Random().nextInt(65312);
 
   DateTime _selectedDateTime = DateTime.now();
@@ -300,29 +300,26 @@ int _c = 1;
   int? selectedMinute = DateTime.now().minute;
   List<AlarmSettings> alarmSettings = [];
 
-
- String getdose() {
+  String getdose() {
     return '${_c} ${selectedCountry}';
   }
 
   String getdureedet() {
     String nmbr = _selectedDateTime.toString();
-   
+
     return '$nmbr';
   }
+
   Future<void> _addRDV() async {
-
     try {
-
       docRef = await FirebaseFirestore.instance.collection('u1').add({
         'nomMed': nomMed,
         'formeMed': selectedCountry,
         'voieMed': selectedCountry1,
-        'dureeDet_jour':'${_selectedDateTime.day.toString().padLeft(2, '0')}/${_selectedDateTime.month.toString().padLeft(2, '0')}/${_selectedDateTime.year.toString().padLeft(4, '0')}',
-
-        'dureeIndet':getTime(),
+        'dureeDet_jour':
+            '${_selectedDateTime.day.toString().padLeft(2, '0')}/${_selectedDateTime.month.toString().padLeft(2, '0')}/${_selectedDateTime.year.toString().padLeft(4, '0')}',
+        'dureeIndet': getTime(),
         'dose': getdose()
-     
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -375,9 +372,6 @@ int _c = 1;
   var selectedCountry1;
   var selectedCountry2;
   var notify = false;
-
-
-
 
   // List<String> selectedDays = [];
   // final List<int> _days = List.generate(31, (index) => index + 1);
@@ -456,7 +450,7 @@ int _c = 1;
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Container(
-               child: Column(children: [
+              child: Column(children: [
                 SizedBox(
                   height: 80,
                 ),
@@ -629,7 +623,6 @@ int _c = 1;
                       },
                       initialValue: selectedCountry1,
                     )),
-                    
                 SizedBox(height: 15),
                 Container(
                   child: Text(
@@ -643,44 +636,49 @@ int _c = 1;
                   ),
                   margin: EdgeInsets.only(right: 300),
                 ),
-                Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                  children: [FloatingActionButton(
-                      heroTag: 'btn1',
-                      mini: true,
-                      backgroundColor: Color.fromARGB(141, 240, 197, 249),
-                      onPressed: _increment,
-                      tooltip: 'Inc',
-                      child: Icon(
-                        Icons.add,
-                        color: mauve2,
-                        size: 20,
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FloatingActionButton(
+                        heroTag: 'btn1',
+                        mini: true,
+                        backgroundColor: Color.fromARGB(141, 240, 197, 249),
+                        onPressed: _increment,
+                        tooltip: 'Inc',
+                        child: Icon(
+                          Icons.add,
+                          color: mauve2,
+                          size: 20,
+                        ),
                       ),
-                    ), 
                       Text(
-                      '$_c',
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                       FloatingActionButton(
-                      heroTag: 'btn1',
-                      mini: true,
-                      backgroundColor: Color.fromARGB(141, 240, 197, 249),
-                      onPressed: _decrement,
-                      tooltip: 'Dec',
-                      child: Icon(
-                        Icons.remove,
-                        color: mauve2,
-                        size: 20,
+                        '$_c',
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                     SizedBox(width: 6),
-                        Text(
-                      "${selectedCountry}(s)",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                    ),
-                    ],),),
-                     SizedBox(height: 15),
+                      FloatingActionButton(
+                        heroTag: 'btn1',
+                        mini: true,
+                        backgroundColor: Color.fromARGB(141, 240, 197, 249),
+                        onPressed: _decrement,
+                        tooltip: 'Dec',
+                        child: Icon(
+                          Icons.remove,
+                          color: mauve2,
+                          size: 20,
+                        ),
+                      ),
+                      SizedBox(width: 6),
+                      Text(
+                        "${selectedCountry}(s)",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15),
                 Container(
                   child: Text(
                     "Traitement",
@@ -693,266 +691,326 @@ int _c = 1;
                   ),
                   margin: EdgeInsets.only(right: 260),
                 ),
-                Text("(Veuillez sélectionner si votre médicament est classé comme étant déterminé ou indéterminé)",style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: noire2,
-                        fontStyle: FontStyle.italic,
-                      ),textAlign: TextAlign.center,),
+                Text(
+                  "(Veuillez sélectionner si votre médicament est classé comme étant déterminé ou indéterminé)",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: noire2,
+                    fontStyle: FontStyle.italic,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
                 SizedBox(
                   height: 25,
                 ),
-                Row(children: [  Icon(
-                              Icons.circle,
-                              size: 13,
-                              color: noire2,
-                            ),
-                  Container(margin: EdgeInsets.only(right: 180),
-                    child:Text(
-                    "Durée déternimée",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 23,
-                        color: noire2,
-                        fontStyle: FontStyle.italic),
-                  ),
-                  ),],),
-              
-    SizedBox(height: 10),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      size: 13,
+                      color: noire2,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(right: 180),
+                      child: Text(
+                        "Durée déternimée",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 23,
+                            color: noire2,
+                            fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Durée un jour ",
-                                              style: TextStyle(
-                                                letterSpacing: 2,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 17,
-                                                fontStyle: FontStyle.italic,
-                                                fontFamily: 'BreeSerif-Regular',
-                                              ),),
-                                              SizedBox(width: 20),
+                        Text(
+                          "Durée un jour ",
+                          style: TextStyle(
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            fontStyle: FontStyle.italic,
+                            fontFamily: 'BreeSerif-Regular',
+                          ),
+                        ),
+                        SizedBox(width: 20),
                         ElevatedButton(
                           onPressed: () => _selectDateTime(context),
-                          child: Text("Selectionner",style: TextStyle(
-                         
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),),style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 139, 121, 168),
-                          padding: EdgeInsets.only(
-                              top: 5, bottom: 5, left: 8, right: 8),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(39),
+                          child: Text(
+                            "Selectionner",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
                           ),
-                          elevation: 20),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Color.fromARGB(255, 139, 121, 168),
+                              padding: EdgeInsets.only(
+                                  top: 5, bottom: 5, left: 8, right: 8),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(39),
+                              ),
+                              elevation: 20),
                         ),
                         SizedBox(width: 10),
                         ElevatedButton(
-                      onPressed: () async {
-                        // await pushNotification(selectedTime);
-                        // setState(() {
-                        //   horaires.add(
-                        //       '$selectedHour:$selectedMinute $_c $selectedCountry');
-                        //   _c = 1;
-                        // });
-                        //! 7asb package li stamlt'ha lezem 'timee' ikoun bil format edheya besh yfhemha
-                        final time_en_string = formattedDateTime;
-                        final time_format = DateFormat('MMM d, y h:mm a');
-                        final timee = time_format.parse(time_en_string);
-                        print(timee);
-                        EasyLoading.showToast(
-                            'Alarme dans  ${time_en_string}');
+                          onPressed: () async {
+                            // await pushNotification(selectedTime);
+                            // setState(() {
+                            //   horaires.add(
+                            //       '$selectedHour:$selectedMinute $_c $selectedCountry');
+                            //   _c = 1;
+                            // });
+                            //! 7asb package li stamlt'ha lezem 'timee' ikoun bil format edheya besh yfhemha
+                            final time_en_string = formattedDateTime;
+                            final time_format = DateFormat('MMM d, y h:mm a');
+                            final timee = time_format.parse(time_en_string);
+                            print(timee);
+                            EasyLoading.showToast(
+                                'Alarme dans  ${time_en_string}');
+                            await FirebaseFirestore.instance
+                                .collection('u1')
+                                .doc()
+                                .set({
+                              'nomMed': nomMed.toString(),
+                              'formeMed': selectedCountry.toString(),
+                              'voieMed': selectedCountry1.toString(),
+                              'dureeDet_jour': _selectedDateTime,
+                              // 'dureeIndet': getTime(),
+                              'dose': getdose().toString()
+                            });
 
-                        await Alarm.set(
-                          alarmSettings: AlarmSettings(
-                            id: id_alarmb, //! je l'ai declaré fou9 besh alarm id ikoun nafsou w akeka tnjm twa9fou
-                            dateTime: timee,
-                            // DateTime.parse(
-                            //     '$selectedYear-${selectedMonth.toString().padRight(2, '0')}-${selectedDay}T${selectedHour.toString().padLeft(2, '0')}:${selectedMinute.toString().toString().padLeft(2, '0')}:00Z'),
-                            assetAudioPath: 'assets/sounds/alarm.mp3',
-                            loopAudio: true,
-                            vibrate: true,
-                            fadeDuration: 10.0,
-                            notificationTitle: 'Prenez votre medicament!',
-                            notificationBody: nomMed,
-                            stopOnNotificationOpen: true,
-                            enableNotificationOnKill: true,
+                            await Alarm.set(
+                              alarmSettings: AlarmSettings(
+                                id: id_alarmb, //! je l'ai declaré fou9 besh alarm id ikoun nafsou w akeka tnjm twa9fou
+                                dateTime: timee,
+                                // DateTime.parse(
+                                //     '$selectedYear-${selectedMonth.toString().padRight(2, '0')}-${selectedDay}T${selectedHour.toString().padLeft(2, '0')}:${selectedMinute.toString().toString().padLeft(2, '0')}:00Z'),
+                                assetAudioPath: 'assets/sounds/alarm.mp3',
+                                loopAudio: true,
+                                vibrate: true,
+                                fadeDuration: 10.0,
+                                notificationTitle: 'Prenez votre medicament!',
+                                notificationBody: nomMed,
+                                stopOnNotificationOpen: true,
+                                enableNotificationOnKill: true,
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Confirmer",
+                            style: TextStyle(
+                                color: green2,
+                                decoration: TextDecoration.underline,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
                           ),
-                        );
-
-                        // alarmSettings
-                        //     .map((e) async => await Alarm.set(alarmSettings: e));
-                        // setState(() {});
-                      },
-                     
-                       child: Text(
-                        "Confirmer",
-                        style: TextStyle(
-                            color:green2,
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 221, 213, 235),
-                          padding: EdgeInsets.only(
-                              top: 5, bottom: 5, left: 5, right: 5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(39),
-                          ),
-                          elevation: 20),
-                    ),
-                     
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Color.fromARGB(255, 221, 213, 235),
+                              padding: EdgeInsets.only(
+                                  top: 5, bottom: 5, left: 5, right: 5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(39),
+                              ),
+                              elevation: 20),
+                        ),
                       ],
                     ),
-                    SizedBox(height: 18,),
-                    Row(children: [Container(margin:EdgeInsets.only(left: 25),child:Text("Plus d'un jour ",
-                                              style: TextStyle(
-                                                letterSpacing: 2,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 17,
-                                                fontStyle: FontStyle.italic,
-                                                fontFamily: 'BreeSerif-Regular',
-                                              ),),), SizedBox(width: 20,), ElevatedButton(
-                      onPressed: () {
-                        openAlarmApp();
-
-                        print(DateTime(2022, 01, 10));
-                        // final Cron cron = Cron();
-                        // cron.schedule(
-                        //     Schedule.parse(
-                        //         '${_selectedTime3_!.minute.toString().padLeft(2, '0')} ${_selectedTime3_!.hour.toString().padLeft(2, '0')} * * * ${DateFormat('yyyy-MM-dd').format(_selectedDate1!)} ${DateFormat('yyyy-MM-dd').format(_selectedDate2!)}'),
-                        //     () async {});
-                      },
-                     
-                      child: Text(
-                        "Selectionner une periode ",
-                        style: TextStyle(
-                         
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 139, 121, 168),
-                          padding: EdgeInsets.only(
-                              top: 3, bottom: 3, left: 8, right: 8),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(39),
+                    SizedBox(
+                      height: 18,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 25),
+                          child: Text(
+                            "Plus d'un jour ",
+                            style: TextStyle(
+                              letterSpacing: 2,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'BreeSerif-Regular',
+                            ),
                           ),
-                          elevation: 20),
-                    ),],),
-                    
-                  
-                   
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            openAlarmApp();
+
+                            print(DateTime(2022, 01, 10));
+                            // final Cron cron = Cron();
+                            // cron.schedule(
+                            //     Schedule.parse(
+                            //         '${_selectedTime3_!.minute.toString().padLeft(2, '0')} ${_selectedTime3_!.hour.toString().padLeft(2, '0')} * * * ${DateFormat('yyyy-MM-dd').format(_selectedDate1!)} ${DateFormat('yyyy-MM-dd').format(_selectedDate2!)}'),
+                            //     () async {});
+                          },
+                          child: Text(
+                            "Selectionner une periode ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Color.fromARGB(255, 139, 121, 168),
+                              padding: EdgeInsets.only(
+                                  top: 3, bottom: 3, left: 8, right: 8),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(39),
+                              ),
+                              elevation: 20),
+                        ),
+                      ],
+                    ),
                     SizedBox(
                       height: 20,
                     ),
-                    Row(children: [ Icon(
-                              Icons.circle,
-                              size: 12,
-                              color: noire2,
-                            ),Container(margin: EdgeInsets.only(right: 180),
-                    child:Text(
-                    "Durée indéternimée",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 23,
-                        color: noire2,
-                        fontStyle: FontStyle.italic),
-                  ),
-                  ),],),
-                   
-                  SizedBox(height: 20,),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.circle,
+                          size: 12,
+                          color: noire2,
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 180),
+                          child: Text(
+                            "Durée indéternimée",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                fontSize: 23,
+                                color: noire2,
+                                fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Text(
                       "Choisissez l'horaire de prise de votre médicament:",
-                       style: TextStyle(
-                                               
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15,
-                                                fontStyle: FontStyle.italic,
-                                                fontFamily: 'BreeSerif-Regular',
-                                              ),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        fontStyle: FontStyle.italic,
+                        fontFamily: 'BreeSerif-Regular',
+                      ),
                     ),
-SizedBox(height: 15,),
+                    SizedBox(
+                      height: 15,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
                           onPressed: () => _selectTime4(context),
-                          child: Text('Heure',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),), style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 188, 177, 206),
-                          padding: EdgeInsets.only(
-                              top: 5, bottom: 5, left: 8, right: 8),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(39),
+                          child: Text(
+                            'Heure',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
                           ),
-                          elevation: 20),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Color.fromARGB(255, 188, 177, 206),
+                              padding: EdgeInsets.only(
+                                  top: 5, bottom: 5, left: 8, right: 8),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(39),
+                              ),
+                              elevation: 20),
                         ),
                         SizedBox(
                           width: 20,
                         ),
                         Text(
                           'Le premier horaire: $timeString4',
-                         style: TextStyle(
-                                               
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15,
-                                                color: green2,
-                                                fontStyle: FontStyle.italic,
-                                                fontFamily: 'BreeSerif-Regular',
-                                              ),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: green2,
+                            fontStyle: FontStyle.italic,
+                            fontFamily: 'BreeSerif-Regular',
+                          ),
                         ),
                       ],
                     ),
-                     SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
                           onPressed: () => _selectTime5(context),
-                          child: Text('Heure',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 188, 177, 206),
-                          padding: EdgeInsets.only(
-                              top: 5, bottom: 5, left: 8, right: 8),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(39),
+                          child: Text(
+                            'Heure',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
                           ),
-                          elevation: 20),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Color.fromARGB(255, 188, 177, 206),
+                              padding: EdgeInsets.only(
+                                  top: 5, bottom: 5, left: 8, right: 8),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(39),
+                              ),
+                              elevation: 20),
                         ),
                         SizedBox(
                           width: 20,
                         ),
                         Text(
                           'Le deuxième horaire: $timeString5',
-                           style: TextStyle(
-                                               
-                                                fontWeight: FontWeight.bold,
-                                                color: green2,
-                                                fontSize: 15,
-                                                fontStyle: FontStyle.italic,
-                                                fontFamily: 'BreeSerif-Regular',
-                                              ),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: green2,
+                            fontSize: 15,
+                            fontStyle: FontStyle.italic,
+                            fontFamily: 'BreeSerif-Regular',
+                          ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
                           onPressed: () => _selectTime6(context),
-                          child:Text ('Heure',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 188, 177, 206),
-                          padding: EdgeInsets.only(
-                              top: 5, bottom: 5, left: 8, right: 8),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(39),
+                          child: Text(
+                            'Heure',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
                           ),
-                          elevation: 20),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Color.fromARGB(255, 188, 177, 206),
+                              padding: EdgeInsets.only(
+                                  top: 5, bottom: 5, left: 8, right: 8),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(39),
+                              ),
+                              elevation: 20),
                         ),
                         SizedBox(
                           width: 20,
@@ -960,140 +1018,145 @@ SizedBox(height: 15,),
                         Text(
                           'le troisième horaire: $timeString6',
                           style: TextStyle(
-                                               
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15,
-                                                color: green2,
-                                                fontStyle: FontStyle.italic,
-                                                fontFamily: 'BreeSerif-Regular',
-                                              ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: green2,
+                            fontStyle: FontStyle.italic,
+                            fontFamily: 'BreeSerif-Regular',
+                          ),
                         ),
                       ],
                     ),
-                    Container(margin:EdgeInsets.only(left: 250), child: ElevatedButton(
-                      onPressed: () {
-                        print(DateTime(2022, 01, 10));
-                        final Cron cron = Cron();
+                    Container(
+                      margin: EdgeInsets.only(left: 250),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          print(DateTime(2022, 01, 10));
+                          final Cron cron = Cron();
 
-                        if (_selectedTime5 == null && _selectedTime6 == null) {
-                          cron.schedule(
-                              Schedule.parse(
-                                  '0 ${_selectedTime4!.minute.toString().padLeft(2, '0')} ${_selectedTime4!.hour.toString().padLeft(2, '0')} * * *'),
-                              () async {
-                            EasyLoading.showSuccess('Il est temps de prendre vos médicaments: $nomMed');
-                            print("4");
-                            AssetsAudioPlayer.newPlayer().open(
-                              Audio("assets/sounds/alarm.mp3"),
-                              // autoPlay: true,
-                              showNotification: true,
-                            );
-
-                            //! houni 7ot shnya t7ebou yaaml
-                            await sendNotification();
-                          });
-                        } else if (_selectedTime6 == null) {
-                          cron.schedule(
-                              Schedule.parse(
-                                  '0 ${_selectedTime4!.minute.toString().padLeft(2, '0')} ${_selectedTime4!.hour.toString().padLeft(2, '0')} * * *'),
-                              () async {
-                            AssetsAudioPlayer.newPlayer().open(
-                              Audio("assets/sounds/alarm.mp3"),
-                              // autoPlay: true,
-                              showNotification: true,
-                            );
-                            EasyLoading.showSuccess('Il est temps de prendre vos médicaments: $nomMed !');
-                            //! houni 7ot shnya t7ebou yaaml
-                            print("4");
+                          if (_selectedTime5 == null &&
+                              _selectedTime6 == null) {
                             cron.schedule(
                                 Schedule.parse(
-                                    '0 ${_selectedTime5!.minute.toString().padLeft(2, '0')} ${_selectedTime5!.hour.toString().padLeft(2, '0')} * * *'),
+                                    '0 ${_selectedTime4!.minute.toString().padLeft(2, '0')} ${_selectedTime4!.hour.toString().padLeft(2, '0')} * * *'),
+                                () async {
+                              EasyLoading.showSuccess(
+                                  'Il est temps de prendre vos médicaments: $nomMed');
+                              print("4");
+                              AssetsAudioPlayer.newPlayer().open(
+                                Audio("assets/sounds/alarm.mp3"),
+                                // autoPlay: true,
+                                showNotification: true,
+                              );
+
+                              //! houni 7ot shnya t7ebou yaaml
+                              await sendNotification();
+                            });
+                          } else if (_selectedTime6 == null) {
+                            cron.schedule(
+                                Schedule.parse(
+                                    '0 ${_selectedTime4!.minute.toString().padLeft(2, '0')} ${_selectedTime4!.hour.toString().padLeft(2, '0')} * * *'),
                                 () async {
                               AssetsAudioPlayer.newPlayer().open(
                                 Audio("assets/sounds/alarm.mp3"),
                                 // autoPlay: true,
                                 showNotification: true,
                               );
-                              EasyLoading.showSuccess('Il est temps de prendre vos médicaments: $nomMed !');
-                              print("5");
+                              EasyLoading.showSuccess(
+                                  'Il est temps de prendre vos médicaments: $nomMed !');
                               //! houni 7ot shnya t7ebou yaaml
+                              print("4");
+                              cron.schedule(
+                                  Schedule.parse(
+                                      '0 ${_selectedTime5!.minute.toString().padLeft(2, '0')} ${_selectedTime5!.hour.toString().padLeft(2, '0')} * * *'),
+                                  () async {
+                                AssetsAudioPlayer.newPlayer().open(
+                                  Audio("assets/sounds/alarm.mp3"),
+                                  // autoPlay: true,
+                                  showNotification: true,
+                                );
+                                EasyLoading.showSuccess(
+                                    'Il est temps de prendre vos médicaments: $nomMed !');
+                                print("5");
+                                //! houni 7ot shnya t7ebou yaaml
+                                // await sendNotification();
+                              });
+                              // cron.schedule(
+                              //     Schedule.parse(
+                              //         '0 ${_selectedTime6!.minute.toString().padLeft(2, '0')} ${_selectedTime6!.hour.toString().padLeft(2, '0')} * * *'),
+                              //     () async {
+                              //   EasyLoading.showSuccess('mriguel6');
+                              //   print("6");
+                              //   // await sendNotification();
+                              // });
                               // await sendNotification();
                             });
-                            // cron.schedule(
-                            //     Schedule.parse(
-                            //         '0 ${_selectedTime6!.minute.toString().padLeft(2, '0')} ${_selectedTime6!.hour.toString().padLeft(2, '0')} * * *'),
-                            //     () async {
-                            //   EasyLoading.showSuccess('mriguel6');
-                            //   print("6");
-                            //   // await sendNotification();
-                            // });
-                            // await sendNotification();
-                          });
-                        } else {
-                          cron.schedule(
-                              Schedule.parse(
-                                  '0 ${_selectedTime4!.minute.toString().padLeft(2, '0')} ${_selectedTime4!.hour.toString().padLeft(2, '0')} * * *'),
-                              () async {
-                            AssetsAudioPlayer.newPlayer().open(
-                              Audio("assets/sounds/alarm.mp3"),
-                              // autoPlay: true,
-                              showNotification: true,
-                            );
-                            EasyLoading.showSuccess('mriguel4');
-                            print("4");
+                          } else {
                             cron.schedule(
                                 Schedule.parse(
-                                    '0 ${_selectedTime5!.minute.toString().padLeft(2, '0')} ${_selectedTime5!.hour.toString().padLeft(2, '0')} * * *'),
+                                    '0 ${_selectedTime4!.minute.toString().padLeft(2, '0')} ${_selectedTime4!.hour.toString().padLeft(2, '0')} * * *'),
                                 () async {
                               AssetsAudioPlayer.newPlayer().open(
                                 Audio("assets/sounds/alarm.mp3"),
                                 // autoPlay: true,
                                 showNotification: true,
                               );
-                              EasyLoading.showSuccess('Il est temps de prendre vos médicaments: $nomMed !');
-                              print("5");
+                              EasyLoading.showSuccess('mriguel4');
+                              print("4");
+                              cron.schedule(
+                                  Schedule.parse(
+                                      '0 ${_selectedTime5!.minute.toString().padLeft(2, '0')} ${_selectedTime5!.hour.toString().padLeft(2, '0')} * * *'),
+                                  () async {
+                                AssetsAudioPlayer.newPlayer().open(
+                                  Audio("assets/sounds/alarm.mp3"),
+                                  // autoPlay: true,
+                                  showNotification: true,
+                                );
+                                EasyLoading.showSuccess(
+                                    'Il est temps de prendre vos médicaments: $nomMed !');
+                                print("5");
+                                // await sendNotification();
+                                //! houni 7ot shnya t7ebou yaaml
+                              });
+                              cron.schedule(
+                                  Schedule.parse(
+                                      '0 ${_selectedTime6!.minute.toString().padLeft(2, '0')} ${_selectedTime6!.hour.toString().padLeft(2, '0')} * * *'),
+                                  () async {
+                                AssetsAudioPlayer.newPlayer().open(
+                                  Audio("assets/sounds/alarm.mp3"),
+                                  // autoPlay: true,
+                                  showNotification: true,
+                                );
+                                EasyLoading.showSuccess(
+                                    'Il est temps de prendre vos médicaments: $nomMed !');
+                                print("6");
+                                //! houni 7ot shnya t7ebou yaaml
+                                // await sendNotification();
+                              });
                               // await sendNotification();
-                              //! houni 7ot shnya t7ebou yaaml
                             });
-                            cron.schedule(
-                                Schedule.parse(
-                                    '0 ${_selectedTime6!.minute.toString().padLeft(2, '0')} ${_selectedTime6!.hour.toString().padLeft(2, '0')} * * *'),
-                                () async {
-                              AssetsAudioPlayer.newPlayer().open(
-                                Audio("assets/sounds/alarm.mp3"),
-                                // autoPlay: true,
-                                showNotification: true,
-                              );
-                              EasyLoading.showSuccess('Il est temps de prendre vos médicaments: $nomMed !');
-                              print("6");
-                              //! houni 7ot shnya t7ebou yaaml
-                              // await sendNotification();
-                            });
-                            // await sendNotification();
-                          });
-                        }
+                          }
 
-                        print(DateTime(2022, 01, 10));
-                      },
-                      
-                      child: Text(
-                        "Confirmer",
-                        style: TextStyle(
-                            color:green2,
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
+                          print(DateTime(2022, 01, 10));
+                        },
+                        child: Text(
+                          "Confirmer",
+                          style: TextStyle(
+                              color: green2,
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 221, 213, 235),
+                            padding: EdgeInsets.only(
+                                top: 5, bottom: 5, left: 5, right: 5),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(39),
+                            ),
+                            elevation: 20),
                       ),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 221, 213, 235),
-                          padding: EdgeInsets.only(
-                              top: 5, bottom: 5, left: 5, right: 5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(39),
-                          ),
-                          elevation: 20),
-                    ),),
-                    
-
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -1104,15 +1167,18 @@ SizedBox(height: 15,),
                     await Alarm.stop(id_alarmb);
                     EasyLoading.showSuccess("L'alarme est éteinte");
                   },
-                  child: Text("Arrêtez l'alarme",style: TextStyle(color: green2),),
-                   style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 221, 213, 235),
-                          padding: EdgeInsets.only(
-                              top: 5, bottom: 5, left: 5, right: 5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(39),
-                          ),
-                          elevation: 20),
+                  child: Text(
+                    "Arrêtez l'alarme",
+                    style: TextStyle(color: green2),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 221, 213, 235),
+                      padding:
+                          EdgeInsets.only(top: 5, bottom: 5, left: 5, right: 5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(39),
+                      ),
+                      elevation: 20),
                 ),
                 Center(
                   child: ElevatedButton(
