@@ -2,6 +2,7 @@
 import 'package:alarm/alarm.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:douaa_project/TodayPage.dart';
+import 'package:douaa_project/auj.dart';
 import 'package:douaa_project/aujourdhui_med.dart';
 import 'package:douaa_project/aujourdhui_ren.dart';
 import 'package:douaa_project/exp.dart';
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: aujourdhui_med(),
+      home: auj(),
       debugShowCheckedModeBanner: false,
       builder: EasyLoading.init(),
     );

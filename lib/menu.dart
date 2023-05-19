@@ -77,12 +77,12 @@ class _menuState extends State<menu> {
           ],
         ),
         body: getCurrentPage(currentIndex));
-    Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("assets/images/aa.png"), fit: BoxFit.cover),
-      ),
-    );
+    // Container(
+    //   decoration: const BoxDecoration(
+    //     image: DecorationImage(
+    //         image: AssetImage("assets/images/aa.png"), fit: BoxFit.cover),
+    //   ),
+    // );
   }
 
   Widget getCurrentPage(int index) {
@@ -151,8 +151,9 @@ class _contrState extends State<contr> {
             ),
             body: TabBarView(children: [
               for_c(),
-              aff_c(docid: '', eventDataList1: [],
-               
+              aff_c(
+                docid: '',
+                eventDataList1: [],
               ),
             ])));
   }
