@@ -1,4 +1,5 @@
 import 'package:douaa_project/widget/style.dart';
+import 'package:douaa_project/widgets/test.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -186,10 +187,15 @@ class _for_cState extends State<for_c> {
                       SizedBox(height: 30),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return list_c();
-                          }));
+                          Navigator.of(context).push(PageRouteBuilder(
+                              transitionDuration: Duration.zero,
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      test()));
+                          // Navigator.of(context)
+                          //     .push(MaterialPageRoute(builder: (context) {
+                          //   return list_c();
+                          // }));
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromRGBO(244, 233, 254, 1),

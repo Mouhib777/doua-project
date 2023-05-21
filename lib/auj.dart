@@ -128,7 +128,7 @@ class _aujState extends State<auj> {
                         }
                       }
                       return Center(
-                        child: Text("pas de rendez-vous aujourd'hui"),
+                        child: Text(""),
                       );
                     },
                   );

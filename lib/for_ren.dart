@@ -491,7 +491,7 @@ class for_renState extends State<for_ren> {
                         await FirebaseFirestore.instance.collection('r').add({
                           'nomMedecin': nomMedecin,
                           'numMedecin': numMedecin,
-                          'datee': date2,
+                          'datee': selectedDateTime,
                           'date':
                               '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year.toString().padLeft(4, '0')}',
                           'time':

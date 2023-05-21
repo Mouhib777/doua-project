@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:intl/intl.dart';
 
 class test extends StatefulWidget {
   const test({super.key});
@@ -212,10 +213,15 @@ class _testState extends State<test> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            await FirebaseFirestore.instance
-                .collection("symptomes")
-                .doc()
-                .set({'selected': checkedItems});
+            DateTime now = DateTime.now();
+            String formattedDate = DateFormat('dd/MM/yyyy').format(now);
+            print(formattedDate);
+            await FirebaseFirestore.instance.collection("symptomes").doc().set({
+              'selected': checkedItems,
+              "Datetime": formattedDate,
+              "heure_minute":
+                  "${DateTime.now().hour} : ${DateTime.now().minute.toString().padLeft(2, '0')}"
+            });
           },
           //  () {
           //   Navigator.push(

@@ -7,11 +7,13 @@ import 'package:douaa_project/auj.dart';
 import 'package:douaa_project/aujourdhui_med.dart';
 import 'package:douaa_project/aujourdhui_ren.dart';
 import 'package:douaa_project/exp.dart';
+import 'package:douaa_project/for_c.dart';
 import 'package:douaa_project/for_ren.dart';
 import 'package:douaa_project/list_c.dart';
 import 'package:douaa_project/menu.dart';
 import 'package:douaa_project/second.dart';
 import 'package:douaa_project/test.dart';
+import 'package:douaa_project/venir_ren.dart';
 import 'package:douaa_project/widgets/affC.dart';
 import 'package:douaa_project/widgets/test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -73,7 +75,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: test2(),
+      home: auj(),
       debugShowCheckedModeBanner: false,
       builder: EasyLoading.init(),
     );
