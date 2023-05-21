@@ -81,8 +81,61 @@ class _aujState extends State<auj> {
                 );
               },
             ),
-          ) , 
-          Expanded(child: )
+          ),
+          Divider(
+            thickness: 5,
+            color: Colors.green,
+          ),
+          Expanded(
+              child: StreamBuilder(
+            stream: FirebaseFirestore.instance.collection('r').snapshots(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: Text("famesh rendez-vous"),
+                );
+              }
+              if (snapshot.data.docs.length < 1) {
+                return Center(
+                  child: Text("mizelt makhdhyt hata rendez-vous"),
+                );
+              }
+              return ListView.separated(
+                separatorBuilder: (BuildContext context, int index) => SizedBox(
+                  height: 30,
+                ),
+                itemCount: snapshot.data.docs.length,
+                itemBuilder: (context, index) {
+                  var docId = snapshot.data.docs[index].id;
+                  return FutureBuilder(
+                    future: FirebaseFirestore.instance
+                        .collection('r')
+                        .doc(docId)
+                        .get(),
+                    builder: (context, AsyncSnapshot asyncsnapshot) {
+                      var rend = asyncsnapshot.data;
+                      DateTime currentDate = DateTime.now();
+                      Timestamp timestamp = rend['datee'];
+                      DateTime dateToCheck = timestamp.toDate();
+                      if (asyncsnapshot.hasData) {
+                        if (dateToCheck.year == currentDate.year &&
+                            dateToCheck.month == currentDate.month &&
+                            dateToCheck.day == currentDate.day) {
+                          return Center(
+                            child: Text(
+                                "rendez-vous à ${rend['date']} chez Dr ${rend['nomMedecin']} "),
+                          );
+                        }
+                      }
+                      return Center(
+                        child: Text("pas de rendez-vous aujourd'hui"),
+                      );
+                    },
+                  );
+                },
+              );
+            },
+          ))
         ],
       ),
     );
